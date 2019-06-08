@@ -1,0 +1,154 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.22.1.15669/W32 for ARM       23/May/2019  16:04:56
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\temperature.c
+#    Command line =  
+#        -f C:\Users\Dawoon\AppData\Local\Temp\EW92D1.tmp
+#        (C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\temperature.c
+#        -D USE_STDPERIPH_DRIVER -D STM32F10X_MD -D USE_STM3210C_EVAL -lcN
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List
+#        --diag_suppress pa082 -o
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj
+#        --debug --endian=little --cpu=Cortex-M3 -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.0\arm\INC\c\DLib_Config_Full.h" -I
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\
+#        -I
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\CoreSupport\
+#        -I
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\
+#        -I
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\
+#        -I
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\
+#        -I
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\Common\
+#        -I
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\STM3210C_EVAL\
+#        -Ohs --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.0\arm\CMSIS\Core\Include\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.0\arm\CMSIS\DSP\Include\")
+#    Locale       =  C
+#    List file    =  
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List\temperature.lst
+#    Object file  =  
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\temperature.o
+#
+###############################################################################
+
+C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\temperature.c
+      1          #include "hw_control.h"
+      2          #include "temperature.h"
+      3          //@@@@@ @@@@ -20@ @@ 120@@@...
+      4          
+      5          uint16_t TEMP_ADC_ARR[] =            {
+      6          
+      7                  892, //-20
+      8                  863, //-15 
+      9                  829, //-10
+     10                  791, //-05
+     11                  749, //-00
+     12                  705, // 05
+     13                  657, // 10
+     14                  609, // 15
+     15                  560, // 20
+     16                  512, //25 
+     17                  465, //30
+     18                  420, //35 
+     19                  377, //40
+     20                  337, 
+     21                  300,
+     22                  267, 
+     23                  238, 
+     24                  211, 
+     25                  187, 
+     26                  166,
+     27                  146,  
+     28                  130,  
+     29                  115,  
+     30                  102,  
+     31                   91,
+     32                   81,  72,  65,  58  
+     33            
+     34          };
+     35          
+     36          
+     37          
+     38          
+     39          uint16_t Detect_Temp_Data(uint16_t adc)
+     40          {
+     41          	int temp;
+     42          	char lp, no;
+     43          	int  low, high, dt;
+     44          
+     45                  
+     46                  adc /= 4; 
+     47          	// ADC@ @@ 928@@ @@ -20@, 31@@ @@@ 120@@ @@
+     48          	if (adc >= TEMP_ADC_ARR[0]) temp = -200;
+     49          	else if (adc <= TEMP_ADC_ARR[28]) temp = 1200;
+     50          	else
+     51          	// ADC@ @@ TEMP_ADC_ARR[]@ @@ @@ @@@ @@@ @@ @@
+     52          	{
+     53          		no = 0;
+     54          		// ADC@ @@ @@ @@(@@@@ @@ @@@@?)
+     55          		for (lp = 0; lp < 29; lp++)
+     56          		if (adc < TEMP_ADC_ARR[lp]) no++;
+     57          
+     58          		// ADC@ @@@ @@ @@@@@
+     59          		high = TEMP_ADC_ARR[no];
+     60          		no--;
+     61          		// ADC@ @@@ @@ @@@@@
+     62          		low = TEMP_ADC_ARR[no];
+     63          		// @@@@@ @@ @@
+     64          		dt = (adc - high) * 50 / (low - high);
+     65          		// @@ @@@ @@
+     66          		temp = (no + 1) * 50 - 200 - dt;
+     67          
+     68          		//temp = -200;
+     69          		//Real_Temp=temp; 
+     70          		//Temp_High20 = (temp + 200) / 10;   //-20@@@@ @@ @@ @@@@@ ..
+     71          
+     72          		if(temp<0)
+     73          		{
+     74          			temp=~temp;     //1@@@@ @@@. 
+     75          			temp ++;        //2@@@@ @@@ @@@@@  
+     76          
+     77          		}
+     78                                   
+     79          	}
+     80          
+     81          	// @@@@@@@ @@@ printf @
+     82          	///Hex2_to_ASC4_Spool(temp);
+     83          	return temp;
+     84          }
+     85          
+     86          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      12   Detect_Temp_Data
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+     136  Detect_Temp_Data
+      60  TEMP_ADC_ARR
+
+ 
+  60 bytes in section .data
+ 136 bytes in section .text
+ 
+ 136 bytes of CODE memory
+  60 bytes of DATA memory
+
+Errors: none
+Warnings: none

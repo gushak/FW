@@ -1,0 +1,138 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.22.1.15669/W32 for ARM       23/May/2019  16:04:52
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\khh_eeprom.c
+#    Command line =  
+#        -f C:\Users\Dawoon\AppData\Local\Temp\EW823E.tmp
+#        (C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\khh_eeprom.c
+#        -D USE_STDPERIPH_DRIVER -D STM32F10X_MD -D USE_STM3210C_EVAL -lcN
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List
+#        --diag_suppress pa082 -o
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj
+#        --debug --endian=little --cpu=Cortex-M3 -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.0\arm\INC\c\DLib_Config_Full.h" -I
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\
+#        -I
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\CoreSupport\
+#        -I
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\
+#        -I
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\
+#        -I
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\
+#        -I
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\Common\
+#        -I
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\STM3210C_EVAL\
+#        -Ohs --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.0\arm\CMSIS\Core\Include\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.0\arm\CMSIS\DSP\Include\")
+#    Locale       =  C
+#    List file    =  
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List\khh_eeprom.lst
+#    Object file  =  
+#        C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\khh_eeprom.o
+#
+###############################################################################
+
+C:\Users\Dawoon\Desktop\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\khh_eeprom.c
+      1          #include "hw_control.h"
+      2          
+      3          CONFIG_STRUCT Config, Config_Old;		// Holds configuration (from eeProm)
+      4          
+      5          
+      6          uint16_t VirtAddVarTab[NumbOfVar];	
+      7          
+      8          
+      9          #ifndef MRAM_EEPROM_ENABLE
+     10          
+     11          void lll_eeprom_init(void)
+     12          {
+     13              FLASH_Unlock();
+     14              EE_Init();
+     15              
+     16              uint16_t i = 0;
+     17              
+     18              for(i=0;i<NumbOfVar;i++)
+     19              {
+     20                  VirtAddVarTab[i] = i;
+     21              }
+     22          }
+     23          
+     24          void eeprom_default_value(void)		
+     25          {
+     26          	CON_ADDRESS = CON_ADDRESS_DEFAULT;				//@@@@
+     27          }
+     28          
+     29          void load_eeprom(void)
+     30          {
+     31          	int i = 0;
+     32          	Read_eeprom(0, Config.setup);
+     33          	if(Config.setup != EEPROM_CHECK_VALUE)
+     34          	{
+     35          		Config.setup = EEPROM_CHECK_VALUE;
+     36          		eeprom_default_value(); 
+     37          		save_all_eeprom(); 	
+     38          	} else {
+     39          		for(i=0;i<MAX_EEPROM_ADDRESS; i++)
+     40          		{
+     41          			Read_eeprom(i+1, Config.Value[i]);
+     42          		}
+     43          	}
+     44          }
+     45          
+     46          void save_all_eeprom(void)
+     47          {
+     48          	int i = 0;
+     49          	Write_eeprom(0, EEPROM_CHECK_VALUE);	//Config.setup
+     50          	delay_ms(EEPROM_WRITE_DELAY);
+     51          	
+     52          	for(i=0;i<MAX_EEPROM_ADDRESS;i++)
+     53          	{
+     54          		Config_Old.Value[i] = Config.Value[i];	//flush @@@@@ @@@@@ @@ @ @@@ @@@@ @@
+     55          		Write_eeprom(i+1, Config.Value[i]);
+     56          		delay_ms(EEPROM_WRITE_DELAY);
+     57          	}
+     58          }
+     59          
+     60          void save_eeprom(uint8_t adr, uint16_t data)
+     61          {
+     62          	if(adr>MAX_EEPROM_ADDRESS)  adr = MAX_EEPROM_ADDRESS;
+     63          	Write_eeprom(adr+1, data);
+     64          }
+     65          
+     66          #endif
+     67          
+     68          
+     69          
+     70          
+     71          
+     72          
+     73          
+     74          
+     75          
+     76          
+     77          
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      28  Config
+      28  Config_Old
+      40  VirtAddVarTab
+
+ 
+ 96 bytes in section .bss
+ 
+ 96 bytes of DATA memory
+
+Errors: none
+Warnings: none

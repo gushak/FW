@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\STM32F103\IOToggle.ewp</path>
+  </project>
+  <batchBuild>
+    <batchDefinition>
+      <name>All</name>
+      <member>
+        <project>STM32F103</project>
+        <configuration>STM32100B-EVAL</configuration>
+      </member>
+     </batchDefinition>
+  </batchBuild>
+</workspace>
+
+

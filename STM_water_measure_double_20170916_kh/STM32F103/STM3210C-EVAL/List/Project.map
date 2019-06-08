@@ -1,0 +1,847 @@
+###############################################################################
+#
+# IAR ELF Linker V8.22.1.15669/W32 for ARM                23/May/2019  20:49:51
+# Copyright 2007-2018 IAR Systems AB.
+#
+#    Output file  =  
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Exe\Project.out
+#    Map file     =  
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List\Project.map
+#    Command line =  
+#        -f C:\Users\Dawoon\AppData\Local\Temp\EW6AFC.tmp
+#        (C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\eeprom.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\gpio.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\hw_control.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\khh_eeprom.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\khh_lcd.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\KHH_stm103_RTC.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\Lora_parse.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\lrk_motor.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\main.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\menu.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\misc.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\Rfid_reader.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\RTC_to_sec.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\spi_flash.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\startup_stm32f10x_md.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_adc.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_bkp.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_can.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_cec.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_crc.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_dac.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_dbgmcu.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_dma.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_exti.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_flash.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_fsmc.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_gpio.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_i2c.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_it.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_iwdg.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_pwr.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_rcc.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_rtc.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_sdio.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_spi.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_tim.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_usart.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\stm32f10x_wwdg.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\system_stm32f10x.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\temperature.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\uart.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\w_weight.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\water_intake.o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\water_intake_mram_menage.o
+#        --redirect _Printf=_PrintfFull --redirect _Scanf=_ScanfFull -o
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Exe\Project.out
+#        --map
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List\Project.map
+#        --config
+#        C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\linker\stm32f10x_flash.icf
+#        --semihosting --entry __iar_program_start --vfe --text_out locale)
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+__dlib_version  = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because no calls to memory allocation
+functions were found in the application outside of system library
+functions, and there are calls to deallocation functions in the
+application.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at 0x08000000 { ro section .intvec };
+"P1":  place in [from 0x08000000 to 0x0800ffff] { ro };
+define block CSTACK with size = 1K, alignment = 8 { };
+define block HEAP with size = 512, alignment = 8 { };
+"P2":  place in [from 0x20000000 to 0x20004fff] {
+          rw, block CSTACK, block HEAP };
+initialize by copy { rw };
+
+  Section            Kind        Address    Size  Object
+  -------            ----        -------    ----  ------
+"A0":                                       0xec
+  .intvec            ro code  0x08000000    0xec  startup_stm32f10x_md.o [1]
+                            - 0x080000ec    0xec
+
+"P1":                                     0x67d9
+  .text              ro code  0x080000ec   0xf96  xprintffull.o [3]
+  .text              ro code  0x08001082    0x7a  lz77_init_single.o [5]
+  .text              ro code  0x080010fc    0xb0  xlocale_c.o [3]
+  .text              ro code  0x080011ac    0x16  strchr.o [5]
+  .text              ro code  0x080011c2    0x1e  xencoding_8859_1.o [3]
+  .text              ro code  0x080011e0    0x40  xfail_s.o [3]
+  .text              ro code  0x08001220    0x36  strlen.o [5]
+  .text              ro code  0x08001256     0xa  xsprout.o [3]
+  .text              ro code  0x08001260    0x58  memchr.o [5]
+  .text              ro code  0x080012b8     0xa  xmbcurmax.o [3]
+  .text              ro code  0x080012c4    0xa6  ABImemcpy.o [5]
+  .text              ro code  0x0800136c   0x22e  I64DivMod.o [5]
+  .text              ro code  0x0800159c   0x1a2  DblMul.o [4]
+  .text              ro code  0x08001740    0x70  frexp.o [4]
+  .text              ro code  0x080017b0    0x2e  DblCmpLe.o [4]
+  .text              ro code  0x080017e0    0x2e  DblCmpGe.o [4]
+  .text              ro code  0x08001810   0x13a  ldexp.o [4]
+  .text              ro code  0x0800194c    0x3a  DblToS32.o [4]
+  .text              ro code  0x08001988    0x22  S32ToDbl.o [4]
+  .text              ro code  0x080019ac    0xe2  DblSub.o [4]
+  .text              ro code  0x08001a90   0x246  DblDiv.o [4]
+  .text              ro code  0x08001cd8    0x28  DblToU32.o [4]
+  .text              ro code  0x08001d00    0x1a  U32ToDbl.o [4]
+  .text              ro code  0x08001d1a     0x6  abort.o [3]
+  .text              ro code  0x08001d20     0x2  I64DivZer.o [5]
+  .text              ro code  0x08001d24   0x178  DblAdd.o [4]
+  .text              ro code  0x08001e9c    0x14  exit.o [6]
+  .text              ro code  0x08001eb0   0xa6c  Lora_parse.o [1]
+  .text              ro code  0x0800291c   0x29c  uart.o [1]
+  .text              ro code  0x08002bb8   0x3d2  hw_control.o [1]
+  .text              ro code  0x08002f8a    0x30  strstr.o [3]
+  .text              ro code  0x08002fbc   0x174  iar_Stoulx.o [3]
+  .text              ro code  0x08003130    0x40  sprintf.o [3]
+  .text              ro code  0x08003170   0x128  RTC_to_sec.o [1]
+  .text              ro code  0x08003298   0x1b0  KHH_stm103_RTC.o [1]
+  .text              ro code  0x08003448    0x4c  stm32f10x_bkp.o [1]
+  .text              ro code  0x08003494     0x6  ABImemclr.o [5]
+  .text              ro code  0x0800349c     0x6  ABImemclr4.o [5]
+  .text              ro code  0x080034a4   0x2c4  spi_flash.o [1]
+  .text              ro code  0x08003768   0x19c  water_intake_mram_menage.o [1]
+  .text              ro code  0x08003904    0x90  stm32f10x_rtc.o [1]
+  .text              ro code  0x08003994   0x15a  stm32f10x_usart.o [1]
+  .text              ro code  0x08003af0   0x108  w_weight.o [1]
+  .text              ro code  0x08003bf8   0x14c  stm32f10x_rcc.o [1]
+  .text              ro code  0x08003d44   0x16c  stm32f10x_gpio.o [1]
+  .text              ro code  0x08003eb0   0x42c  main.o [1]
+  .text              ro code  0x080042dc    0x8c  misc.o [1]
+  .text              ro code  0x08004368   0x174  stm32f10x_dma.o [1]
+  .text              ro code  0x080044dc   0x130  stm32f10x_adc.o [1]
+  .text              ro code  0x0800460c   0x5c0  khh_lcd.o [1]
+  .text              ro code  0x08004bcc    0xe4  gpio.o [1]
+  .text              ro code  0x08004cb0    0x14  isspace.o [3]
+  .text              ro code  0x08004cc4    0x14  tolower.o [3]
+  .text              ro code  0x08004cd8     0xc  stm32f10x_pwr.o [1]
+  .text              ro code  0x08004ce4    0x5e  ABImemset.o [5]
+  .text              ro code  0x08004d44    0x32  ABImemset48.o [5]
+  .text              ro code  0x08004d78    0x66  stm32f10x_spi.o [1]
+  .text              ro code  0x08004de0    0x39  strtok_r.o [3]
+  .text              ro code  0x08004e20   0x468  strto64.o [4]
+  .text              ro code  0x08005288    0x68  DblToFlt.o [4]
+  .text              ro code  0x080052f0   0x44c  menu.o [1]
+  .text              ro code  0x0800573c    0x88  temperature.o [1]
+  .text              ro code  0x080057c4   0x5e0  water_intake.o [1]
+  .text              ro code  0x08005da4    0xd8  Rfid_reader.o [1]
+  .text              ro code  0x08005e7c    0x8c  stm32f10x_exti.o [1]
+  .text              ro code  0x08005f08    0x22  strspn.o [3]
+  .text              ro code  0x08005f2a    0x22  strcspn.o [3]
+  .text              ro code  0x08005f4c   0x122  iar_Stopfx.o [3]
+  .text              ro code  0x08006070   0x1c8  iar_Stoflt.o [3]
+  .text              ro code  0x08006238   0x21c  iar_Stoxflt.o [3]
+  .text              ro code  0x08006454    0x1c  U32ToFlt.o [4]
+  .text              ro code  0x08006470    0xd8  FltMul.o [4]
+  .text              ro code  0x08006548    0x2a  FltToS32.o [4]
+  .text              ro code  0x08006572    0x14  isalpha.o [3]
+  .text              ro code  0x08006588    0xec  system_stm32f10x.o [1]
+  .text              ro code  0x08006674    0x40  zero_init3.o [5]
+  .text              ro code  0x080066b4    0x28  data_init.o [5]
+  .iar.init_table    const    0x080066dc    0x20  - Linker created -
+  .text              ro code  0x080066fc    0x1e  cmain.o [5]
+  .text              ro code  0x0800671a     0x4  low_level_init.o [3]
+  .text              ro code  0x0800671e     0x4  exit.o [3]
+  .text              ro code  0x08006724     0xa  cexit.o [5]
+  .text              ro code  0x08006730    0x10  startup_stm32f10x_md.o [1]
+  .text              ro code  0x08006740    0x10  stm32f10x_it.o [1]
+  .text              ro code  0x08006750     0xc  cstartup_M.o [5]
+  .rodata            const    0x0800675c     0x6  xlocale_c.o [3]
+  .text              ro code  0x08006762     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x08006766     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x0800676a     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x0800676e     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x08006772     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x08006776     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x0800677a     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x0800677e     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x08006782     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x08006786     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x0800678a     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x0800678e     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x08006792     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x08006796     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x0800679a     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x0800679e     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067a2     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067a6     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067aa     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067ae     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067b2     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067b6     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067ba     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067be     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067c2     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067c6     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067ca     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067ce     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067d2     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067d6     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067da     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067de     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067e2     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067e6     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067ea     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067ee     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067f2     0x4  startup_stm32f10x_md.o [1]
+  .text              ro code  0x080067f6     0x4  startup_stm32f10x_md.o [1]
+  .rodata            const    0x080067fa     0x0  zero_init3.o [5]
+  .rodata            const    0x080067fa     0x0  lz77_init_single.o [5]
+  Initializer bytes  const    0x080067fa    0xcb  <for P2-1>
+                            - 0x080068c5  0x67d9
+
+"P2", part 1 of 3:                         0x20c
+  P2-1                        0x20000000   0x20c  <Init block>
+    .data            inited   0x20000000    0x10  hw_control.o [1]
+    .data            inited   0x20000010    0x64  Lora_parse.o [1]
+    .data            inited   0x20000074    0x34  menu.o [1]
+    .data            inited   0x200000a8    0x34  RTC_to_sec.o [1]
+    .data            inited   0x200000dc    0x14  stm32f10x_rcc.o [1]
+    .data            inited   0x200000f0    0x3c  temperature.o [1]
+    .data            inited   0x2000012c    0x60  water_intake.o [1]
+    .data            inited   0x2000018c    0x38  xlocale_c.o [3]
+    .data            inited   0x200001c4    0x48  xlocale_c.o [3]
+                            - 0x2000020c   0x20c
+
+"P2", part 2 of 3:                        0x118c
+  .bss               zero     0x2000020c   0x414  Rfid_reader.o [1]
+  .bss               zero     0x20000620   0x408  uart.o [1]
+  .bss               zero     0x20000a28   0x408  uart.o [1]
+  .bss               zero     0x20000e30   0x1b8  Lora_parse.o [1]
+  .bss               zero     0x20000fe8   0x190  water_intake_mram_menage.o [1]
+  .bss               zero     0x20001178    0xa4  Rfid_reader.o [1]
+  .bss               zero     0x2000121c    0x68  w_weight.o [1]
+  .bss               zero     0x20001284    0x64  w_weight.o [1]
+  .bss               zero     0x200012e8    0x28  KHH_stm103_RTC.o [1]
+  .bss               zero     0x20001310    0x24  main.o [1]
+  .bss               zero     0x20001334    0x1c  khh_eeprom.o [1]
+  .bss               zero     0x20001350    0x14  hw_control.o [1]
+  .bss               zero     0x20001364     0x8  khh_lcd.o [1]
+  .bss               zero     0x2000136c     0x8  Lora_parse.o [1]
+  .bss               zero     0x20001374     0x8  main.o [1]
+  .bss               zero     0x2000137c     0x4  gpio.o [1]
+  .bss               zero     0x20001380     0x4  gpio.o [1]
+  .bss               zero     0x20001384     0x4  main.o [1]
+  .bss               zero     0x20001388     0x4  main.o [1]
+  .bss               zero     0x2000138c     0x4  xfail_s.o [3]
+  .bss               zero     0x20001390     0x2  hw_control.o [1]
+  .bss               zero     0x20001392     0x2  lrk_motor.o [1]
+  .bss               zero     0x20001394     0x2  main.o [1]
+  .bss               zero     0x20001396     0x1  spi_flash.o [1]
+  .bss               zero     0x20001397     0x1  water_intake.o [1]
+                            - 0x20001398  0x118c
+
+"P2", part 3 of 3:                         0x400
+  CSTACK                      0x20001398   0x400  <Block>
+    CSTACK           uninit   0x20001398   0x400  <Block tail>
+                            - 0x20001798   0x400
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address     Size
+          -------     ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0x118c:
+          0x2000020c  0x118c
+
+Copy/lz77 (__iar_lz77_init_single3)
+    1 source range, total size 0xcb (38% of destination):
+          0x080067fa    0xcb
+    1 destination range, total size 0x20c:
+          0x20000000   0x20c
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                      ro code  ro data  rw data
+    ------                      -------  -------  -------
+C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj: [1]
+    KHH_stm103_RTC.o                432                40
+    Lora_parse.o                  2 668       38      548
+    RTC_to_sec.o                    296       20       52
+    Rfid_reader.o                   216             1 208
+    gpio.o                          228                 8
+    hw_control.o                    978        6       38
+    khh_eeprom.o                                       28
+    khh_lcd.o                     1 472                 8
+    lrk_motor.o                                         2
+    main.o                        1 068                54
+    menu.o                        1 100       21       52
+    misc.o                          140
+    spi_flash.o                     708                 1
+    startup_stm32f10x_md.o          404
+    stm32f10x_adc.o                 304
+    stm32f10x_bkp.o                  76
+    stm32f10x_dma.o                 372
+    stm32f10x_exti.o                140
+    stm32f10x_gpio.o                364
+    stm32f10x_it.o                   16
+    stm32f10x_pwr.o                  12
+    stm32f10x_rcc.o                 332        7       20
+    stm32f10x_rtc.o                 144
+    stm32f10x_spi.o                 102
+    stm32f10x_usart.o               346
+    system_stm32f10x.o              236
+    temperature.o                   136       24       60
+    uart.o                          668             2 064
+    w_weight.o                      264               204
+    water_intake.o                1 504       37       97
+    water_intake_mram_menage.o      412               400
+    -----------------------------------------------------
+    Total:                       15 138      153    4 884
+
+command line: [2]
+    -----------------------------------------------------
+    Total:
+
+dl7M_tlf.a: [3]
+    abort.o                           6
+    exit.o                            4
+    iar_Stoflt.o                    456
+    iar_Stopfx.o                    290
+    iar_Stoulx.o                    372
+    iar_Stoxflt.o                   540
+    isalpha.o                        20
+    isspace.o                        20
+    low_level_init.o                  4
+    sprintf.o                        64
+    strcspn.o                        34
+    strspn.o                         34
+    strstr.o                         48
+    strtok_r.o                       57
+    tolower.o                        20
+    xencoding_8859_1.o               30
+    xfail_s.o                        64                 4
+    xlocale_c.o                     176       56      128
+    xmbcurmax.o                      10
+    xprintffull.o                 3 990
+    xsprout.o                        10
+    -----------------------------------------------------
+    Total:                        6 249       56      132
+
+m7M_tl.a: [4]
+    DblAdd.o                        376
+    DblCmpGe.o                       46
+    DblCmpLe.o                       46
+    DblDiv.o                        582
+    DblMul.o                        418
+    DblSub.o                        226
+    DblToFlt.o                      104
+    DblToS32.o                       58
+    DblToU32.o                       40
+    FltMul.o                        216
+    FltToS32.o                       42
+    S32ToDbl.o                       34
+    U32ToDbl.o                       26
+    U32ToFlt.o                       28
+    frexp.o                         112
+    ldexp.o                         314
+    strto64.o                     1 128
+    -----------------------------------------------------
+    Total:                        3 796
+
+rt7M_tl.a: [5]
+    ABImemclr.o                       6
+    ABImemclr4.o                      6
+    ABImemcpy.o                     166
+    ABImemset.o                      94
+    ABImemset48.o                    50
+    I64DivMod.o                     558
+    I64DivZer.o                       2
+    cexit.o                          10
+    cmain.o                          30
+    cstartup_M.o                     12
+    data_init.o                      40
+    lz77_init_single.o              122
+    memchr.o                         88
+    strchr.o                         22
+    strlen.o                         54
+    zero_init3.o                     64
+    -----------------------------------------------------
+    Total:                        1 324
+
+shb_l.a: [6]
+    exit.o                           20
+    -----------------------------------------------------
+    Total:                           20
+
+    Gaps                             53
+    Linker created                            32    1 024
+---------------------------------------------------------
+    Grand Total:                 26 580      241    6 040
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                      Address   Size  Type      Object
+-----                      -------   ----  ----      ------
+.iar.init_table$$Base   0x080066dc          --   Gb  - Linker created -
+.iar.init_table$$Limit  0x080066fc          --   Gb  - Linker created -
+?main                   0x080066fd         Code  Gb  cmain.o [5]
+ADCConvertedValue       0x20001390    0x2  Data  Gb  hw_control.o [1]
+ADCPrescTable           0x200000ec    0x4  Data  Lc  stm32f10x_rcc.o [1]
+ADC_Cmd                 0x08004519   0x12  Code  Gb  stm32f10x_adc.o [1]
+ADC_Config              0x08002e77   0xb8  Code  Gb  hw_control.o [1]
+ADC_DMACmd              0x0800452b   0x12  Code  Gb  stm32f10x_adc.o [1]
+ADC_GetCalibrationStatus
+                        0x0800455b    0xa  Code  Gb  stm32f10x_adc.o [1]
+ADC_GetResetCalibrationStatus
+                        0x08004547    0xa  Code  Gb  stm32f10x_adc.o [1]
+ADC_Init                0x080044dd   0x3c  Code  Gb  stm32f10x_adc.o [1]
+ADC_RegularChannelConfig
+                        0x08004577   0x8c  Code  Gb  stm32f10x_adc.o [1]
+ADC_ResetCalibration    0x0800453d    0xa  Code  Gb  stm32f10x_adc.o [1]
+ADC_SoftwareStartConvCmd
+                        0x08004565   0x12  Code  Gb  stm32f10x_adc.o [1]
+ADC_StartCalibration    0x08004551    0xa  Code  Gb  stm32f10x_adc.o [1]
+APBAHBPrescTable        0x200000dc   0x10  Data  Lc  stm32f10x_rcc.o [1]
+BKP_DeInit              0x08003449   0x16  Code  Gb  stm32f10x_bkp.o [1]
+BKP_ReadBackupRegister  0x08003477   0x18  Code  Gb  stm32f10x_bkp.o [1]
+BKP_WriteBackupRegister
+                        0x0800345f   0x18  Code  Gb  stm32f10x_bkp.o [1]
+Base_time               0x20000e30   0x24  Data  Gb  Lora_parse.o [1]
+BusFault_Handler        0x08006747    0x2  Code  Gb  stm32f10x_it.o [1]
+CSTACK$$Base            0x20001398          --   Gb  - Linker created -
+CSTACK$$Limit           0x20001798          --   Gb  - Linker created -
+CacheMore               0x0800113d   0x24  Code  Lc  xlocale_c.o [3]
+CheckSum                0x08002821   0x4c  Code  Gb  Lora_parse.o [1]
+Config                  0x20001334   0x1c  Data  Gb  khh_eeprom.o [1]
+ContentLength           0x20000e6a    0x2  Data  Gb  Lora_parse.o [1]
+DMA_Cmd                 0x0800448f   0x18  Code  Gb  stm32f10x_dma.o [1]
+DMA_DeInit              0x08004369   0xf0  Code  Gb  stm32f10x_dma.o [1]
+DMA_Init                0x08004459   0x36  Code  Gb  stm32f10x_dma.o [1]
+DaysToMonth             0x200000a8   0x34  Data  Gb  RTC_to_sec.o [1]
+DebugMon_Handler        0x0800674d    0x2  Code  Gb  stm32f10x_it.o [1]
+Delay                   0x08002c3f    0xe  Code  Gb  hw_control.o [1]
+Detect_Temp_Data        0x0800573d   0x88  Code  Gb  temperature.o [1]
+Dtentox                 0x08004f2d  0x18c  Code  Lc  strto64.o [4]
+EXTI0_IRQHandler        0x08004c41   0x24  Code  Gb  gpio.o [1]
+EXTI1_IRQHandler        0x08004c65   0x24  Code  Gb  gpio.o [1]
+EXTI9_0_Config          0x08004bcd   0x74  Code  Gb  gpio.o [1]
+EXTI_ClearITPendingBit  0x08005ef9    0x6  Code  Gb  stm32f10x_exti.o [1]
+EXTI_GetITStatus        0x08005ee3   0x16  Code  Gb  stm32f10x_exti.o [1]
+EXTI_Init               0x08005e7d   0x66  Code  Gb  stm32f10x_exti.o [1]
+FET_sum                 0x20001324    0x8  Data  Gb  main.o [1]
+FET_value               0x20001310   0x14  Data  Gb  main.o [1]
+FLASH_Statusx           0x20001396    0x1  Data  Gb  spi_flash.o [1]
+GPIO_Configuration      0x08002d5f  0x118  Code  Gb  hw_control.o [1]
+GPIO_EXTILineConfig     0x08003e85   0x24  Code  Gb  stm32f10x_gpio.o [1]
+GPIO_Init               0x08003d45   0xbc  Code  Gb  stm32f10x_gpio.o [1]
+GPIO_PinRemapConfig     0x08003e25   0x60  Code  Gb  stm32f10x_gpio.o [1]
+GPIO_ReadInputDataBit   0x08003e01    0xe  Code  Gb  stm32f10x_gpio.o [1]
+GPIO_ResetBits          0x08003e13    0x4  Code  Gb  stm32f10x_gpio.o [1]
+GPIO_SetBits            0x08003e0f    0x4  Code  Gb  stm32f10x_gpio.o [1]
+GPIO_WriteBit           0x08003e17    0xe  Code  Gb  stm32f10x_gpio.o [1]
+GetTime_min             0x0800340d   0x34  Code  Gb  KHH_stm103_RTC.o [1]
+Get_Date                0x080033d3   0x3a  Code  Gb  KHH_stm103_RTC.o [1]
+HardFault_Handler       0x08006743    0x2  Code  Gb  stm32f10x_it.o [1]
+Input_cnt               0x2000132c    0x8  Data  Gb  main.o [1]
+Input_value             0x20001392    0x2  Data  Gb  lrk_motor.o [1]
+Intake_Head             0x08003769   0x24  Code  Gb  water_intake_mram_menage.o [1]
+Intake_head_increment   0x0800378d   0x44  Code  Gb  water_intake_mram_menage.o [1]
+LCD_init                0x0800460d  0x19c  Code  Gb  khh_lcd.o [1]
+LoadInt                 0x080002db   0x7a  Code  Lc  xprintffull.o [3]
+Lora_Status             0x2000006d    0x1  Data  Gb  Lora_parse.o [1]
+Lora_wintake            0x20000010   0x1c  Data  Gb  Lora_parse.o [1]
+MAX_Value               0x2000008c   0x1c  Data  Gb  menu.o [1]
+MemManage_Handler       0x08006745    0x2  Code  Gb  stm32f10x_it.o [1]
+Menu                    0x20000087    0x1  Data  Gb  menu.o [1]
+Mode_delay              0x20001384    0x2  Data  Gb  main.o [1]
+Mram_intake_address     0x20000fe8  0x190  Data  Gb  water_intake_mram_menage.o [1]
+NMI_Handler             0x08006741    0x2  Code  Gb  stm32f10x_it.o [1]
+NVIC_Configuration      0x08002caf   0xb0  Code  Gb  hw_control.o [1]
+NVIC_Init               0x080042e7   0x5a  Code  Gb  misc.o [1]
+NVIC_PriorityGroupConfig
+                        0x080042dd    0xa  Code  Gb  misc.o [1]
+NVIC_SetVectorTable     0x08004341    0xc  Code  Gb  misc.o [1]
+Now                     0x200012e8   0x24  Data  Gb  KHH_stm103_RTC.o [1]
+Oper_Cnt                0x20000158    0x1  Data  Gb  water_intake.o [1]
+PWR_BackupAccessCmd     0x08004cd9    0x6  Code  Gb  stm32f10x_pwr.o [1]
+Parse_st                0x20001284   0x50  Data  Gb  w_weight.o [1]
+PendSV_Handler          0x0800674f    0x2  Code  Gb  stm32f10x_it.o [1]
+RCC_AHBPeriphClockCmd   0x08003ca9   0x12  Code  Gb  stm32f10x_rcc.o [1]
+RCC_APB1PeriphClockCmd  0x08003ccd   0x12  Code  Gb  stm32f10x_rcc.o [1]
+RCC_APB2PeriphClockCmd  0x08003cbb   0x12  Code  Gb  stm32f10x_rcc.o [1]
+RCC_BackupResetCmd      0x08003cdf    0x6  Code  Gb  stm32f10x_rcc.o [1]
+RCC_ClearFlag           0x08003d07    0xc  Code  Gb  stm32f10x_rcc.o [1]
+RCC_GetClocksFreq       0x08003c1f   0x8a  Code  Gb  stm32f10x_rcc.o [1]
+RCC_GetFlagStatus       0x08003ce5   0x22  Code  Gb  stm32f10x_rcc.o [1]
+RCC_LSEConfig           0x08003bf9   0x16  Code  Gb  stm32f10x_rcc.o [1]
+RCC_RTCCLKCmd           0x08003c19    0x6  Code  Gb  stm32f10x_rcc.o [1]
+RCC_RTCCLKConfig        0x08003c0f    0xa  Code  Gb  stm32f10x_rcc.o [1]
+RFID_rx_buffer          0x20000218  0x400  Data  Gb  Rfid_reader.o [1]
+RFID_rx_point_head      0x20000618    0x4  Data  Gb  Rfid_reader.o [1]
+RFID_rx_point_tail      0x2000061c    0x4  Data  Gb  Rfid_reader.o [1]
+RTC_BinaryToDate        0x080031d9   0xbc  Code  Gb  RTC_to_sec.o [1]
+RTC_Configuration       0x0800332b   0x54  Code  Gb  KHH_stm103_RTC.o [1]
+RTC_DateToBinary        0x08003171   0x68  Code  Gb  RTC_to_sec.o [1]
+RTC_GetCounter          0x08003917    0xc  Code  Gb  stm32f10x_rtc.o [1]
+RTC_ITConfig            0x08003905   0x12  Code  Gb  stm32f10x_rtc.o [1]
+RTC_Init                0x08003299   0x92  Code  Gb  KHH_stm103_RTC.o [1]
+RTC_SetCounter          0x08003923   0x1c  Code  Gb  stm32f10x_rtc.o [1]
+RTC_SetPrescaler        0x0800393f   0x20  Code  Gb  stm32f10x_rtc.o [1]
+RTC_WaitForLastTask     0x0800395f   0x10  Code  Gb  stm32f10x_rtc.o [1]
+RTC_WaitForSynchro      0x0800396f   0x14  Code  Gb  stm32f10x_rtc.o [1]
+R_IR_check              0x0800419b    0x6  Code  Gb  main.o [1]
+R_IR_check2             0x080041a1    0x6  Code  Gb  main.o [1]
+R_rfid_clear            0x080041a9   0x18  Code  Gb  main.o [1]
+R_setting_menu          0x080041c1   0x54  Code  Gb  main.o [1]
+R_setting_menu::cnt_time
+                        0x2000138a    0x2  Data  Lc  main.o [1]
+R_setting_menu::view_flag
+                        0x20001389    0x1  Data  Lc  main.o [1]
+Recv_data_ok            0x2000006c    0x1  Data  Gb  Lora_parse.o [1]
+Region$$Table$$Base     0x080066dc          --   Gb  - Linker created -
+Region$$Table$$Limit    0x080066fc          --   Gb  - Linker created -
+Run_wait                0x2000015e    0x2  Data  Gb  water_intake.o [1]
+SPI_Cmd                 0x08004db1   0x18  Code  Gb  stm32f10x_spi.o [1]
+SPI_FLASH_BufferRead    0x08003625   0x90  Code  Gb  spi_flash.o [1]
+SPI_FLASH_Init          0x080034a5   0xd4  Code  Gb  spi_flash.o [1]
+SPI_FLASH_PageWrite     0x08003579   0xac  Code  Gb  spi_flash.o [1]
+SPI_FLASH_SendByte      0x080036b5   0x34  Code  Gb  spi_flash.o [1]
+SPI_FLASH_WaitForWriteEnd
+                        0x080036e9   0x6e  Code  Gb  spi_flash.o [1]
+SPI_I2S_GetFlagStatus   0x08004dd1    0xe  Code  Gb  stm32f10x_spi.o [1]
+SPI_I2S_ReceiveData     0x08004dcd    0x4  Code  Gb  stm32f10x_spi.o [1]
+SPI_I2S_SendData        0x08004dc9    0x4  Code  Gb  stm32f10x_spi.o [1]
+SPI_Init                0x08004d79   0x38  Code  Gb  stm32f10x_spi.o [1]
+SVC_Handler             0x0800674b    0x2  Code  Gb  stm32f10x_it.o [1]
+SW_Cnt                  0x20000080    0x4  Data  Gb  menu.o [1]
+SW_L                    0x20000078    0x4  Data  Gb  menu.o [1]
+SW_Push                 0x2000007c    0x4  Data  Gb  menu.o [1]
+SW_S                    0x20000074    0x4  Data  Gb  menu.o [1]
+SW_check                0x080052f1   0xce  Code  Gb  menu.o [1]
+Send_error_packet       0x080024ab   0xbc  Code  Gb  Lora_parse.o [1]
+Send_lora_packet        0x080026e5  0x106  Code  Gb  Lora_parse.o [1]
+Send_ok_data_save       0x0800230f   0x1c  Code  Gb  Lora_parse.o [1]
+Send_status_packet      0x0800256d  0x170  Code  Gb  Lora_parse.o [1]
+Send_wintake_packet     0x08002331  0x17a  Code  Gb  Lora_parse.o [1]
+Setting_delay           0x20000088    0x2  Data  Gb  menu.o [1]
+Setting_enable          0x20000084    0x1  Data  Gb  menu.o [1]
+Setting_time_out        0x20001388    0x1  Data  Gb  main.o [1]
+Stable_run_flag         0x20001374    0x1  Data  Gb  main.o [1]
+Stable_water_delay      0x20001386    0x2  Data  Gb  main.o [1]
+Stable_weight           0x2000015a    0x2  Data  Gb  water_intake.o [1]
+Stable_weight_ch1       0x200012d4    0x2  Data  Gb  w_weight.o [1]
+Stable_weight_ch2       0x200012d8    0x2  Data  Gb  w_weight.o [1]
+Sub_lora_process        0x0800281d    0x4  Code  Gb  Lora_parse.o [1]
+SysTick_Handler         0x08002bb9   0x4e  Code  Gb  hw_control.o [1]
+SystemInit              0x08006589   0xd8  Code  Gb  system_stm32f10x.o [1]
+TEMP_ADC_ARR            0x200000f0   0x3c  Data  Gb  temperature.o [1]
+TM_HD44780_Cmd          0x08004a37   0x20  Code  Gb  khh_lcd.o [1]
+TM_HD44780_Cmd4bit      0x08004a57   0x7c  Code  Gb  khh_lcd.o [1]
+TM_HD44780_Init         0x080047a9  0x1f4  Code  Gb  khh_lcd.o [1]
+TM_HD44780_InitPins     0x0800499d   0x9a  Code  Gb  khh_lcd.o [1]
+TM_HD44780_Opts         0x20001364    0x8  Data  Gb  khh_lcd.o [1]
+TM_HD44780_Puts         0x08004ad5   0xde  Code  Gb  khh_lcd.o [1]
+Tflag_1ms               0x2000000c    0x4  Data  Gb  hw_control.o [1]
+Time_Adjust             0x0800337f   0x22  Code  Gb  KHH_stm103_RTC.o [1]
+U1_rx_buffer            0x20000620  0x400  Data  Gb  uart.o [1]
+U1_rx_point_head        0x20000a20    0x4  Data  Gb  uart.o [1]
+U1_rx_point_tail        0x20000a24    0x4  Data  Gb  uart.o [1]
+U3_rx_buffer            0x20000a28  0x400  Data  Gb  uart.o [1]
+U3_rx_point_head        0x20000e28    0x4  Data  Gb  uart.o [1]
+U3_rx_point_tail        0x20000e2c    0x4  Data  Gb  uart.o [1]
+UART_init               0x08002a2b  0x14a  Code  Gb  uart.o [1]
+USART1_IRQHandler       0x08002979   0x40  Code  Gb  uart.o [1]
+USART2_IRQHandler       0x080029b9   0x32  Code  Gb  uart.o [1]
+USART3_IRQHandler       0x080029eb   0x40  Code  Gb  uart.o [1]
+USART_ClearITPendingBit
+                        0x08003adf   0x10  Code  Gb  stm32f10x_usart.o [1]
+USART_Cmd               0x08003a39   0x18  Code  Gb  stm32f10x_usart.o [1]
+USART_GetFlagStatus     0x08003a95    0xe  Code  Gb  stm32f10x_usart.o [1]
+USART_GetITStatus       0x08003aa3   0x3c  Code  Gb  stm32f10x_usart.o [1]
+USART_ITConfig          0x08003a51   0x34  Code  Gb  stm32f10x_usart.o [1]
+USART_Init              0x08003995   0xa0  Code  Gb  stm32f10x_usart.o [1]
+USART_ReceiveData       0x08003a8d    0x8  Code  Gb  stm32f10x_usart.o [1]
+USART_SendData          0x08003a85    0x8  Code  Gb  stm32f10x_usart.o [1]
+Uart_puts               0x08002b91   0x28  Code  Gb  uart.o [1]
+UsageFault_Handler      0x08006749    0x2  Code  Gb  stm32f10x_it.o [1]
+W_Intake                0x2000012c   0x1c  Data  Gb  water_intake.o [1]
+W_Intake_Time           0x20000170    0x4  Data  Gb  water_intake.o [1]
+Water_pcnt1_clear       0x08004c8f    0x8  Code  Gb  gpio.o [1]
+Water_pcnt1_read        0x08004c89    0x6  Code  Gb  gpio.o [1]
+Water_pcnt2_clear       0x08004c9d    0x8  Code  Gb  gpio.o [1]
+Water_pcnt2_read        0x08004c97    0x6  Code  Gb  gpio.o [1]
+Wbuf                    0x20001220   0x64  Data  Gb  w_weight.o [1]
+Weight                  0x20000148   0x10  Data  Gb  water_intake.o [1]
+Weight_Dim              0x200012dc    0xc  Data  Gb  w_weight.o [1]
+_Encoding_8859_1_Mbrlen
+                        0x080011d5    0x2  Code  Gb  xencoding_8859_1.o [3]
+_Encoding_8859_1_Wctomb
+                        0x080011c3   0x12  Code  Gb  xencoding_8859_1.o [3]
+_GenldFull              0x08000d5d  0x274  Code  Lc  xprintffull.o [3]
+_LdtobFull              0x08000931  0x3fe  Code  Lc  xprintffull.o [3]
+_LitobFull              0x080007d9  0x112  Code  Lc  xprintffull.o [3]
+_LocaleC_isalpha        0x08001103    0xc  Code  Gb  xlocale_c.o [3]
+_LocaleC_islower        0x080010fd    0x4  Code  Gb  xlocale_c.o [3]
+_LocaleC_isspace        0x08001119   0x14  Code  Gb  xlocale_c.o [3]
+_LocaleC_isupper        0x08001101    0x2  Code  Gb  xlocale_c.o [3]
+_LocaleC_tolower        0x0800112d    0xc  Code  Gb  xlocale_c.o [3]
+_Locale_lconv           0x2000018c   0x38  Data  Lc  xlocale_c.o [3]
+_PrintfFull             0x080000ed  0x1d6  Code  Gb  xprintffull.o [3]
+_PutcharsFull           0x08000fd1   0x2e  Code  Lc  xprintffull.o [3]
+_PutfldFull             0x08000355  0x2d0  Code  Lc  xprintffull.o [3]
+_PutstrFull             0x0800071b   0xbe  Code  Lc  xprintffull.o [3]
+_PuttxtFull             0x08000625   0xf6  Code  Lc  xprintffull.o [3]
+_SProut                 0x08001257    0xa  Code  Gb  xsprout.o [3]
+__aeabi_cdcmple         0x080017b1         Code  Gb  DblCmpLe.o [4]
+__aeabi_cdrcmple        0x080017e1         Code  Gb  DblCmpGe.o [4]
+__aeabi_d2f             0x08005289         Code  Gb  DblToFlt.o [4]
+__aeabi_d2iz            0x0800194d         Code  Gb  DblToS32.o [4]
+__aeabi_d2uiz           0x08001cd9         Code  Gb  DblToU32.o [4]
+__aeabi_dadd            0x08001d25         Code  Gb  DblAdd.o [4]
+__aeabi_ddiv            0x08001a91         Code  Gb  DblDiv.o [4]
+__aeabi_dmul            0x0800159d         Code  Gb  DblMul.o [4]
+__aeabi_dsub            0x080019ad         Code  Gb  DblSub.o [4]
+__aeabi_f2iz            0x08006549         Code  Gb  FltToS32.o [4]
+__aeabi_fmul            0x08006471         Code  Gb  FltMul.o [4]
+__aeabi_i2d             0x08001989         Code  Gb  S32ToDbl.o [4]
+__aeabi_ldiv0           0x08001d21         Code  Gb  I64DivZer.o [5]
+__aeabi_memclr          0x08003495         Code  Gb  ABImemclr.o [5]
+__aeabi_memclr4         0x0800349d         Code  Gb  ABImemclr4.o [5]
+__aeabi_memcpy          0x080012c5         Code  Gb  ABImemcpy.o [5]
+__aeabi_memcpy4         0x080012e5         Code  Gb  ABImemcpy.o [5]
+__aeabi_memcpy8         0x080012e5         Code  Gb  ABImemcpy.o [5]
+__aeabi_ui2d            0x08001d01         Code  Gb  U32ToDbl.o [4]
+__aeabi_ui2f            0x08006455         Code  Gb  U32ToFlt.o [4]
+__aeabi_uldivmod        0x0800136d         Code  Gb  I64DivMod.o [5]
+__cmain                 0x080066fd         Code  Gb  cmain.o [5]
+__exit                  0x08001e9d   0x14  Code  Gb  exit.o [6]
+__iar_Fail_s            0x080011e1   0x1c  Code  Gb  xfail_s.o [3]
+__iar_Mbcurmax          0x080012b9    0xa  Code  Gb  xmbcurmax.o [3]
+__iar_Memchr            0x08001261         Code  Gb  memchr.o [5]
+__iar_Memset4_word      0x08004d45         Code  Gb  ABImemset48.o [5]
+__iar_Memset8_word      0x08004d45         Code  Gb  ABImemset48.o [5]
+__iar_Memset_word       0x08004ce5         Code  Gb  ABImemset.o [5]
+__iar_Sto64             0x080050b9  0x154  Code  Gb  strto64.o [4]
+__iar_Stoflt            0x08006071  0x1c8  Code  Gb  iar_Stoflt.o [3]
+__iar_Stopfx            0x08005f4d  0x122  Code  Gb  iar_Stopfx.o [3]
+__iar_Stoulx            0x08002fbd  0x112  Code  Gb  iar_Stoulx.o [3]
+__iar_Stoxflt           0x08006239  0x1e6  Code  Gb  iar_Stoxflt.o [3]
+__iar_Stoxflt::digits   0x08006424   0x18  Data  Lc  iar_Stoxflt.o [3]
+__iar_Stoxflt::vals     0x0800643c   0x18  Data  Lc  iar_Stoxflt.o [3]
+__iar_Strchr            0x080011ad         Code  Gb  strchr.o [5]
+__iar_dadd              0x080019bd         Code  Gb  DblSub.o [4]
+__iar_data_init3        0x080066b5   0x28  Code  Gb  data_init.o [5]
+__iar_dsub              0x08001d35         Code  Gb  DblAdd.o [4]
+__iar_dsubStart         0x08001d47         Code  Gb  DblAdd.o [4]
+__iar_frexp             0x0800174d         Code  Gb  frexp.o [4]
+__iar_frexp64           0x08001741         Code  Gb  frexp.o [4]
+__iar_frexpl            0x0800174d         Code  Gb  frexp.o [4]
+__iar_globLocale        0x200001c4   0x48  Data  Lc  xlocale_c.o [3]
+__iar_global_Locale     0x08001139    0x4  Code  Gb  xlocale_c.o [3]
+__iar_ldexp64           0x08001811         Code  Gb  ldexp.o [4]
+__iar_lz77_init_single3
+                        0x08001083   0x7a  Code  Gb  lz77_init_single.o [5]
+__iar_program_start     0x08006751         Code  Gb  cstartup_M.o [5]
+__iar_scalbln64         0x08001811         Code  Gb  ldexp.o [4]
+__iar_scalbn64          0x08001811         Code  Gb  ldexp.o [4]
+__iar_systems$$module {Abs}
+                        0x00000001         Data  Gb  command line/config [2]
+__iar_zero_init3        0x08006675   0x40  Code  Gb  zero_init3.o [5]
+__low_level_init        0x0800671b    0x4  Code  Gb  low_level_init.o [3]
+__vector_table          0x08000000         Data  Gb  startup_stm32f10x_md.o [1]
+_call_main              0x08006709         Code  Gb  cmain.o [5]
+_exit                   0x08006725         Code  Gb  cexit.o [5]
+_gLocale_mblen          0x08001199    0x4  Code  Gb  xlocale_c.o [3]
+_gLocale_mblenInt       0x08001161   0x34  Code  Gb  xlocale_c.o [3]
+_gLocale_wctomb         0x0800119d    0x4  Code  Gb  xlocale_c.o [3]
+_gLocale_wctombInt      0x08001195    0x4  Code  Gb  xlocale_c.o [3]
+_main                   0x08006717         Code  Gb  cmain.o [5]
+abort                   0x08001d1b    0x6  Code  Gb  abort.o [3]
+atof                    0x08005239    0x8  Code  Gb  strto64.o [4]
+atoi                    0x080030d5    0x2  Code  Gb  iar_Stoulx.o [3]
+basic_mode              0x080040b1   0x40  Code  Gb  main.o [1]
+buf                     0x20000178   0x14  Data  Gb  water_intake.o [1]
+buffer                  0x20000f84   0x64  Data  Gb  Lora_parse.o [1]
+cal_crc                 0x20000e6c    0x2  Data  Gb  Lora_parse.o [1]
+calibration_mode        0x20001375    0x1  Data  Gb  main.o [1]
+clocks                  0x20001350   0x14  Data  Gb  hw_control.o [1]
+crc_index               0x20000e70    0x2  Data  Gb  Lora_parse.o [1]
+current_time            0x20001378    0x4  Data  Gb  main.o [1]
+cycleCounterInit        0x08002c07   0x32  Code  Gb  hw_control.o [1]
+ddiv                    0x08004e9b   0x7a  Code  Lc  strto64.o [4]
+delay_ms                0x08002c91   0x1e  Code  Gb  hw_control.o [1]
+delay_t                 0x08002c4d   0x32  Code  Lc  hw_control.o [1]
+delay_us                0x08002c7f   0x12  Code  Gb  hw_control.o [1]
+digits                  0x080030e0   0x28  Data  Lc  iar_Stoulx.o [3]
+dmul                    0x08004e21   0x7a  Code  Lc  strto64.o [4]
+eeprom_default_value    0x08003811   0x50  Code  Gb  water_intake_mram_menage.o [1]
+error_st                0x2000136c    0x8  Data  Gb  Lora_parse.o [1]
+exit                    0x0800671f    0x4  Code  Gb  exit.o [3]
+frexp                   0x08001741         Code  Gb  frexp.o [4]
+frexpl                  0x08001741         Code  Gb  frexp.o [4]
+init_send               0x2000006e    0x1  Data  Gb  Lora_parse.o [1]
+intake_Run              0x080057c5  0x51a  Code  Gb  water_intake.o [1]
+intake_Run::In_rfid     0x20000164    0x2  Data  Lc  water_intake.o [1]
+intake_Run::Incow_ir_cnt
+                        0x20000166    0x2  Data  Lc  water_intake.o [1]
+intake_Run::Incow_rfid_cnt
+                        0x20000168    0x2  Data  Lc  water_intake.o [1]
+intake_Run::Intake_head
+                        0x20000162    0x2  Data  Lc  water_intake.o [1]
+intake_Run::complete_intake
+                        0x20000159    0x1  Data  Lc  water_intake.o [1]
+intake_Run::reenter_cnt
+                        0x2000016a    0x2  Data  Lc  water_intake.o [1]
+intake_Run::start_weight
+                        0x2000016c    0x2  Data  Lc  water_intake.o [1]
+intake_Run::xxx_cnt     0x2000016e    0x2  Data  Lc  water_intake.o [1]
+isalpha                 0x08006573   0x14  Code  Gb  isalpha.o [3]
+isspace                 0x08004cb1   0x14  Code  Gb  isspace.o [3]
+ldexp                   0x08001811         Code  Gb  ldexp.o [4]
+ldexpl                  0x08001811         Code  Gb  ldexp.o [4]
+lll_eeprom_init         0x080037d1   0x3c  Code  Gb  water_intake_mram_menage.o [1]
+load_eeprom             0x08003861   0x50  Code  Gb  water_intake_mram_menage.o [1]
+local_index             0x20000e6e    0x2  Data  Gb  Lora_parse.o [1]
+localeconv              0x080011a1    0x4  Code  Gb  xlocale_c.o [3]
+loop                    0x080040f1   0xaa  Code  Gb  main.o [1]
+lora_init               0x08001eb1   0xa6  Code  Gb  Lora_parse.o [1]
+lora_parse              0x08001f5d  0x3b2  Code  Gb  Lora_parse.o [1]
+lora_tick               0x20000070    0x2  Data  Gb  Lora_parse.o [1]
+main                    0x08004281   0x16  Code  Gb  main.o [1]
+main_key_wait           0x20000086    0x1  Data  Gb  menu.o [1]
+memchr                  0x08001261         Code  Gb  memchr.o [5]
+menu_key_wait           0x20000085    0x1  Data  Gb  menu.o [1]
+menu_list               0x0800563d   0x3e  Code  Gb  menu.o [1]
+millis                  0x08002c39    0x6  Code  Gb  hw_control.o [1]
+mmqt                    0x20000e54   0x10  Data  Gb  Lora_parse.o [1]
+ndigs                   0x08003108   0x28  Data  Lc  iar_Stoulx.o [3]
+parse_crc               0x20000f80    0x4  Data  Gb  Lora_parse.o [1]
+parse_rfid              0x08005dd9   0x98  Code  Gb  Rfid_reader.o [1]
+parse_rfid::rf_status   0x20001178    0x1  Data  Lc  Rfid_reader.o [1]
+parse_rfid_08IMF::rf_buf2
+                        0x2000020c    0x8  Data  Lc  Rfid_reader.o [1]
+parse_rfid_08IMF::rf_buf2_cnt
+                        0x20000215    0x1  Data  Lc  Rfid_reader.o [1]
+parse_rfid_08IMF::rf_status2
+                        0x20000214    0x1  Data  Lc  Rfid_reader.o [1]
+parse_weight::cntx      0x2000121c    0x1  Data  Lc  w_weight.o [1]
+parse_weight::dummy_cnt
+                        0x2000121e    0x1  Data  Lc  w_weight.o [1]
+parse_weight::stable_ch_flag_old
+                        0x2000121d    0x1  Data  Lc  w_weight.o [1]
+parse_weight_interrupt  0x08003ba9   0x3c  Code  Gb  w_weight.o [1]
+parse_weight_interrupt::cntx
+                        0x2000121f    0x1  Data  Lc  w_weight.o [1]
+pcnt                    0x2000137c    0x4  Data  Gb  gpio.o [1]
+pcnt2                   0x20001380    0x4  Data  Gb  gpio.o [1]
+pows                    0x08005240   0x48  Data  Lc  strto64.o [4]
+ptr                     0x20000f7c    0x4  Data  Gb  Lora_parse.o [1]
+read_RTC                0x080033a1   0x32  Code  Gb  KHH_stm103_RTC.o [1]
+recv_line_buf           0x20000e74  0x100  Data  Gb  Lora_parse.o [1]
+recv_line_cnt           0x20000e68    0x1  Data  Gb  Lora_parse.o [1]
+rf_buf                  0x2000117c   0xa0  Data  Lc  Rfid_reader.o [1]
+rfid                    0x20000160    0x2  Data  Gb  water_intake.o [1]
+rfid_dequeue            0x08005dbb   0x1e  Code  Gb  Rfid_reader.o [1]
+rfid_is_empty           0x08005da5   0x16  Code  Gb  Rfid_reader.o [1]
+save_all_eeprom         0x080038b1   0x10  Code  Gb  water_intake_mram_menage.o [1]
+scalbln                 0x08001811         Code  Gb  ldexp.o [4]
+scalblnl                0x08001811         Code  Gb  ldexp.o [4]
+scalbn                  0x08001811         Code  Gb  ldexp.o [4]
+scalbnl                 0x08001811         Code  Gb  ldexp.o [4]
+scale                   0x080008eb   0x46  Code  Lc  xprintffull.o [3]
+search_address          0x20000072    0x2  Data  Gb  Lora_parse.o [1]
+sec                     0x2000130c    0x4  Data  Gb  KHH_stm103_RTC.o [1]
+sec_hand                0x2000138c    0x4  Data  Lc  xfail_s.o [3]
+send_rfid               0x20001394    0x2  Data  Gb  main.o [1]
+setting                 0x08003eb1   0x9c  Code  Gb  main.o [1]
+setting_mode            0x080053c1  0x27a  Code  Gb  menu.o [1]
+setting_mode::sw_long_add
+                        0x2000008a    0x2  Data  Lc  menu.o [1]
+setup                   0x08002f5d   0x2e  Code  Gb  hw_control.o [1]
+sprintf                 0x08003131   0x40  Code  Gb  sprintf.o [3]
+strchr                  0x080011ad         Code  Gb  strchr.o [5]
+strcspn                 0x08005f2b   0x22  Code  Gb  strcspn.o [3]
+string_crc              0x20000e64    0x4  Data  Gb  Lora_parse.o [1]
+strlen                  0x08001221         Code  Gb  strlen.o [5]
+strspn                  0x08005f09   0x22  Code  Gb  strspn.o [3]
+strstr                  0x08002f8b   0x30  Code  Gb  strstr.o [3]
+strtok_r                0x08004de1   0x38  Code  Gb  strtok_r.o [3]
+sysTickUptime           0x20000008    0x4  Data  Gb  hw_control.o [1]
+t1                      0x20000f74    0x4  Data  Gb  Lora_parse.o [1]
+t2                      0x20000f78    0x4  Data  Gb  Lora_parse.o [1]
+tick                    0x20000174    0x4  Data  Gb  water_intake.o [1]
+timer_1000ms_loop       0x080040a3    0xc  Code  Gb  main.o [1]
+timer_100ms_loop        0x08004059   0x4a  Code  Gb  main.o [1]
+timer_10ms_loop         0x08003f4d  0x10c  Code  Gb  main.o [1]
+timer_check::tick_1000ms
+                        0x20000004    0x2  Data  Lc  hw_control.o [1]
+timer_check::tick_100ms
+                        0x20000002    0x2  Data  Lc  hw_control.o [1]
+timer_check::tick_10ms  0x20000000    0x2  Data  Lc  hw_control.o [1]
+tolower                 0x08004cc5   0x14  Code  Gb  tolower.o [3]
+uart1_dequeue           0x08002933   0x18  Code  Gb  uart.o [1]
+uart1_is_empty          0x0800291d   0x16  Code  Gb  uart.o [1]
+uart3_dequeue           0x08002961   0x18  Code  Gb  uart.o [1]
+uart3_is_empty          0x0800294b   0x16  Code  Gb  uart.o [1]
+water_fill_delay        0x20001397    0x1  Data  Gb  water_intake.o [1]
+weight                  0x2000015c    0x2  Data  Gb  water_intake.o [1]
+weight_ParseData_ch1    0x08003af1   0xb8  Code  Gb  w_weight.o [1]
+weight_ch1              0x200012d6    0x2  Data  Gb  w_weight.o [1]
+weight_ch2              0x200012da    0x2  Data  Gb  w_weight.o [1]
+wp_buf                  0x2000002c   0x40  Data  Gb  Lora_parse.o [1]
+
+
+[1] = C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj
+[2] = command line
+[3] = dl7M_tlf.a
+[4] = m7M_tl.a
+[5] = rt7M_tl.a
+[6] = shb_l.a
+
+  26 580 bytes of readonly  code memory
+     241 bytes of readonly  data memory
+   6 040 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
