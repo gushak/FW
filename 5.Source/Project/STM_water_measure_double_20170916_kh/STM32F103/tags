@@ -1,0 +1,567 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.7	//
+AHBPrescTable	system_stm32f10x.c	/^__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};$/;"	v
+BE	spi_flash.c	17;"	d	file:
+Base_time	Lora_parse.c	/^volatile tm_struct Base_time;$/;"	v
+BusFault_Handler	stm32f10x_it.c	/^void BusFault_Handler(void)$/;"	f
+CHANNELwaiting_time	hw_control.h	87;"	d
+CHANNELwaiting_time_MAX	hw_control.h	88;"	d
+CHAR2NUM	Lora_parse.c	14;"	d	file:
+CHARISHEXNUM	Lora_parse.c	13;"	d	file:
+CHARISNUM	Lora_parse.c	12;"	d	file:
+CIRCLE_MAIN	main.c	5;"	d	file:
+CONFIG_STRUCT	khh_eeprom.h	/^typedef struct Config_Struct CONFIG_STRUCT;$/;"	t	typeref:struct:Config_Struct
+CON_Water_eat	hw_control.h	90;"	d
+CON_Water_eat_MAX	hw_control.h	91;"	d
+Co2	w_weight.c	/^uint8_t Co2[5];$/;"	v
+Co2_value	w_weight.c	/^uint16_t Co2_value = 0;$/;"	v
+Cols	khh_lcd.c	/^	uint8_t Cols;$/;"	m	struct:__anon1	file:
+Config	khh_eeprom.c	/^CONFIG_STRUCT Config, Config_Old;		\/\/ Holds configuration (from eeProm)$/;"	v
+Config_Old	khh_eeprom.c	/^CONFIG_STRUCT Config, Config_Old;		\/\/ Holds configuration (from eeProm)$/;"	v
+Config_Struct	khh_eeprom.h	/^struct Config_Struct$/;"	s
+Config_Struct::Value	khh_eeprom.h	/^	uint16_t Value[MAX_EEPROM_ADDRESS];$/;"	m	struct:Config_Struct
+Config_Struct::setup	khh_eeprom.h	/^	uint16_t setup;$/;"	m	struct:Config_Struct
+ContentLength	Lora_parse.c	/^volatile uint16_t ContentLength = 0;$/;"	v
+DEVICE_MOTOR_TIMEVOER	hw_control.h	98;"	d
+DEVICE_STATUS_OK	hw_control.h	96;"	d
+DEVICE_WATER_MAX_TIMEOVER	hw_control.h	97;"	d
+DataVar	eeprom.c	/^uint16_t DataVar = 0;$/;"	v
+DateToInt	KHH_stm103_RTC.c	/^uint16_t DateToInt(tm_struct *pDate)$/;"	f
+DaysToMonth	RTC_to_sec.c	/^u32 DaysToMonth[13] = {0,31,59,90,120,151,181,212,243,273,304,334,365};$/;"	v
+DebugMon_Handler	stm32f10x_it.c	/^void DebugMon_Handler(void)$/;"	f
+Delay	hw_control.c	/^void Delay(uint32_t ms)$/;"	f
+DisplayControl	khh_lcd.c	/^	uint8_t DisplayControl;$/;"	m	struct:__anon1	file:
+DisplayFunction	khh_lcd.c	/^	uint8_t DisplayFunction;$/;"	m	struct:__anon1	file:
+DisplayMode	khh_lcd.c	/^	uint8_t DisplayMode;$/;"	m	struct:__anon1	file:
+Dummy_Byte	spi_flash.c	21;"	d	file:
+EEPROM_CHECK_VALUE	khh_eeprom.h	7;"	d
+EEPROM_DATA_START_POS	khh_eeprom.h	6;"	d
+EEPROM_START_ADDRESS	eeprom.h	38;"	d
+EEPROM_WRITE_DELAY	khh_eeprom.h	8;"	d
+EE_FindValidPage	eeprom.c	/^static uint16_t EE_FindValidPage(uint8_t Operation)$/;"	f	file:
+EE_Format	eeprom.c	/^static FLASH_Status EE_Format(void)$/;"	f	file:
+EE_Init	eeprom.c	/^uint16_t EE_Init(void)$/;"	f
+EE_PageTransfer	eeprom.c	/^static uint16_t EE_PageTransfer(uint16_t VirtAddress, uint16_t Data)$/;"	f	file:
+EE_ReadVariable	eeprom.c	/^uint16_t EE_ReadVariable(uint16_t VirtAddress, uint16_t* Data)$/;"	f
+EE_VerifyPageFullWriteVariable	eeprom.c	/^static uint16_t EE_VerifyPageFullWriteVariable(uint16_t VirtAddress, uint16_t Data)$/;"	f	file:
+EE_WriteVariable	eeprom.c	/^uint16_t EE_WriteVariable(uint16_t VirtAddress, uint16_t Data)$/;"	f
+ERASED	eeprom.h	56;"	d
+EXTI0_IRQHandler	gpio.c	/^void EXTI0_IRQHandler(void)$/;"	f
+EXTI1_IRQHandler	gpio.c	/^void EXTI1_IRQHandler(void)$/;"	f
+EXTI9_0_Config	gpio.c	/^void EXTI9_0_Config(void) $/;"	f
+FET1_FL	gpio.h	6;"	d
+FET1_OFF	gpio.h	4;"	d
+FET1_ON	gpio.h	5;"	d
+FET2_FL	gpio.h	10;"	d
+FET2_OFF	gpio.h	8;"	d
+FET2_ON	gpio.h	9;"	d
+FET3_FL	gpio.h	14;"	d
+FET3_OFF	gpio.h	12;"	d
+FET3_ON	gpio.h	13;"	d
+FET4_FL	gpio.h	18;"	d
+FET4_OFF	gpio.h	16;"	d
+FET4_ON	gpio.h	17;"	d
+FET5_FL	gpio.h	22;"	d
+FET5_OFF	gpio.h	20;"	d
+FET5_ON	gpio.h	21;"	d
+FET_FL_cnt	main.c	/^volatile uint16_t FET_FL_cnt = 0;$/;"	v
+FET_value	main.c	/^volatile uint16_t FET_value[10]; 		$/;"	v
+FLASH_Statusx	spi_flash.c	/^uint8_t FLASH_Statusx = 0;$/;"	v
+FULL_WATER_OVER_TIME	hw_control.h	93;"	d
+FULL_WATER_OVER_TIME_MAX	hw_control.h	94;"	d
+FULL_Water_Error	main.c	/^volatile uint8_t FULL_Water_Error = 0;$/;"	v
+Full_water_check_cnt	main.c	/^volatile uint16_t Full_water_check_cnt = 0;$/;"	v
+GATE_In_gap_time	hw_control.h	73;"	d
+GATE_In_gap_time_MAX	hw_control.h	74;"	d
+GATE_motion_time	hw_control.h	67;"	d
+GATE_motion_time_MAX	hw_control.h	68;"	d
+GATE_waiting_time	hw_control.h	70;"	d
+GATE_waiting_time_MAX	hw_control.h	71;"	d
+GPIO_CS	spi_flash.h	33;"	d
+GPIO_Configuration	hw_control.c	/^void GPIO_Configuration(void)  $/;"	f
+GPIO_Pin_CS	spi_flash.h	35;"	d
+Gate_close	lrk_motor.c	/^void Gate_close()$/;"	f
+Gate_open	lrk_motor.c	/^void Gate_open(uint16_t m_cnt)$/;"	f
+Gate_open_Delay	lrk_motor.c	/^void Gate_open_Delay(uint16_t m_cnt)$/;"	f
+GetTime_min	KHH_stm103_RTC.c	/^uint16_t GetTime_min(void)		\/\/시간 * 60 + 분$/;"	f
+GetTime_sec	KHH_stm103_RTC.c	/^uint16_t GetTime_sec(void)		\/\/분 * 60 + 초$/;"	f
+Get_Date	KHH_stm103_RTC.c	/^uint16_t Get_Date(void)$/;"	f
+HardFault_Handler	stm32f10x_it.c	/^void HardFault_Handler(void)$/;"	f
+Humidity	w_weight.c	/^uint8_t Humidity[5];$/;"	v
+INPUT1	gpio.h	37;"	d
+INPUT2	gpio.h	38;"	d
+INPUTM	gpio.h	24;"	d
+Input_cnt	main.c	/^volatile uint16_t Input_cnt[4];$/;"	v
+Input_value	lrk_motor.c	/^volatile uint8_t Input_value[2]={0,};$/;"	v
+IntToDate	KHH_stm103_RTC.c	/^void IntToDate(tm_struct *pDate, uint16_t Value)$/;"	f
+Intake_Head	water_intake_mram_menage.c	/^uint16_t Intake_Head(void)$/;"	f
+Intake_head_increment	water_intake_mram_menage.c	/^void Intake_head_increment()$/;"	f
+Intake_page_all_enable	water_intake_mram_menage.c	/^void Intake_page_all_enable()$/;"	f
+Intake_page_all_init	water_intake_mram_menage.c	/^void Intake_page_all_init()$/;"	f
+LCD_GPIO_init	khh_lcd.c	/^static void LCD_GPIO_init(void)$/;"	f	file:
+LCD_init	khh_lcd.c	/^void LCD_init(void)$/;"	f
+LED1_FL	gpio.h	35;"	d
+LED1_OFF	gpio.h	34;"	d
+LED1_ON	gpio.h	33;"	d
+LED_FL	gpio.h	31;"	d
+LED_OFF	gpio.h	30;"	d
+LED_ON	gpio.h	29;"	d
+Lora_wintake	Lora_parse.c	/^WATER_ITAKE_TABLE_STRUCT Lora_wintake;$/;"	v
+MAIN_LOOP_TIME	main.c	3;"	d	file:
+MAX_EEPROM_ADDRESS	khh_eeprom.h	4;"	d
+MAX_Value	menu.c	/^volatile uint16_t MAX_Value[MAX_EEPROM_ADDRESS]  = { WATER_ADDRESS_MAX, R_waiting_time_MAX, $/;"	v
+MENU_CNT	menu.c	84;"	d	file:
+MIN_Value	menu.c	/^volatile uint16_t MIN_Value[MAX_EEPROM_ADDRESS] = {0,0,0,0,0,0,0,0,0,0,0};$/;"	v
+MRAM_CS_GPIO_CLK	water_intake_mram_menage.h	21;"	d
+MRAM_CS_GPIO_PORT	water_intake_mram_menage.h	20;"	d
+MRAM_CS_PIN	water_intake_mram_menage.h	19;"	d
+MRAM_EEPROM_ADDRESS	water_intake_mram_menage.c	9;"	d	file:
+MRAM_EEPROM_ENABLE	hw_control.h	4;"	d
+MRAM_HOLD_CLK	water_intake_mram_menage.h	25;"	d
+MRAM_HOLD_PIN	water_intake_mram_menage.h	23;"	d
+MRAM_HOLD_PORT	water_intake_mram_menage.h	24;"	d
+MRAM_INTAKE_HEAD_ADDRESS	water_intake_mram_menage.c	7;"	d	file:
+MRAM_INTAKE_MAX_ADDRESS	water_intake.h	4;"	d
+MRAM_INTAKE_START_ADDRESS	water_intake_mram_menage.c	6;"	d	file:
+MRAM_MAX_ADDRESS	water_intake_mram_menage.c	4;"	d	file:
+MRAM_SPI	water_intake_mram_menage.h	4;"	d
+MRAM_SPI_CLK	water_intake_mram_menage.h	5;"	d
+MRAM_SPI_MISO_GPIO_CLK	water_intake_mram_menage.h	13;"	d
+MRAM_SPI_MISO_GPIO_PORT	water_intake_mram_menage.h	12;"	d
+MRAM_SPI_MISO_PIN	water_intake_mram_menage.h	11;"	d
+MRAM_SPI_MOSI_GPIO_CLK	water_intake_mram_menage.h	17;"	d
+MRAM_SPI_MOSI_GPIO_PORT	water_intake_mram_menage.h	16;"	d
+MRAM_SPI_MOSI_PIN	water_intake_mram_menage.h	15;"	d
+MRAM_SPI_SCK_GPIO_CLK	water_intake_mram_menage.h	9;"	d
+MRAM_SPI_SCK_GPIO_PORT	water_intake_mram_menage.h	8;"	d
+MRAM_SPI_SCK_PIN	water_intake_mram_menage.h	7;"	d
+MemManage_Handler	stm32f10x_it.c	/^void MemManage_Handler(void)$/;"	f
+Menu	menu.c	/^volatile uint8_t Menu = 0;  $/;"	v
+Mode_delay	main.c	/^volatile uint16_t Mode_delay = 0;$/;"	v
+Mode_flag	main.c	/^volatile uint8_t Mode_flag = 0;$/;"	v
+Mram_intake_address	water_intake_mram_menage.c	/^volatile uint16_t Mram_intake_address[MRAM_INTAKE_MAX_ADDRESS];$/;"	v
+NFC_Reader_Ok	main.c	/^volatile uint8_t NFC_Reader_Ok = 0;$/;"	v
+NMI_Handler	stm32f10x_it.c	/^void NMI_Handler(void)$/;"	f
+NO_VALID_PAGE	eeprom.h	53;"	d
+NVIC_Configuration	hw_control.c	/^void NVIC_Configuration(void)               $/;"	f
+Now	KHH_stm103_RTC.c	/^volatile tm_struct Now;$/;"	v
+NumbOfVar	eeprom.h	68;"	d
+OPEN_MOTOR	lrk_motor.c	3;"	d	file:
+Oper_Cnt	water_intake.c	/^volatile uint8_t  Oper_Cnt=0;		 $/;"	v
+PAGE0	eeprom.h	49;"	d
+PAGE0_BASE_ADDRESS	eeprom.h	42;"	d
+PAGE0_END_ADDRESS	eeprom.h	43;"	d
+PAGE1	eeprom.h	50;"	d
+PAGE1_BASE_ADDRESS	eeprom.h	45;"	d
+PAGE1_END_ADDRESS	eeprom.h	46;"	d
+PAGE_FULL	eeprom.h	65;"	d
+PAGE_SIZE	eeprom.h	32;"	d
+PAGE_SIZE	eeprom.h	34;"	d
+PUTCHAR_PROTYPE	uart.c	7;"	d	file:
+PUTCHAR_PROTYPE	uart.c	9;"	d	file:
+ParseNumber_W5500	Lora_parse.c	/^int32_t ParseNumber_W5500(char* ptr, uint8_t* cnt) {$/;"	f
+Parse_st	w_weight.c	/^Wight_struct Parse_st;$/;"	v
+PendSV_Handler	stm32f10x_it.c	/^void PendSV_Handler(void)$/;"	f
+RCC_APB2Periph_GPIO_CS	spi_flash.h	34;"	d
+RDID	spi_flash.c	15;"	d	file:
+RDSR	spi_flash.c	14;"	d	file:
+READ	spi_flash.c	13;"	d	file:
+READ_FROM_VALID_PAGE	eeprom.h	61;"	d
+RECEIVE_DATA	eeprom.h	57;"	d
+RFID_BUFFER_SIZE	Rfid_reader.c	3;"	d	file:
+RFID_TIMEOVER	hw_control.h	80;"	d
+RFID_TIMEOVER_MAX	hw_control.h	81;"	d
+RFID_UNKNOWN	water_intake.h	5;"	d
+RFID_rx_buffer	Rfid_reader.c	/^__IO uint16_t RFID_rx_buffer[RFID_BUFFER_SIZE];$/;"	v
+RFID_rx_point_head	Rfid_reader.c	/^uint32_t RFID_rx_point_head = 0, RFID_rx_point_tail = 0;$/;"	v
+RFID_rx_point_tail	Rfid_reader.c	/^uint32_t RFID_rx_point_head = 0, RFID_rx_point_tail = 0;$/;"	v
+RTC_BinaryToDate	RTC_to_sec.c	/^void RTC_BinaryToDate(u32 binary,tm_struct *datetime) $/;"	f
+RTC_Configuration	KHH_stm103_RTC.c	/^void RTC_Configuration(void)$/;"	f
+RTC_DateToBinary	RTC_to_sec.c	/^u32 RTC_DateToBinary(tm_struct *datetime) $/;"	f
+RTC_Init	KHH_stm103_RTC.c	/^void RTC_Init(void)$/;"	f
+R_IR_check	main.c	/^uint8_t R_IR_check()$/;"	f
+R_MaxWater_check	main.c	/^uint8_t R_MaxWater_check()$/;"	f
+R_rfid_check	main.c	/^uint16_t R_rfid_check(void)$/;"	f
+R_rfid_clear	main.c	/^void R_rfid_clear(void)$/;"	f
+R_setting_menu	main.c	/^void R_setting_menu(void)$/;"	f
+R_waiting_time	hw_control.h	64;"	d
+R_waiting_time_MAX	hw_control.h	65;"	d
+Read_eeprom	hw_control.h	33;"	d
+Recv_data_ok	Lora_parse.c	/^volatile uint8_t Recv_data_ok = 0;$/;"	v
+Recv_data_order	Lora_parse.c	/^volatile uint8_t Recv_data_order = 0;$/;"	v
+Recv_parse_num	Lora_parse.c	/^volatile uint8_t Recv_parse_num = 0;$/;"	v
+Rows	khh_lcd.c	/^	uint8_t Rows;$/;"	m	struct:__anon1	file:
+SE	spi_flash.c	16;"	d	file:
+SPI_FLASH_BufferRead	spi_flash.c	/^void SPI_FLASH_BufferRead(uint8_t* pBuffer, uint32_t ReadAddr, uint16_t NumByteToRead)$/;"	f
+SPI_FLASH_CS_HIGH	spi_flash.h	42;"	d
+SPI_FLASH_CS_LOW	spi_flash.h	40;"	d
+SPI_FLASH_Init	spi_flash.c	/^void SPI_FLASH_Init(void)$/;"	f
+SPI_FLASH_PageSize	spi_flash.c	5;"	d	file:
+SPI_FLASH_PageWrite	spi_flash.c	/^uint8_t SPI_FLASH_PageWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite)$/;"	f
+SPI_FLASH_ReadByte	spi_flash.c	/^uint8_t SPI_FLASH_ReadByte(void)$/;"	f
+SPI_FLASH_SendByte	spi_flash.c	/^uint8_t SPI_FLASH_SendByte(uint8_t byte)$/;"	f
+SPI_FLASH_SendHalfWord	spi_flash.c	/^uint16_t SPI_FLASH_SendHalfWord(uint16_t HalfWord)$/;"	f
+SPI_FLASH_StartReadSequence	spi_flash.c	/^void SPI_FLASH_StartReadSequence(uint32_t ReadAddr)$/;"	f
+SPI_FLASH_WaitForWriteEnd	spi_flash.c	/^uint8_t SPI_FLASH_WaitForWriteEnd(void)$/;"	f
+SPI_FLASH_WriteDisable	spi_flash.c	/^void SPI_FLASH_WriteDisable(void)$/;"	f
+SPI_FLASH_WriteEnable	spi_flash.c	/^void SPI_FLASH_WriteEnable(void)$/;"	f
+SVC_Handler	stm32f10x_it.c	/^void SVC_Handler(void)$/;"	f
+SW1	gpio.h	40;"	d
+SW2	gpio.h	41;"	d
+SW3	gpio.h	42;"	d
+SW_Cnt	menu.c	/^volatile uint8_t SW_Cnt[3] = {0,}; 	$/;"	v
+SW_L	menu.c	/^volatile uint8_t SW_L[3] = {0,};	$/;"	v
+SW_LONG_CNT	menu.c	9;"	d	file:
+SW_Push	menu.c	/^volatile uint8_t SW_Push[3] = {0,}; $/;"	v
+SW_S	menu.c	/^volatile uint8_t SW_S[3] = {0,};	$/;"	v
+SW_check	menu.c	/^void SW_check(void)$/;"	f
+SYSCLK_FREQ_24MHz	system_stm32f10x.c	108;"	d	file:
+SYSCLK_FREQ_72MHz	system_stm32f10x.c	115;"	d	file:
+Send_lora_packet	Lora_parse.c	/^void Send_lora_packet(void)$/;"	f
+Send_ok_data_save	Lora_parse.c	/^void Send_ok_data_save(void)$/;"	f
+Send_status_packet	Lora_parse.c	/^void Send_status_packet(WATER_ITAKE_TABLE_STRUCT w)$/;"	f
+Send_wintake_packet	Lora_parse.c	/^void Send_wintake_packet(WATER_ITAKE_TABLE_STRUCT w)$/;"	f
+SetSysClock	system_stm32f10x.c	/^static void SetSysClock(void)$/;"	f	file:
+SetSysClockTo24	system_stm32f10x.c	/^static void SetSysClockTo24(void)$/;"	f	file:
+SetSysClockTo36	system_stm32f10x.c	/^static void SetSysClockTo36(void)$/;"	f	file:
+SetSysClockTo48	system_stm32f10x.c	/^static void SetSysClockTo48(void)$/;"	f	file:
+SetSysClockTo56	system_stm32f10x.c	/^static void SetSysClockTo56(void)$/;"	f	file:
+SetSysClockTo72	system_stm32f10x.c	/^static void SetSysClockTo72(void)$/;"	f	file:
+SetSysClockToHSE	system_stm32f10x.c	/^static void SetSysClockToHSE(void)$/;"	f	file:
+Setting_delay	menu.c	/^volatile uint16_t Setting_delay = 0;$/;"	v
+Setting_enable	menu.c	/^volatile uint8_t Setting_enable = 0;    $/;"	v
+Setting_time_out	main.c	/^volatile uint8_t Setting_time_out = 0;$/;"	v
+Stable_ch_flag	main.c	/^volatile uint8_t Stable_ch_flag = 0;$/;"	v
+Stable_run_flag	main.c	/^volatile uint8_t Stable_run_flag = 0;$/;"	v
+Stable_water_delay	main.c	/^volatile uint16_t Stable_water_delay = 0;$/;"	v
+Stable_weight	water_intake.c	/^volatile uint16_t Stable_weight = 0, weight = 0;$/;"	v
+Stable_weight_ch1	w_weight.c	/^volatile uint16_t Stable_weight_ch1 = 0, weight_ch1 = 0;$/;"	v
+Stable_weight_ch2	w_weight.c	/^volatile uint16_t Stable_weight_ch2 = 0, weight_ch2 = 0;$/;"	v
+Sub_lora_process	Lora_parse.c	/^void Sub_lora_process(void)$/;"	f
+SysTick_Handler	hw_control.c	/^void SysTick_Handler(void)         $/;"	f
+SystemCoreClock	system_stm32f10x.c	/^  uint32_t SystemCoreClock         = HSI_VALUE;        \/*!< System Clock Frequency (Core Clock) *\/$/;"	v
+SystemCoreClock	system_stm32f10x.c	/^  uint32_t SystemCoreClock         = SYSCLK_FREQ_24MHz;        \/*!< System Clock Frequency (Core Clock) *\/$/;"	v
+SystemCoreClock	system_stm32f10x.c	/^  uint32_t SystemCoreClock         = SYSCLK_FREQ_36MHz;        \/*!< System Clock Frequency (Core Clock) *\/$/;"	v
+SystemCoreClock	system_stm32f10x.c	/^  uint32_t SystemCoreClock         = SYSCLK_FREQ_48MHz;        \/*!< System Clock Frequency (Core Clock) *\/$/;"	v
+SystemCoreClock	system_stm32f10x.c	/^  uint32_t SystemCoreClock         = SYSCLK_FREQ_56MHz;        \/*!< System Clock Frequency (Core Clock) *\/$/;"	v
+SystemCoreClock	system_stm32f10x.c	/^  uint32_t SystemCoreClock         = SYSCLK_FREQ_72MHz;        \/*!< System Clock Frequency (Core Clock) *\/$/;"	v
+SystemCoreClock	system_stm32f10x.c	/^  uint32_t SystemCoreClock         = SYSCLK_FREQ_HSE;        \/*!< System Clock Frequency (Core Clock) *\/$/;"	v
+SystemCoreClockUpdate	system_stm32f10x.c	/^void SystemCoreClockUpdate (void)$/;"	f
+SystemInit	system_stm32f10x.c	/^void SystemInit (void)$/;"	f
+SystemInit_ExtMemCtl	system_stm32f10x.c	/^void SystemInit_ExtMemCtl(void) $/;"	f
+TM_HD44780_1LINE	khh_lcd.h	146;"	d
+TM_HD44780_2LINE	khh_lcd.h	145;"	d
+TM_HD44780_4BITMODE	khh_lcd.h	144;"	d
+TM_HD44780_5x10DOTS	khh_lcd.h	147;"	d
+TM_HD44780_5x8DOTS	khh_lcd.h	148;"	d
+TM_HD44780_8BITMODE	khh_lcd.h	143;"	d
+TM_HD44780_BLINKON	khh_lcd.h	134;"	d
+TM_HD44780_BlinkOff	khh_lcd.c	/^void TM_HD44780_BlinkOff(void) {$/;"	f
+TM_HD44780_BlinkOn	khh_lcd.c	/^void TM_HD44780_BlinkOn(void) {$/;"	f
+TM_HD44780_CLEARDISPLAY	khh_lcd.h	116;"	d
+TM_HD44780_CURSORMOVE	khh_lcd.h	138;"	d
+TM_HD44780_CURSORON	khh_lcd.h	133;"	d
+TM_HD44780_CURSORSHIFT	khh_lcd.h	120;"	d
+TM_HD44780_Clear	khh_lcd.c	/^void TM_HD44780_Clear(void) {$/;"	f
+TM_HD44780_Cmd	khh_lcd.c	/^void TM_HD44780_Cmd(uint8_t cmd) {$/;"	f
+TM_HD44780_Cmd4bit	khh_lcd.c	/^void TM_HD44780_Cmd4bit(uint8_t cmd) {$/;"	f
+TM_HD44780_CreateChar	khh_lcd.c	/^void TM_HD44780_CreateChar(uint8_t location, uint8_t *data) {$/;"	f
+TM_HD44780_CursorOff	khh_lcd.c	/^void TM_HD44780_CursorOff(void) {$/;"	f
+TM_HD44780_CursorOn	khh_lcd.c	/^void TM_HD44780_CursorOn(void) {$/;"	f
+TM_HD44780_CursorSet	khh_lcd.c	/^void TM_HD44780_CursorSet(uint8_t col, uint8_t row) {$/;"	f
+TM_HD44780_D4_PIN	khh_lcd.h	89;"	d
+TM_HD44780_D4_PORT	khh_lcd.h	88;"	d
+TM_HD44780_D5_PIN	khh_lcd.h	94;"	d
+TM_HD44780_D5_PORT	khh_lcd.h	93;"	d
+TM_HD44780_D6_PIN	khh_lcd.h	99;"	d
+TM_HD44780_D6_PORT	khh_lcd.h	98;"	d
+TM_HD44780_D7_PIN	khh_lcd.h	104;"	d
+TM_HD44780_D7_PORT	khh_lcd.h	103;"	d
+TM_HD44780_DISPLAYCONTROL	khh_lcd.h	119;"	d
+TM_HD44780_DISPLAYMOVE	khh_lcd.h	137;"	d
+TM_HD44780_DISPLAYON	khh_lcd.h	132;"	d
+TM_HD44780_Data	khh_lcd.c	/^void TM_HD44780_Data(uint8_t data) {$/;"	f
+TM_HD44780_Delay	khh_lcd.h	113;"	d
+TM_HD44780_DisplayOff	khh_lcd.c	/^void TM_HD44780_DisplayOff(void) {$/;"	f
+TM_HD44780_DisplayOn	khh_lcd.c	/^void TM_HD44780_DisplayOn(void) {$/;"	f
+TM_HD44780_ENTRYLEFT	khh_lcd.h	127;"	d
+TM_HD44780_ENTRYMODESET	khh_lcd.h	118;"	d
+TM_HD44780_ENTRYRIGHT	khh_lcd.h	126;"	d
+TM_HD44780_ENTRYSHIFTDECREMENT	khh_lcd.h	129;"	d
+TM_HD44780_ENTRYSHIFTINCREMENT	khh_lcd.h	128;"	d
+TM_HD44780_E_BLINK	khh_lcd.h	112;"	d
+TM_HD44780_E_HIGH	khh_lcd.h	110;"	d
+TM_HD44780_E_LOW	khh_lcd.h	109;"	d
+TM_HD44780_E_PIN	khh_lcd.h	82;"	d
+TM_HD44780_E_PORT	khh_lcd.h	81;"	d
+TM_HD44780_FUNCTIONSET	khh_lcd.h	121;"	d
+TM_HD44780_H	khh_lcd.h	2;"	d
+TM_HD44780_Init	khh_lcd.c	/^void TM_HD44780_Init(uint8_t cols, uint8_t rows) {$/;"	f
+TM_HD44780_InitPins	khh_lcd.c	/^void TM_HD44780_InitPins(void) {$/;"	f
+TM_HD44780_MOVELEFT	khh_lcd.h	140;"	d
+TM_HD44780_MOVERIGHT	khh_lcd.h	139;"	d
+TM_HD44780_Options_t	khh_lcd.c	/^} TM_HD44780_Options_t;$/;"	t	typeref:struct:__anon1	file:
+TM_HD44780_Opts	khh_lcd.c	/^TM_HD44780_Options_t TM_HD44780_Opts;$/;"	v
+TM_HD44780_Put	khh_lcd.c	/^void TM_HD44780_Put(uint8_t x, uint8_t y, char str) {$/;"	f
+TM_HD44780_PutCustom	khh_lcd.c	/^void TM_HD44780_PutCustom(uint8_t x, uint8_t y, uint8_t location) {$/;"	f
+TM_HD44780_Puts	khh_lcd.c	/^void TM_HD44780_Puts(uint8_t x, uint8_t y, char* str) {$/;"	f
+TM_HD44780_RETURNHOME	khh_lcd.h	117;"	d
+TM_HD44780_RS_HIGH	khh_lcd.h	108;"	d
+TM_HD44780_RS_LOW	khh_lcd.h	107;"	d
+TM_HD44780_RS_PIN	khh_lcd.h	77;"	d
+TM_HD44780_RS_PORT	khh_lcd.h	76;"	d
+TM_HD44780_SETCGRAMADDR	khh_lcd.h	122;"	d
+TM_HD44780_SETDDRAMADDR	khh_lcd.h	123;"	d
+TM_HD44780_ScrollLeft	khh_lcd.c	/^void TM_HD44780_ScrollLeft(void) {$/;"	f
+TM_HD44780_ScrollRight	khh_lcd.c	/^void TM_HD44780_ScrollRight(void) {$/;"	f
+TM_RTC_H	KHH_stm103_RTC.h	31;"	d
+Temp	w_weight.c	/^uint8_t Temp[5];$/;"	v
+Tflag_1ms	hw_control.c	/^volatile uint32_t Tflag_1ms = 0;$/;"	v
+Time_Adjust	KHH_stm103_RTC.c	/^void Time_Adjust(tm_struct time)$/;"	f
+U1_rx_buffer	uart.c	/^__IO u8 U1_rx_buffer[USART_BUFFER_SIZE];$/;"	v
+U1_rx_point_head	uart.c	/^uint32_t U1_rx_point_head=0, U1_rx_point_tail=0;$/;"	v
+U1_rx_point_tail	uart.c	/^uint32_t U1_rx_point_head=0, U1_rx_point_tail=0;$/;"	v
+U2_rx_buffer	uart.c	/^__IO u8 U2_rx_buffer[USART_BUFFER_SIZE2];$/;"	v
+U2_rx_point_head	uart.c	/^uint32_t U2_rx_point_head=0, U2_rx_point_tail=0;$/;"	v
+U2_rx_point_tail	uart.c	/^uint32_t U2_rx_point_head=0, U2_rx_point_tail=0;$/;"	v
+U3_rx_buffer	uart.c	/^__IO u8 U3_rx_buffer[USART_BUFFER_SIZE3];$/;"	v
+U3_rx_point_head	uart.c	/^uint32_t U3_rx_point_head=0, U3_rx_point_tail=0;$/;"	v
+U3_rx_point_tail	uart.c	/^uint32_t U3_rx_point_head=0, U3_rx_point_tail=0;$/;"	v
+UART2_ENABLE	uart.c	150;"	d	file:
+UART3_ENABLE	uart.c	151;"	d	file:
+UART_init	uart.c	/^void UART_init(void)$/;"	f
+USART1_IRQHandler	uart.c	/^void USART1_IRQHandler(void)	$/;"	f
+USART2_IRQHandler	uart.c	/^void USART2_IRQHandler(void)	$/;"	f
+USART3_IRQHandler	uart.c	/^void USART3_IRQHandler(void)$/;"	f
+USART_BUFFER_SIZE	uart.c	19;"	d	file:
+USART_BUFFER_SIZE2	uart.c	20;"	d	file:
+USART_BUFFER_SIZE3	uart.c	21;"	d	file:
+Uart1_enqueue	uart.c	/^void Uart1_enqueue(u8 data)$/;"	f
+Uart1_putchar	uart.c	/^void Uart1_putchar(u8 c)$/;"	f
+Uart2_enqueue	uart.c	/^void Uart2_enqueue(u8 data)$/;"	f
+Uart3_enqueue	uart.c	/^void Uart3_enqueue(u8 data)$/;"	f
+Uart_putchar	uart.c	/^void Uart_putchar(USART_TypeDef* USARTx, char d)$/;"	f
+Uart_puts	uart.c	/^void Uart_puts(USART_TypeDef* USARTx, char *d)$/;"	f
+Uart_puts_length	uart.c	/^void Uart_puts_length(USART_TypeDef* USARTx, uint8_t *d, uint16_t cnt)$/;"	f
+UsageFault_Handler	stm32f10x_it.c	/^void UsageFault_Handler(void)$/;"	f
+VALID_PAGE	eeprom.h	58;"	d
+VECT_TAB_OFFSET	system_stm32f10x.c	128;"	d	file:
+VIEW_LOOP_TIME	main.c	4;"	d	file:
+Value	khh_eeprom.h	/^	uint16_t Value[MAX_EEPROM_ADDRESS];$/;"	m	struct:Config_Struct
+VirtAddVarTab	khh_eeprom.c	/^uint16_t VirtAddVarTab[NumbOfVar];	$/;"	v
+WATER_ADDRESS	hw_control.h	61;"	d
+WATER_ADDRESS_MAX	hw_control.h	62;"	d
+WATER_BOX_SINGLE	water_intake.c	30;"	d	file:
+WATER_ITAKE_TABLE_STRUCT	water_intake.h	/^typedef struct Water_Intake_Table_Struct WATER_ITAKE_TABLE_STRUCT;$/;"	t	typeref:struct:Water_Intake_Table_Struct
+WATER_MAX_wait_time	hw_control.h	76;"	d
+WATER_MAX_wait_time_MAX	hw_control.h	77;"	d
+WCNT0	gpio.h	26;"	d
+WCNT1	gpio.h	27;"	d
+WEIGHT_SINGLE	hw_control.h	5;"	d
+WEIGHT_TEMP	hw_control.h	84;"	d
+WEIGHT_TEMP_MAX	hw_control.h	85;"	d
+WRDI	spi_flash.c	11;"	d	file:
+WREN	spi_flash.c	10;"	d	file:
+WRITE	spi_flash.c	8;"	d	file:
+WRITE_IN_VALID_PAGE	eeprom.h	62;"	d
+WRSR	spi_flash.c	9;"	d	file:
+W_Intake	water_intake.c	/^WATER_ITAKE_TABLE_STRUCT W_Intake = {0,};$/;"	v
+W_Intake_Time	water_intake.c	/^uint32_t W_Intake_Time;$/;"	v
+W_Intake_Time_visit	water_intake.c	/^uint32_t W_Intake_Time_visit;$/;"	v
+W_Intake_old	water_intake.c	/^WATER_ITAKE_TABLE_STRUCT W_Intake_old = {0,};$/;"	v
+Water_Intake_Table_Struct	water_intake.h	/^struct Water_Intake_Table_Struct$/;"	s
+Water_Intake_Table_Struct::aqt1	water_intake.h	/^	uint16_t aqt1;					\/\/첨가제1 섭취량$/;"	m	struct:Water_Intake_Table_Struct
+Water_Intake_Table_Struct::aqt2	water_intake.h	/^	uint16_t aqt2;					\/\/첨가제2 섭취량$/;"	m	struct:Water_Intake_Table_Struct
+Water_Intake_Table_Struct::date	water_intake.h	/^	uint16_t date;				\/\/저장된 날짜 년월일(변환) $/;"	m	struct:Water_Intake_Table_Struct
+Water_Intake_Table_Struct::enter_time	water_intake.h	/^	uint16_t enter_time;		\/\/입장시간$/;"	m	struct:Water_Intake_Table_Struct
+Water_Intake_Table_Struct::feeder_num	water_intake.h	/^	uint8_t feeder_num;			\/\/섭취한 급이기 번호$/;"	m	struct:Water_Intake_Table_Struct
+Water_Intake_Table_Struct::index	water_intake.h	/^	uint16_t index;				\/\/일련번호 $/;"	m	struct:Water_Intake_Table_Struct
+Water_Intake_Table_Struct::intake_weight	water_intake.h	/^	uint16_t intake_weight;			\/\/섭취량 무게 \/\/개체 무게$/;"	m	struct:Water_Intake_Table_Struct
+Water_Intake_Table_Struct::rfid_num	water_intake.h	/^	uint16_t rfid_num;		\/\/개체 식별번호 RFID$/;"	m	struct:Water_Intake_Table_Struct
+Water_Intake_Table_Struct::status	water_intake.h	/^	uint8_t status;				\/\/급여조 상태		\/\/급이 테이블이 변경되었다면 해당 스테이터스 증가 시켜 변경내용을 전송할수 있도록 합니다. $/;"	m	struct:Water_Intake_Table_Struct
+Water_Intake_Table_Struct::visit_time	water_intake.h	/^	uint16_t visit_time;		\/\/체류시간$/;"	m	struct:Water_Intake_Table_Struct
+Water_Intake_Table_Struct::water_cnt1	water_intake.h	/^	uint16_t water_cnt1;		\/\/pcnt1\/\/qt1;				\/\/1사료 섭취량$/;"	m	struct:Water_Intake_Table_Struct
+Water_Intake_Table_Struct::water_cnt2	water_intake.h	/^	uint16_t water_cnt2;		 \/\/pcnt2\/\/qt2;				\/\/2사료 섭취량  $/;"	m	struct:Water_Intake_Table_Struct
+Water_Intake_Table_Struct::water_temp	water_intake.h	/^	uint16_t water_temp;	 \/\/weight\/\/temp\/\/qt3;				\/\/3사료 섭취량$/;"	m	struct:Water_Intake_Table_Struct
+Water_pcnt1_clear	gpio.c	/^void Water_pcnt1_clear(void)$/;"	f
+Water_pcnt1_read	gpio.c	/^uint32_t Water_pcnt1_read(void)$/;"	f
+Water_pcnt2_clear	gpio.c	/^void Water_pcnt2_clear(void)$/;"	f
+Water_pcnt2_read	gpio.c	/^uint32_t Water_pcnt2_read(void)$/;"	f
+Wbuf	w_weight.c	/^volatile char Wbuf[100];$/;"	v
+Wdt_init	watchdog.c	/^uint8_t Wdt_init(uint16_t timeout_sec)$/;"	f
+Wdt_reset	watchdog.c	/^void Wdt_reset(void) {$/;"	f
+Weight_Dim	w_weight.c	/^char Weight_Dim[10];$/;"	v
+Wight_struct	w_weight.h	/^} Wight_struct;$/;"	t	typeref:struct:__anon2
+Write_eeprom	hw_control.h	32;"	d
+_GPIO_H_	gpio.h	2;"	d
+_KHH_EEPROM_H_	khh_eeprom.h	2;"	d
+_LORA_PARSE_H_	Lora_parse.h	2;"	d
+_MENU_H_	menu.h	2;"	d
+_RFID_READER_H_	Rfid_reader.h	2;"	d
+_RTC_TO_SEC_H_	RTC_to_sec.h	3;"	d
+_UART_H_	uart.h	2;"	d
+_WATCHDOG_H_	watchdog.h	2;"	d
+_WATER_IMTAKE_MRAM_MENAGE_H_	water_intake_mram_menage.h	2;"	d
+_WATER_INTAKE_H_	water_intake.h	2;"	d
+_WEIGHT_H_	w_weight.h	2;"	d
+__EEPROM_H	eeprom.h	24;"	d
+__HW_CONTROL__	hw_control.h	2;"	d
+__LRK_MOTOR_H__	lrk_motor.h	2;"	d
+__MAIN_H__	main.h	2;"	d
+__SPI_FLASH_H	spi_flash.h	23;"	d
+__STM32F10x_CONF_H	stm32f10x_conf.h	24;"	d
+__STM32F10x_IT_H	stm32f10x_it.h	24;"	d
+__anon1::Cols	khh_lcd.c	/^	uint8_t Cols;$/;"	m	struct:__anon1	file:
+__anon1::DisplayControl	khh_lcd.c	/^	uint8_t DisplayControl;$/;"	m	struct:__anon1	file:
+__anon1::DisplayFunction	khh_lcd.c	/^	uint8_t DisplayFunction;$/;"	m	struct:__anon1	file:
+__anon1::DisplayMode	khh_lcd.c	/^	uint8_t DisplayMode;$/;"	m	struct:__anon1	file:
+__anon1::Rows	khh_lcd.c	/^	uint8_t Rows;$/;"	m	struct:__anon1	file:
+__anon1::currentX	khh_lcd.c	/^	uint8_t currentX;$/;"	m	struct:__anon1	file:
+__anon1::currentY	khh_lcd.c	/^	uint8_t currentY;$/;"	m	struct:__anon1	file:
+__anon2::name1	w_weight.h	/^	uint8_t name1[10];$/;"	m	struct:__anon2
+__anon2::name2	w_weight.h	/^	uint8_t name2[10];              $/;"	m	struct:__anon2
+__anon2::name3	w_weight.h	/^	uint8_t name3[10];         $/;"	m	struct:__anon2
+__anon2::value	w_weight.h	/^	uint8_t value[50];    $/;"	m	struct:__anon2
+_tm_struct	RTC_to_sec.h	/^struct _tm_struct {$/;"	s
+_tm_struct::tm_hour	RTC_to_sec.h	/^int tm_hour; \/* hours since midnight - [0,23] *\/$/;"	m	struct:_tm_struct
+_tm_struct::tm_isdst	RTC_to_sec.h	/^int tm_isdst; \/* daylight savings time flag *\/ \/\/ NOT USED$/;"	m	struct:_tm_struct
+_tm_struct::tm_mday	RTC_to_sec.h	/^int tm_mday; \/* day of the month - [1,31] *\/$/;"	m	struct:_tm_struct
+_tm_struct::tm_min	RTC_to_sec.h	/^int tm_min; \/* minutes after the hour - [0,59] *\/$/;"	m	struct:_tm_struct
+_tm_struct::tm_mon	RTC_to_sec.h	/^int tm_mon; \/* months since January - [0,11] *\/$/;"	m	struct:_tm_struct
+_tm_struct::tm_sec	RTC_to_sec.h	/^int tm_sec; \/* seconds after the minute - [0,59] *\/$/;"	m	struct:_tm_struct
+_tm_struct::tm_wday	RTC_to_sec.h	/^int tm_wday; \/* days since Sunday - [0,6] *\/$/;"	m	struct:_tm_struct
+_tm_struct::tm_yday	RTC_to_sec.h	/^int tm_yday; \/* days since January 1 - [0,365] *\/$/;"	m	struct:_tm_struct
+_tm_struct::tm_year	RTC_to_sec.h	/^int tm_year; \/* years since 1900 *\/$/;"	m	struct:_tm_struct
+aqt1	water_intake.h	/^	uint16_t aqt1;					\/\/첨가제1 섭취량$/;"	m	struct:Water_Intake_Table_Struct
+aqt2	water_intake.h	/^	uint16_t aqt2;					\/\/첨가제2 섭취량$/;"	m	struct:Water_Intake_Table_Struct
+assert_param	stm32f10x_conf.h	68;"	d
+assert_param	stm32f10x_conf.h	72;"	d
+basic_mode	main.c	/^void basic_mode(void)$/;"	f
+buf_SW_fetvalue	main.c	/^char buf_SW_fetvalue[16];$/;"	v
+buf_cnt_sensor	main.c	/^char buf_cnt_sensor[16];$/;"	v
+buf_menu_num	main.c	/^char buf_menu_num[16];$/;"	v
+ch_check_init	water_intake.c	/^void ch_check_init()$/;"	f
+clocks	hw_control.c	/^RCC_ClocksTypeDef clocks;$/;"	v
+currentX	khh_lcd.c	/^	uint8_t currentX;$/;"	m	struct:__anon1	file:
+currentY	khh_lcd.c	/^	uint8_t currentY;$/;"	m	struct:__anon1	file:
+cycleCounterInit	hw_control.c	/^void cycleCounterInit(void)$/;"	f
+dat	water_intake_mram_menage.c	/^volatile uint8_t dat = 1;$/;"	v
+date	water_intake.h	/^	uint16_t date;				\/\/저장된 날짜 년월일(변환) $/;"	m	struct:Water_Intake_Table_Struct
+delay_ms	hw_control.c	/^void delay_ms(uint32_t xx)$/;"	f
+delay_t	hw_control.c	/^static void delay_t(uint32_t t)$/;"	f	file:
+delay_us	hw_control.c	/^void delay_us(uint32_t t)$/;"	f
+eeprom_default_value	khh_eeprom.c	/^void eeprom_default_value(void)		$/;"	f
+eeprom_default_value	water_intake_mram_menage.c	/^void eeprom_default_value(void)		$/;"	f
+enter_time	water_intake.h	/^	uint16_t enter_time;		\/\/입장시간$/;"	m	struct:Water_Intake_Table_Struct
+feeder_num	water_intake.h	/^	uint8_t feeder_num;			\/\/섭취한 급이기 번호$/;"	m	struct:Water_Intake_Table_Struct
+flag_flag_flag	water_intake.c	/^volatile uint8_t flag_flag_flag = 0;$/;"	v
+humidity	w_weight.c	/^uint16_t humidity,temperature;$/;"	v
+id_cnt	water_intake.c	/^uint16_t id_cnt = 0;$/;"	v
+increase_RF_point_value	Rfid_reader.c	/^void increase_RF_point_value(u32 *p)$/;"	f
+increase_point_value	uart.c	/^void increase_point_value(u32 *p)$/;"	f
+index	water_intake.h	/^	uint16_t index;				\/\/일련번호 $/;"	m	struct:Water_Intake_Table_Struct
+intake_Run	water_intake.c	/^void intake_Run()$/;"	f
+intake_weight	water_intake.h	/^	uint16_t intake_weight;			\/\/섭취량 무게 \/\/개체 무게$/;"	m	struct:Water_Intake_Table_Struct
+inx	lrk_motor.c	/^volatile uint8_t inx = 0;$/;"	v
+itemp	water_intake_mram_menage.c	/^volatile uint8_t itemp = 0xfa, xtemp = 0;$/;"	v
+kbuf	Lora_parse.c	/^volatile uint8_t kbuf;$/;"	v
+lcd_view_init	main.c	/^void lcd_view_init(void)$/;"	f
+lcd_view_print	main.c	/^void lcd_view_print(void)$/;"	f
+lll_eeprom_init	khh_eeprom.c	/^void lll_eeprom_init(void)$/;"	f
+lll_eeprom_init	water_intake_mram_menage.c	/^void lll_eeprom_init(void)$/;"	f
+load_eeprom	khh_eeprom.c	/^void load_eeprom(void)$/;"	f
+load_eeprom	water_intake_mram_menage.c	/^void load_eeprom(void)$/;"	f
+loop	main.c	/^void loop(void)$/;"	f
+loop_input_check	lrk_motor.c	/^void loop_input_check()$/;"	f
+loop_main	main.c	/^void loop_main(void)$/;"	f
+lora_parse	Lora_parse.c	/^void lora_parse(void)$/;"	f
+lp	water_intake_mram_menage.c	/^volatile uint8_t lp = 1;$/;"	v
+main	main.c	/^int main(void)$/;"	f
+main_key_wait	menu.c	/^volatile uint8_t main_key_wait=0;$/;"	v
+main_view	main.c	/^void main_view(void) $/;"	f
+menu_key_wait	menu.c	/^volatile uint8_t menu_key_wait=0;  $/;"	v
+menu_list	menu.c	/^void menu_list()$/;"	f
+micros	hw_control.c	/^uint32_t micros(void)$/;"	f
+millis	hw_control.c	/^uint32_t millis(void)$/;"	f
+mram_test	water_intake_mram_menage.c	/^void mram_test(void)$/;"	f
+name1	w_weight.h	/^	uint8_t name1[10];$/;"	m	struct:__anon2
+name2	w_weight.h	/^	uint8_t name2[10];              $/;"	m	struct:__anon2
+name3	w_weight.h	/^	uint8_t name3[10];         $/;"	m	struct:__anon2
+parse_rfid	Rfid_reader.c	/^void parse_rfid(uint8_t c)$/;"	f
+parse_rfid_08IMF	Rfid_reader.c	/^void parse_rfid_08IMF(uint8_t c)$/;"	f
+parse_weight	w_weight.c	/^void parse_weight(void)$/;"	f
+parse_weight_interrupt	w_weight.c	/^void parse_weight_interrupt(uint8_t c)$/;"	f
+pcnt	gpio.c	/^uint32_t pcnt = 0;$/;"	v
+pcnt2	gpio.c	/^uint32_t pcnt2 = 0;$/;"	v
+radr	water_intake_mram_menage.c	/^volatile uint32_t radr = 2;$/;"	v
+rd	water_intake_mram_menage.c	/^volatile uint8_t rd[10];$/;"	v
+read_RTC	KHH_stm103_RTC.c	/^tm_struct read_RTC(void)$/;"	f
+recv_line_buf	Lora_parse.c	/^volatile uint8_t recv_line_buf[256];$/;"	v
+recv_line_cnt	Lora_parse.c	/^volatile uint8_t recv_line_cnt=0;$/;"	v
+response	w_weight.c	/^uint32_t response;$/;"	v
+rfid_dequeue	Rfid_reader.c	/^u16 rfid_dequeue(void)$/;"	f
+rfid_enqueue	Rfid_reader.c	/^void rfid_enqueue(u16 data)$/;"	f
+rfid_is_empty	Rfid_reader.c	/^uint8_t rfid_is_empty(void)$/;"	f
+rfid_num	water_intake.h	/^	uint16_t rfid_num;		\/\/개체 식별번호 RFID$/;"	m	struct:Water_Intake_Table_Struct
+rfid_temp	main.c	/^char rfid_temp[16];$/;"	v
+save_all_eeprom	khh_eeprom.c	/^void save_all_eeprom(void)$/;"	f
+save_all_eeprom	water_intake_mram_menage.c	/^void save_all_eeprom(void)$/;"	f
+save_eeprom	khh_eeprom.c	/^void save_eeprom(uint8_t adr, uint16_t data)$/;"	f
+search_address	Lora_parse.c	/^uint16_t search_address = 0;$/;"	v
+sec	KHH_stm103_RTC.c	/^volatile uint32_t sec = 0;$/;"	v
+send_rfid	main.c	/^volatile uint16_t send_rfid = 0;$/;"	v
+setValue	menu.c	/^volatile uint8_t setValue = 0;  $/;"	v
+setting	main.c	/^void setting(void)$/;"	f
+setting_mode	menu.c	/^void setting_mode(void)$/;"	f
+setup	hw_control.c	/^void setup()$/;"	f
+setup	khh_eeprom.h	/^	uint16_t setup;$/;"	m	struct:Config_Struct
+start_delay_time	water_intake.c	/^uint16_t start_delay_time=0;$/;"	v
+status	water_intake.h	/^	uint8_t status;				\/\/급여조 상태		\/\/급이 테이블이 변경되었다면 해당 스테이터스 증가 시켜 변경내용을 전송할수 있도록 합니다. $/;"	m	struct:Water_Intake_Table_Struct
+status	water_intake_mram_menage.c	/^volatile uint8_t status = 0;$/;"	v
+str	menu.c	/^char str[100];$/;"	v
+sysTickUptime	hw_control.c	/^volatile uint32_t sysTickUptime = 0;$/;"	v
+t1	Lora_parse.c	/^volatile u32 t1=0,t2=0;$/;"	v
+t2	Lora_parse.c	/^volatile u32 t1=0,t2=0;$/;"	v
+tbuf	Lora_parse.c	/^volatile char tbuf[15];$/;"	v
+temperature	w_weight.c	/^uint16_t humidity,temperature;$/;"	v
+test	main.c	/^volatile uint16_t test =0 ;$/;"	v
+timer_1000ms_loop	main.c	/^void timer_1000ms_loop(void)$/;"	f
+timer_100ms_loop	main.c	/^void timer_100ms_loop(void)$/;"	f
+timer_10ms_loop	main.c	/^void timer_10ms_loop(void)$/;"	f
+timer_check	hw_control.c	/^void timer_check(void)$/;"	f
+tm_hour	RTC_to_sec.h	/^int tm_hour; \/* hours since midnight - [0,23] *\/$/;"	m	struct:_tm_struct
+tm_isdst	RTC_to_sec.h	/^int tm_isdst; \/* daylight savings time flag *\/ \/\/ NOT USED$/;"	m	struct:_tm_struct
+tm_mday	RTC_to_sec.h	/^int tm_mday; \/* day of the month - [1,31] *\/$/;"	m	struct:_tm_struct
+tm_min	RTC_to_sec.h	/^int tm_min; \/* minutes after the hour - [0,59] *\/$/;"	m	struct:_tm_struct
+tm_mon	RTC_to_sec.h	/^int tm_mon; \/* months since January - [0,11] *\/$/;"	m	struct:_tm_struct
+tm_sec	RTC_to_sec.h	/^int tm_sec; \/* seconds after the minute - [0,59] *\/$/;"	m	struct:_tm_struct
+tm_struct	RTC_to_sec.h	/^typedef struct _tm_struct tm_struct;$/;"	t	typeref:struct:_tm_struct
+tm_wday	RTC_to_sec.h	/^int tm_wday; \/* days since Sunday - [0,6] *\/$/;"	m	struct:_tm_struct
+tm_yday	RTC_to_sec.h	/^int tm_yday; \/* days since January 1 - [0,365] *\/$/;"	m	struct:_tm_struct
+tm_year	RTC_to_sec.h	/^int tm_year; \/* years since 1900 *\/$/;"	m	struct:_tm_struct
+uart1_dequeue	uart.c	/^u8 uart1_dequeue(void)$/;"	f
+uart1_is_empty	uart.c	/^uint8_t uart1_is_empty(void)$/;"	f
+uart2_dequeue	uart.c	/^u8 uart2_dequeue(void)$/;"	f
+uart2_is_empty	uart.c	/^uint8_t uart2_is_empty(void)$/;"	f
+uart3_dequeue	uart.c	/^u8 uart3_dequeue(void)$/;"	f
+uart3_is_empty	uart.c	/^uint8_t uart3_is_empty(void)$/;"	f
+value	w_weight.h	/^	uint8_t value[50];    $/;"	m	struct:__anon2
+visit_time	water_intake.h	/^	uint16_t visit_time;		\/\/체류시간$/;"	m	struct:Water_Intake_Table_Struct
+wadr	water_intake_mram_menage.c	/^volatile uint32_t wadr = 1;$/;"	v
+water_cnt1	water_intake.h	/^	uint16_t water_cnt1;		\/\/pcnt1\/\/qt1;				\/\/1사료 섭취량$/;"	m	struct:Water_Intake_Table_Struct
+water_cnt2	water_intake.h	/^	uint16_t water_cnt2;		 \/\/pcnt2\/\/qt2;				\/\/2사료 섭취량  $/;"	m	struct:Water_Intake_Table_Struct
+water_fill_delay	water_intake.c	/^volatile uint8_t  water_fill_delay = 0; $/;"	v
+water_max_wait_time	water_intake.c	/^volatile uint16_t water_max_wait_time = 0;$/;"	v
+water_temp	water_intake.h	/^	uint16_t water_temp;	 \/\/weight\/\/temp\/\/qt3;				\/\/3사료 섭취량$/;"	m	struct:Water_Intake_Table_Struct
+wd	water_intake_mram_menage.c	/^volatile uint8_t wd[10];$/;"	v
+weight	water_intake.c	/^volatile uint16_t Stable_weight = 0, weight = 0;$/;"	v
+weight_ParseData_ch1	w_weight.c	/^void weight_ParseData_ch1(char* Buffer)$/;"	f
+weight_ParseData_ch2	w_weight.c	/^void weight_ParseData_ch2(char* Buffer)$/;"	f
+weight_ch1	w_weight.c	/^volatile uint16_t Stable_weight_ch1 = 0, weight_ch1 = 0;$/;"	v
+weight_ch2	w_weight.c	/^volatile uint16_t Stable_weight_ch2 = 0, weight_ch2 = 0;$/;"	v
+wp_buf	Lora_parse.c	/^char wp_buf[256];$/;"	v
+xtemp	water_intake_mram_menage.c	/^volatile uint8_t itemp = 0xfa, xtemp = 0;$/;"	v

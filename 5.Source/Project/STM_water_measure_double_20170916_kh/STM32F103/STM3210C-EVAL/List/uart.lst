@@ -1,0 +1,394 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.22.1.15669/W32 for ARM       24/May/2019  11:08:40
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\uart.c
+#    Command line =  
+#        -f C:\Users\dawoon1\AppData\Local\Temp\EWFB6E.tmp
+#        (D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\uart.c
+#        -D USE_STDPERIPH_DRIVER -D STM32F10X_MD -D USE_STM3210C_EVAL -lcN
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List
+#        --diag_suppress pa082 -o
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj
+#        --debug --endian=little --cpu=Cortex-M3 -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.0_2\arm\INC\c\DLib_Config_Full.h" -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\CoreSupport\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\Common\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\STM3210C_EVAL\
+#        -Ohs --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.0_2\arm\CMSIS\Core\Include\" -I "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 8.0_2\arm\CMSIS\DSP\Include\")
+#    Locale       =  C
+#    List file    =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List\uart.lst
+#    Object file  =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\uart.o
+#
+###############################################################################
+
+D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\uart.c
+      1          #include "hw_control.h"
+      2          #include "uart.h"
+      3          
+      4          void Uart_putchar(USART_TypeDef* USARTx, char d);
+      5          
+      6          #ifdef __GNUC__
+      7           #define PUTCHAR_PROTYPE int__io_putchar(int ch)
+      8          #else
+      9           #define PUTCHAR_PROTYPE int fputc(int ch, FILE *f)
+     10          #endif 
+     11          
+     12          PUTCHAR_PROTYPE
+     13          {
+     14          	Uart_putchar(USART1, ch);
+     15          	return ch;  
+     16          }
+     17          
+     18          //UART1 Q Buffer
+     19          #define USART_BUFFER_SIZE  1024
+     20          #define USART_BUFFER_SIZE2  1024
+     21          #define USART_BUFFER_SIZE3  1024
+     22          __IO u8 U1_rx_buffer[USART_BUFFER_SIZE];
+     23          uint32_t U1_rx_point_head=0, U1_rx_point_tail=0;
+     24          
+     25          __IO u8 U2_rx_buffer[USART_BUFFER_SIZE2];
+     26          uint32_t U2_rx_point_head=0, U2_rx_point_tail=0;
+     27          
+     28          __IO u8 U3_rx_buffer[USART_BUFFER_SIZE3];
+     29          uint32_t U3_rx_point_head=0, U3_rx_point_tail=0;
+     30          
+     31          void increase_point_value(u32 *p)
+     32          {
+     33          	(*p)++;
+     34          	if(USART_BUFFER_SIZE == (*p))
+     35          	{
+     36          		(*p) = 0; 
+     37          	}
+     38          }
+     39          
+     40          //------------------------------------------------------------------
+     41          // UART1
+     42          //------------------------------------------------------------------
+     43          uint8_t uart1_is_empty(void)
+     44          {
+     45          	if(U1_rx_point_head == U1_rx_point_tail) {
+     46          		return 1; 
+     47          	}
+     48          	return 0;
+     49          }
+     50          
+     51          u8 uart1_dequeue(void)
+     52          {
+     53          	u8 rev = U1_rx_buffer[U1_rx_point_tail];
+     54          	increase_point_value(&U1_rx_point_tail);
+     55          	return rev;
+     56          }
+     57          
+     58          void Uart1_enqueue(u8 data)
+     59          {
+     60          	U1_rx_buffer[U1_rx_point_head] = data;
+     61          	increase_point_value(&U1_rx_point_head);  
+     62          }
+     63          //------------------------------------------------------------------
+     64          // UART2
+     65          //------------------------------------------------------------------
+     66          uint8_t uart2_is_empty(void)
+     67          {
+     68          	if(U2_rx_point_head == U2_rx_point_tail) {
+     69          		return 1; 
+     70          	}
+     71          	return 0;
+     72          }
+     73          
+     74          u8 uart2_dequeue(void)
+     75          {
+     76          	u8 rev = U2_rx_buffer[U2_rx_point_tail];
+     77          	increase_point_value(&U2_rx_point_tail);
+     78          	return rev;
+     79          }
+     80          
+     81          void Uart2_enqueue(u8 data)
+     82          {
+     83          	U2_rx_buffer[U2_rx_point_head] = data;
+     84          	increase_point_value(&U2_rx_point_head);  
+     85          }
+     86          //------------------------------------------------------------------
+     87          // UART3
+     88          //------------------------------------------------------------------
+     89          uint8_t uart3_is_empty(void)
+     90          {
+     91          	if(U3_rx_point_head == U3_rx_point_tail) {
+     92          		return 1; 
+     93          	}
+     94          	return 0;
+     95          }
+     96          
+     97          u8 uart3_dequeue(void)
+     98          {
+     99          	u8 rev = U3_rx_buffer[U3_rx_point_tail];
+    100          	increase_point_value(&U3_rx_point_tail);
+    101          	return rev;
+    102          }
+    103          
+    104          void Uart3_enqueue(u8 data)
+    105          {
+    106          	U3_rx_buffer[U3_rx_point_head] = data;
+    107          	increase_point_value(&U3_rx_point_head);  
+    108          }
+    109          
+    110          //------------------------------
+    111          // IRQ Handler
+    112          //------------------------------
+    113          extern void USART_RX_INTERRUPT_HANDLER_FUNCTION_NAME(uint8_t ch);
+    114          void USART1_IRQHandler(void)	
+    115          {
+    116          	u8 cc=0;	
+    117          	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET) {  
+    118          		USART_ClearITPendingBit(USART1, USART_IT_RXNE); 
+    119          		cc = USART_ReceiveData(USART1);
+    120          		Uart1_enqueue(cc);
+    121          		
+    122          		//USART_RX_INTERRUPT_HANDLER_FUNCTION_NAME(cc);
+    123          	}  
+    124          }
+    125          void USART2_IRQHandler(void)	
+    126          {
+    127          	//@@ !!
+    128          	u8 cc=0;	
+    129          	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET) {  
+    130          		USART_ClearITPendingBit(USART2, USART_IT_RXNE); 
+    131          		cc = USART_ReceiveData(USART2);
+    132          		
+    133          		//Uart2_enqueue(cc);
+    134          		parse_weight_interrupt(cc);
+    135          		
+    136          		//USART_RX_INTERRUPT_HANDLER_FUNCTION_NAME(cc);
+    137          	}  
+    138          }
+    139          
+    140          void USART3_IRQHandler(void)
+    141          {
+    142          	u8 cc=0;	
+    143          	if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET) {  
+    144          		USART_ClearITPendingBit(USART3, USART_IT_RXNE); 
+    145          		cc = USART_ReceiveData(USART3);
+    146          		Uart3_enqueue(cc);
+    147          		
+    148          	}  
+    149          }
+    150          #define UART2_ENABLE 
+    151          #define UART3_ENABLE
+    152          void UART_init(void)
+    153          {
+    154          	GPIO_InitTypeDef GPIO_InitStructure;
+    155          
+    156          	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
+    157          	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+    158          	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
+    159          	
+    160          	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB, ENABLE);
+    161          	USART_InitTypeDef USART_InitStructure;
+    162          
+    163          	// UART 1 TX
+    164          	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 ;
+    165          	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz; 
+    166          	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+    167          	GPIO_Init(GPIOA, &GPIO_InitStructure);  
+    168          	// UART 1,2 RX
+    169          	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 ;
+    170          	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+    171          	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+    172          	GPIO_Init(GPIOA, &GPIO_InitStructure);
+    173          	
+    174          #ifdef UART2_ENABLE
+    175          	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2 ;
+    176          	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz; 
+    177          	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+    178          	GPIO_Init(GPIOA, &GPIO_InitStructure);  
+    179          
+    180          	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3 ;
+    181          	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+    182          	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+    183          	GPIO_Init(GPIOA, &GPIO_InitStructure);
+    184          #endif
+    185          	
+    186          #ifdef UART3_ENABLE
+    187          	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 ;
+    188          	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz; 
+    189          	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+    190          	GPIO_Init(GPIOB, &GPIO_InitStructure);  
+    191          
+    192          	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11 ;
+    193          	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+    194          	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+    195          	GPIO_Init(GPIOB, &GPIO_InitStructure);
+    196          #endif
+    197          	
+    198          	USART_InitStructure.USART_WordLength = USART_WordLength_8b ;
+    199          	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+    200          	USART_InitStructure.USART_Parity = USART_Parity_No;
+    201          	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+    202          	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+    203          
+    204          	USART_InitStructure.USART_BaudRate = 9600;			
+    205          	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+    206          	USART_Init(USART1, &USART_InitStructure);
+    207              USART_Cmd(USART1, ENABLE);
+    208          	
+    209          #ifdef UART2_ENABLE
+    210          	USART_InitStructure.USART_BaudRate = 19200;			
+    211          	USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
+    212          	USART_Init(USART2, &USART_InitStructure);
+    213            USART_Cmd(USART2, ENABLE);
+    214          #endif
+    215          	
+    216          #ifdef UART3_ENABLE
+    217          	USART_InitStructure.USART_BaudRate = 9600;			
+    218          	USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
+    219          	USART_Init(USART3, &USART_InitStructure);
+    220              USART_Cmd(USART3, ENABLE);
+    221          #endif
+    222          }
+    223          
+    224          
+    225          
+    226          void Uart1_putchar(u8 c)
+    227          {
+    228          	USART_SendData(USART1,(uint8_t) c);
+    229          	while(USART_GetFlagStatus(USART1,USART_FLAG_TXE) == RESET);
+    230          }
+    231          
+    232          void Uart_putchar(USART_TypeDef* USARTx, char d)
+    233          {
+    234          	USART_SendData(USARTx,(uint16_t) d);
+    235          	while(USART_GetFlagStatus(USARTx,USART_FLAG_TXE) == RESET);
+    236          }
+    237          
+    238          void Uart_puts(USART_TypeDef* USARTx, char *d)
+    239          {
+    240          	while (*d)
+    241          		Uart_putchar(USARTx, *(d++));	
+    242          }
+    243          
+    244          void Uart_puts_length(USART_TypeDef* USARTx, uint8_t *d, uint16_t cnt)
+    245          {
+    246          	while (cnt--)
+    247          		Uart_putchar(USARTx, *(d++));	
+    248          }
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      40   UART_init
+        40   -> GPIO_Init
+        40   -> RCC_APB1PeriphClockCmd
+        40   -> RCC_APB2PeriphClockCmd
+        40   -> USART_Cmd
+        40   -> USART_ITConfig
+        40   -> USART_Init
+      16   USART1_IRQHandler
+        16   -> USART_ClearITPendingBit
+        16   -> USART_GetITStatus
+        16   -> USART_ReceiveData
+      16   USART2_IRQHandler
+        16   -> USART_ClearITPendingBit
+        16   -> USART_GetITStatus
+        16   -> USART_ReceiveData
+         0   -> parse_weight_interrupt
+      16   USART3_IRQHandler
+        16   -> USART_ClearITPendingBit
+        16   -> USART_GetITStatus
+        16   -> USART_ReceiveData
+       0   Uart1_enqueue
+       8   Uart1_putchar
+         8   -> USART_GetFlagStatus
+         8   -> USART_SendData
+       0   Uart2_enqueue
+       0   Uart3_enqueue
+       8   Uart_putchar
+         8   -> USART_GetFlagStatus
+         8   -> USART_SendData
+      16   Uart_puts
+        16   -> USART_GetFlagStatus
+        16   -> USART_SendData
+      16   Uart_puts_length
+        16   -> USART_GetFlagStatus
+        16   -> USART_SendData
+      16   fputc
+        16   -> USART_GetFlagStatus
+        16   -> USART_SendData
+       0   increase_point_value
+       0   uart1_dequeue
+       0   uart1_is_empty
+       0   uart2_dequeue
+       0   uart2_is_empty
+       0   uart3_dequeue
+       0   uart3_is_empty
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable14
+       4  ??DataTable14_1
+       4  ??DataTable14_2
+       4  ??DataTable14_3
+       4  ??DataTable14_4
+       4  ??DataTable14_5
+       4  ??DataTable14_6
+       4  ??DataTable14_7
+    1032  U1_rx_buffer
+          U1_rx_point_head
+          U1_rx_point_tail
+    1032  U2_rx_buffer
+          U2_rx_point_head
+          U2_rx_point_tail
+    1032  U3_rx_buffer
+          U3_rx_point_head
+          U3_rx_point_tail
+     330  UART_init
+      64  USART1_IRQHandler
+      50  USART2_IRQHandler
+      64  USART3_IRQHandler
+      24  Uart1_enqueue
+      26  Uart1_putchar
+      24  Uart2_enqueue
+      24  Uart3_enqueue
+      22  Uart_putchar
+      40  Uart_puts
+      40  Uart_puts_length
+      34  fputc
+      16  increase_point_value
+      24  uart1_dequeue
+      22  uart1_is_empty
+      24  uart2_dequeue
+      22  uart2_is_empty
+      24  uart3_dequeue
+      22  uart3_is_empty
+
+ 
+ 3 096 bytes in section .bss
+   928 bytes in section .text
+ 
+   928 bytes of CODE memory
+ 3 096 bytes of DATA memory
+
+Errors: none
+Warnings: none

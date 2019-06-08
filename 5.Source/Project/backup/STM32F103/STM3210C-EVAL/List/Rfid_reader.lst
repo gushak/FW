@@ -1,0 +1,264 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.70.1.11437/W32 for ARM       24/Apr/2019  16:42:19
+# Copyright 1999-2016 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\Rfid_reader.c
+#    Command line =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\Rfid_reader.c
+#        -D USE_STDPERIPH_DRIVER -D STM32F10X_MD -D USE_STM3210C_EVAL -lcN
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\List
+#        --diag_suppress pa082 -o
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\Obj
+#        --debug --endian=little --cpu=Cortex-M3 -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.5\arm\INC\c\DLib_Config_Full.h" -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\ -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\CMSIS\CM3\CoreSupport\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\Common\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\STM3210C_EVAL\
+#        -Ohs --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 7.5\arm\CMSIS\Include\"
+#    Locale       =  Korean_Korea.949
+#    List file    =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\List\Rfid_reader.lst
+#    Object file  =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\Obj\Rfid_reader.o
+#
+###############################################################################
+
+D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\Rfid_reader.c
+      1          #include "hw_control.h"
+      2          
+      3          #define RFID_BUFFER_SIZE 20
+      4          
+      5          __IO uint16_t RFID_rx_buffer[RFID_BUFFER_SIZE];
+      6          uint32_t RFID_rx_point_head = 0, RFID_rx_point_tail = 0;
+      7          
+      8          void increase_RF_point_value(u32 *p)
+      9          {
+     10          	(*p)++;
+     11          	if(RFID_BUFFER_SIZE == (*p))
+     12          	{
+     13          		(*p) = 0; 
+     14          	}
+     15          }
+     16          
+     17          uint8_t rfid_is_empty(void)
+     18          {
+     19          	if(RFID_rx_point_head == RFID_rx_point_tail) {
+     20          		return 1; 
+     21          	}
+     22          	return 0;
+     23          }
+     24          
+     25          u16 rfid_dequeue(void)
+     26          {
+     27          	u8 rev = RFID_rx_buffer[RFID_rx_point_tail];
+     28          	increase_RF_point_value(&RFID_rx_point_tail);
+     29          	return rev;
+     30          }
+     31          
+     32          
+     33          void rfid_enqueue(u16 data)
+     34          {
+     35          	RFID_rx_buffer[RFID_rx_point_head] = data;
+     36          	increase_RF_point_value(&RFID_rx_point_head);  
+     37          }
+     38          
+     39          void parse_rfid_08IMF(uint8_t c)
+     40          {
+     41          	static uint8_t rf_status2 = 0;
+     42          	static uint8_t rf_buf2[8];
+     43          	static uint8_t rf_buf2_cnt = 0;
+     44          	uint32_t value = 0;
+     45          		
+     46          	switch(rf_status2)
+     47          	{
+     48          		case 0:                                                                                                    
+     49          			if(c == 0x02) {	
+     50          				rf_status2 = 1;
+     51          				rf_buf2_cnt = 0;
+     52          			}
+     53          			break;
+     54          			
+     55          		case 1:
+     56          			if(c == 0x03) {	
+     57          				//버퍼가 여러개 일경우 
+     58          				if(rf_buf2_cnt == 8) {
+     59          					//데이타 확인
+     60          					
+     61          					value = (rf_buf2[3]-0x30) * 10000;	
+     62          					value += (rf_buf2[4]-0x30) * 1000;		
+     63          					value += (rf_buf2[5]-0x30) * 100;	
+     64          					value += (rf_buf2[6]-0x30) * 10;		
+     65          					value += (rf_buf2[7]-0x30) ;					
+     66          					
+     67          					if(value <= 65535) {		
+     68          							rfid_enqueue(value);
+     69          					}					
+     70          				}
+     71          				
+     72          				rf_status2 = 0;			
+     73          				
+     74          			} else {
+     75          				if(rf_buf2_cnt < 8) {							//버퍼 8자리 미만
+     76          					if(c >= 0x30 && c <= 0x39) {		//아스키 숫자일경우
+     77          						rf_buf2[rf_buf2_cnt++] = c;
+     78          					}	
+     79          				}				
+     80          			}
+     81          			break;
+     82          			
+     83          		default :
+     84          			rf_status2 = 0; 
+     85          			break;			
+     86          	}		
+     87          }
+     88          
+     89          
+     90          void parse_rfid(uint8_t c)
+     91          {
+     92          	static uint8_t rf_status = 0;
+     93          	static uint8_t rf_buf_cnt = 0;
+     94          	static uint8_t rf_buf_recnt = 0;
+     95          	static uint16_t rf_buf_re_value = 0, rf_buf_re_value_old = 0;
+     96          	static uint8_t rf_buf[5];
+     97          	uint32_t value = 0;
+     98          	
+     99          	
+    100          	switch(rf_status)
+    101          	{
+    102          		case 0:		//start 0x02
+    103          			if(c == 0x02) rf_status = 1;
+    104          			break;
+    105          			
+    106          		case 1:		//1 = "1"
+    107          			if(c >= 0x30  && c <= 0x39)  rf_status = 2;
+    108          			else rf_status = 0;
+    109          			break;	
+    110          			
+    111          		case 2:		//3 = "3"
+    112          			if(c >= 0x30  && c <= 0x39)  rf_status = 3;
+    113          			else rf_status = 0;
+    114          			break;	
+    115          			
+    116          		case 3:		//9 = "9"
+    117          			if(c >= 0x30  && c <= 0x39) {
+    118          				rf_status = 4;
+    119          				rf_buf_cnt = 0;
+    120          				memset((void *)&rf_buf, 0, sizeof(rf_buf));
+    121          			}
+    122          			else rf_status = 0;
+    123          			break;	
+    124          			
+    125          		case 4:	//숫자 파싱하기 
+    126          			rf_buf[rf_buf_cnt++] = c;
+    127          			if(rf_buf_cnt >= 5) 
+    128          			{
+    129          				//데이타 확인
+    130          				if(rf_buf[0] >= 0x30 && rf_buf[0] <= 0x39) {
+    131          					value = (rf_buf[0]-0x30) * 10000;	
+    132          				}
+    133          				
+    134          				if(rf_buf[1] >= 0x30 && rf_buf[1] <= 0x39) {
+    135          					value += (rf_buf[1]-0x30) * 1000;	
+    136          				}
+    137          				
+    138          				if(rf_buf[2] >= 0x30 && rf_buf[2] <= 0x39) {
+    139          					value += (rf_buf[2]-0x30) * 100;	
+    140          				}
+    141          				
+    142          				if(rf_buf[3] >= 0x30 && rf_buf[3] <= 0x39) {
+    143          					value += (rf_buf[3]-0x30) * 10;	
+    144          				}
+    145          				
+    146          				if(rf_buf[4] >= 0x30 && rf_buf[4] <= 0x39) {
+    147          					value += (rf_buf[4]-0x30) ;	
+    148          				}
+    149          				
+    150          				if(value <= 65535) {
+    151          					
+    152          					if(rf_buf_re_value_old != rf_buf_re_value)
+    153          					{
+    154          						rf_buf_re_value_old = rf_buf_re_value;
+    155          						rf_buf_recnt = 0;
+    156          					} else {						
+    157          						if(++rf_buf_recnt >= 2) {
+    158          
+    159          							rfid_enqueue(value);
+    160          							rf_buf_re_value_old = 0;
+    161          							rf_buf_re_value = 0;
+    162          							rf_buf_recnt= 0;
+    163          						}						
+    164          					}					
+    165          				}
+    166          				rf_buf_cnt = 0;
+    167          				rf_status = 0;
+    168          			}
+    169          			break;	
+    170          			
+    171          		default : 
+    172          			rf_buf_cnt = 0;
+    173          			rf_status = 0;
+    174          			break;
+    175          	}	
+    176          }
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   increase_RF_point_value
+      24   parse_rfid
+        24   -> __aeabi_memclr4
+      12   parse_rfid_08IMF
+       0   rfid_dequeue
+       0   rfid_enqueue
+       0   rfid_is_empty
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable4
+      14  increase_RF_point_value
+     302  parse_rfid
+     150  parse_rfid_08IMF
+      76  rf_buf2
+          rf_buf
+          rf_status2
+          rf_buf2_cnt
+          rf_status
+          rf_buf_cnt
+          rf_buf_recnt
+          rf_buf_re_value
+          rf_buf_re_value_old
+          RFID_rx_buffer
+          RFID_rx_point_head
+          RFID_rx_point_tail
+      24  rfid_dequeue
+      22  rfid_enqueue
+      16  rfid_is_empty
+
+ 
+  76 bytes in section .bss
+ 532 bytes in section .text
+ 
+ 532 bytes of CODE memory
+  76 bytes of DATA memory
+
+Errors: none
+Warnings: none

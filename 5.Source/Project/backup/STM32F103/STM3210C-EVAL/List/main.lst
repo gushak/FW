@@ -1,0 +1,583 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.70.1.11437/W32 for ARM       24/Apr/2019  16:42:19
+# Copyright 1999-2016 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\main.c
+#    Command line =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\main.c -D
+#        USE_STDPERIPH_DRIVER -D STM32F10X_MD -D USE_STM3210C_EVAL -lcN
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\List
+#        --diag_suppress pa082 -o
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\Obj
+#        --debug --endian=little --cpu=Cortex-M3 -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.5\arm\INC\c\DLib_Config_Full.h" -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\ -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\CMSIS\CM3\CoreSupport\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\Common\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\STM3210C_EVAL\
+#        -Ohs --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 7.5\arm\CMSIS\Include\"
+#    Locale       =  Korean_Korea.949
+#    List file    =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\List\main.lst
+#    Object file  =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\Obj\main.o
+#
+###############################################################################
+
+D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\main.c
+      1          #include "hw_control.h"
+      2          
+      3          #define MAIN_LOOP_TIME       10  
+      4          #define VIEW_LOOP_TIME       100 
+      5          #define CIRCLE_MAIN				10
+      6          
+      7          extern uint16_t VirtAddVarTab[NumbOfVar]; 
+      8          
+      9          volatile uint8_t NFC_Reader_Ok = 0;
+     10          volatile uint8_t Mode_flag = 0;
+     11          volatile uint16_t Mode_delay = 0;
+     12          volatile uint16_t FET_value[10]; 		
+     13          volatile uint8_t Stable_run_flag = 0;
+     14          
+     15          
+     16          void lcd_view_init(void)
+     17          {
+     18          	TM_HD44780_Puts(0,0,"Dawoon 20170927 ");
+     19          	TM_HD44780_Puts(0,1,"Water Intake    ");
+     20          	Delay(2000);
+     21          	
+     22          }
+     23          
+     24          void setting(void)
+     25          {	
+     26          	lcd_view_init();
+     27          	load_eeprom();
+     28          
+     29          }
+     30          
+     31          volatile uint16_t Input_cnt[4];
+     32          extern volatile uint8_t Input_value[2];
+     33          extern volatile uint16_t Setting_delay;
+     34          
+     35          void timer_10ms_loop(void)
+     36          {
+     37          	
+     38          	SW_check();
+     39          	
+     40          	if(Setting_delay != 0) Setting_delay--;	
+     41          	
+     42          
+     43          	if(INPUT1 == 0) { 	
+     44          		if(	Input_cnt[0]++  > 2) {
+     45          			Input_value[0] = 1;
+     46          		} else Input_value[0] = 0;
+     47          		
+     48          	} else {
+     49          		Input_cnt[0] = 0;
+     50          		Input_value[0] = 0;
+     51          	}	
+     52          	
+     53          	
+     54          	if(INPUT2 == 0) 
+     55          	{
+     56          		if(	Input_cnt[1]++  > 2) 		{
+     57          			Input_value[1] = 1;
+     58          		}	else	Input_value[1] = 0;	
+     59          	} 
+     60          	else 
+     61          	{
+     62          		Input_cnt[1] = 0;
+     63          		Input_value[1] = 0;
+     64          	}
+     65          	
+     66          	if(FET_value[0] != 0) { FET_value[0]--;   FET1_ON; } else {   FET1_OFF; }	
+     67          	if(FET_value[1] != 0) { FET_value[1]--;   FET2_ON; } else {   FET2_OFF; }	
+     68          	if(FET_value[2] != 0) { FET_value[2]--;   FET3_ON; } else {   FET3_OFF; }	
+     69          	if(FET_value[3] != 0) { FET_value[3]--;   FET4_ON; } else {   FET4_OFF; }
+     70          	if(FET_value[4] != 0) { FET_value[4]--;   FET5_ON; } else {   FET5_OFF; }	
+     71          }
+     72          
+     73          
+     74          
+     75          extern uint8_t water_fill_delay;
+     76          extern volatile uint16_t Stable_water_delay;
+     77          
+     78          volatile uint16_t FET_FL_cnt = 0;
+     79          volatile uint16_t Stable_water_delay = 0;
+     80          volatile uint8_t Stable_ch_flag = 0;
+     81          
+     82          extern volatile uint8_t  Oper_Cnt;		// 섭취 동작중
+     83          
+     84          volatile uint16_t Full_water_check_cnt = 0;
+     85          volatile uint8_t FULL_Water_Error = 0;
+     86          
+     87          void timer_100ms_loop(void)
+     88          {
+     89          	//100mS마다 실행되는 타이머 루틴
+     90          	
+     91          	if(Mode_delay != 0) Mode_delay--;
+     92          	if(water_fill_delay != 0) water_fill_delay--;
+     93          	if(Stable_water_delay != 0) Stable_water_delay --;
+     94          	
+     95          	
+     96          #ifdef WEIGHT_SINGLE
+     97          	
+     98          #else
+     99          	if(FET_FL_cnt ++ > 50)
+    100          	{
+    101          		FET_FL_cnt = 0;		
+    102          		if(Stable_ch_flag != 0) 
+    103          		{
+    104          			
+    105          			FET_value[0] = 700;
+    106          			Stable_ch_flag = 0; 
+    107          		}
+    108          		else 
+    109          		{
+    110          			
+    111          			FET_value[0] = 0;
+    112          			Stable_ch_flag = 1;		
+    113          		}
+    114          	}
+    115          #endif
+    116          	if(Stable_run_flag == 1)
+    117          	{
+    118          		//만수 관련동작하기 , 10liter 이상일시
+    119          		if(R_MaxWater_check())
+    120          		{	
+    121          			//만수일 경우 ~!!
+    122          			FET_value[2] = 20;		//만수일 경우 출력ON	온도컨트롤러 동작시키도록 !!
+    123          			
+    124          			Full_water_check_cnt = 0;	//만수가 되면 에러도 제거
+    125          			FULL_Water_Error = 0;			//만수가 되었으니까 정상 동작
+    126                                  
+    127                                  //if ((Oper_Cnt == 0) && (Input_value[1] == 0))
+    128                                  if ((Oper_Cnt == 0) && (Stable_weight_ch1 < 1700))
+    129                                  {
+    130                                    FET_value[1] = 20; //아직 만수가 아니면 물채움 
+    131                                  }
+    132          		}
+    133          		else
+    134          		{
+    135          			//2017-03-28 김현형 추가 
+    136          			if(FULL_Water_Error != 0)
+    137          			{
+    138          				FET_value[1] = 0;	//급수 솔벨브 OFF				
+    139          				
+    140          			} 
+    141          			else 
+    142          			{
+    143          				if(Oper_Cnt == 0)
+    144          				{	
+    145          					//만수가 아닌데 섭취중이 아니면 물 채움
+    146          					FET_value[1] = 20;
+    147          					
+    148          					if(Full_water_check_cnt ++ >= FULL_WATER_OVER_TIME)
+    149          					{
+    150          						Full_water_check_cnt = 0;
+    151          						//만수가 일정시간(기본20분)동안 차오르지 않으면 물이상으로 판단함
+    152          						FULL_Water_Error = 1;
+    153          						FET_value[1] = 0;	//급수 솔벨브 OFF
+    154          						
+    155          					}
+    156          					
+    157          				}
+    158          				else
+    159          				{
+    160          					Full_water_check_cnt = 0;
+    161          					FET_value[1] = 0;
+    162          				}
+    163          			}
+    164          			
+    165          			//FET_value[0] = 0;		//만숙가 아닐경우 출력 OFF 온도 CTRL동작 안시킴
+    166          		}
+    167          	}
+    168          }
+    169          
+    170          //extern uint16_t gate_waiting_time;
+    171          //extern volatile uint16_t Rfid_check_timeover;
+    172          void timer_1000ms_loop(void)
+    173          {
+    174          	LED1_FL;
+    175          	//1초마다 1회 실행되는 타이머 루틴	
+    176          //	if(gate_waiting_time != 0) gate_waiting_time--;
+    177          //	if(Rfid_check_timeover != 0) Rfid_check_timeover--;
+    178          		
+    179          }
+    180          
+    181          
+    182          extern uint32_t pcnt , pcnt2, pweight;
+    183          char buf_cnt_sensor[16];
+    184          char buf_SW_fetvalue[16];
+    185          char buf_menu_num[16];
+    186          
+    187          void main_view(void) 
+    188          {
+    189          	lcd_view_print();
+    190          }
+    191          
+    192          volatile uint16_t test =0 ;
+    193          
+    194          
+    195          void lcd_view_print(void)
+    196          {
+    197          	sprintf((char*)&buf_cnt_sensor, " %07d", pcnt);	
+    198          	TM_HD44780_Puts(0,1, buf_cnt_sensor);	
+    199          
+    200          }
+    201          
+    202          void basic_mode(void)
+    203          {
+    204          	
+    205          	TM_HD44780_Puts(0,0, "DW_Water_Intake");	
+    206          	TM_HD44780_Puts(0,1, "2017.09.22");	//>로라통신 
+    207          	
+    208          	char buf[16] = {0,};
+    209          	sprintf(buf, "%d", CON_ADDRESS);
+    210          	TM_HD44780_Puts(10,1, buf); //>고유번호
+    211                //  TM_HD44780_Clear();
+    212                  
+    213          }
+    214          
+    215          
+    216          void loop_main(void)
+    217          {
+    218          	#ifdef WATCHDOG_ENABLE
+    219          	Wdt_reset();
+    220          	#endif
+    221          
+    222          }
+    223          
+    224          volatile uint16_t send_rfid = 0;
+    225          
+    226          extern volatile uint8_t Setting_enable;    
+    227          volatile uint8_t Setting_time_out = 0;
+    228          
+    229          char rfid_temp[16];
+    230          
+    231          extern tm_struct Now;
+    232          
+    233          void loop(void)
+    234          {
+    235          	static volatile uint32_t time_cnt = 0;
+    236          	uint32_t current_time=0, loop_time=0,view_time=0;
+    237          
+    238          	basic_mode();
+    239          	Stable_run_flag = 1;
+    240          	
+    241          	while(1)
+    242          	{
+    243          		current_time = millis();
+    244          		if((int32_t)(current_time - loop_time) >= 0){
+    245          			loop_time = current_time + MAIN_LOOP_TIME;
+    246          			
+    247          			loop_main();
+    248          			
+    249          			if(Setting_enable == 0 ) 
+    250          			{
+    251          				intake_Run();
+    252          				
+    253          			}
+    254          			else
+    255          			{
+    256          				//셋팅모드
+    257          				
+    258          			}
+    259          			
+    260          			Sub_lora_process();
+    261          		}
+    262          		
+    263          		if((int32_t)(current_time - view_time) >= 0){ 
+    264          			view_time = current_time + VIEW_LOOP_TIME;
+    265          
+    266          			R_IR_check();	
+    267          			R_setting_menu(); 		
+    268          			
+    269          			Now = read_RTC();
+    270          			
+    271          			Send_lora_packet();
+    272          			
+    273          		}
+    274          		
+    275          		if(uart3_is_empty() == 0)
+    276          		{
+    277          			parse_rfid(uart3_dequeue());
+    278          		}
+    279          
+    280          		//parse_weight();
+    281          		//R_rfid_check(); 		
+    282          		
+    283          		
+    284          	}
+    285          
+    286          }
+    287          
+    288          uint8_t R_IR_check()
+    289          {
+    290          	//적외선 센서 입력 (소 검출시)
+    291          	return Input_value[0];
+    292          }
+    293          
+    294          uint8_t R_IR_check2()
+    295          {
+    296          	//적외선 센서 입력 (소 검출시)
+    297          	return Input_value[1];
+    298          }
+    299          
+    300          uint8_t R_MaxWater_check()
+    301          {
+    302          	//물 만수 입력 
+    303          	//return Input_value[1];
+    304              // 물 10 Liter 이상일시
+    305            static int ret = 0;
+    306            if (ret == 0)
+    307            {
+    308              if (Stable_weight_ch1 > 1000)
+    309              {
+    310                ret = 1;
+    311              }
+    312            }
+    313            else
+    314            {
+    315              if (Stable_weight_ch1 < 900)
+    316              {
+    317                ret = 0;
+    318              }
+    319            }
+    320            return ret;
+    321          }
+    322          
+    323          uint16_t R_rfid_check(void)
+    324          {
+    325          	if(rfid_is_empty() == 0)
+    326          	{
+    327          		send_rfid = rfid_dequeue();
+    328          		
+    329          		return send_rfid;
+    330          	}
+    331          	else return RFID_UNKNOWN;
+    332          }
+    333          
+    334          void R_rfid_clear(void)
+    335          {
+    336          	uint8_t loop = 1;
+    337          	while(loop)
+    338          	{
+    339          		if(rfid_is_empty() == 0)
+    340          		{
+    341          			send_rfid = rfid_dequeue();
+    342          		}
+    343          		else
+    344          		{
+    345          			loop = 0;	
+    346          		}
+    347          	}
+    348          }
+    349          
+    350          
+    351          void R_setting_menu(void)
+    352          {
+    353          	static uint16_t cnt_time = 0;
+    354          	static uint8_t view_flag = 0;
+    355          
+    356          		if(cnt_time++>=30) {
+    357          			cnt_time = 0;
+    358          
+    359          			if(view_flag == 0) view_flag = 1; 
+    360          			else if (view_flag== 1) view_flag = 2;
+    361          			else if (view_flag== 2) view_flag = 0; 			
+    362          		}
+    363          	
+    364          		if(SW_L[0] == 1 )
+    365          		{
+    366          			SW_L[0] = 0;
+    367          			SW_S[0] = 0;
+    368          			
+    369          			if(Setting_time_out == 0)
+    370          			{
+    371          				 Setting_enable = 1; 
+    372          			}
+    373          		}
+    374          
+    375          		if(Setting_enable == 0 ) 
+    376          		{
+    377          
+    378          		} else { 	//>Setting_enable = 1
+    379          			setting_mode();
+    380          		}		
+    381          }
+    382          
+    383          int main(void)
+    384          {
+    385          	setup();
+    386          	setting();
+    387          
+    388          	loop();
+    389          }
+    390          
+    391          
+    392          
+    393          
+    394          
+    395          
+    396          
+    397          
+    398          
+    399          
+    400          
+    401          
+    402          
+    403          
+    404          
+    405          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   R_IR_check
+       0   R_IR_check2
+       0   R_MaxWater_check
+       8   R_rfid_check
+         8   -> rfid_dequeue
+         8   -> rfid_is_empty
+       8   R_rfid_clear
+         8   -> rfid_dequeue
+         8   -> rfid_is_empty
+       0   R_setting_menu
+         0   -> setting_mode
+      24   basic_mode
+        24   -> TM_HD44780_Puts
+        24   -> sprintf
+       8   lcd_view_init
+         0   -> Delay
+         8   -> TM_HD44780_Puts
+       8   lcd_view_print
+         0   -> TM_HD44780_Puts
+         8   -> sprintf
+      88   loop
+        88   -> Send_lora_packet
+        88   -> Sub_lora_process
+        88   -> TM_HD44780_Puts
+        88   -> intake_Run
+        88   -> millis
+        88   -> parse_rfid
+        88   -> read_RTC
+        88   -> setting_mode
+        88   -> sprintf
+        88   -> uart3_dequeue
+        88   -> uart3_is_empty
+       0   loop_main
+       8   main
+         8   -> Delay
+         8   -> TM_HD44780_Puts
+         8   -> load_eeprom
+         8   -> loop
+         8   -> setup
+       8   main_view
+         0   -> TM_HD44780_Puts
+         8   -> sprintf
+       8   setting
+         8   -> Delay
+         8   -> TM_HD44780_Puts
+         0   -> load_eeprom
+       0   timer_1000ms_loop
+       0   timer_100ms_loop
+      16   timer_10ms_loop
+        16   -> GPIO_ReadInputDataBit
+        16   -> SW_check
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable19
+       4  ??DataTable19_1
+       4  ??DataTable19_10
+       4  ??DataTable19_11
+       4  ??DataTable19_12
+       4  ??DataTable19_13
+       4  ??DataTable19_14
+       4  ??DataTable19_15
+       4  ??DataTable19_16
+       4  ??DataTable19_17
+       4  ??DataTable19_2
+       4  ??DataTable19_3
+       4  ??DataTable19_4
+       4  ??DataTable19_5
+       4  ??DataTable19_6
+       4  ??DataTable19_7
+       4  ??DataTable19_8
+       4  ??DataTable19_9
+      20  ?_0
+      20  ?_1
+       8  ?_2
+      16  ?_3
+      12  ?_4
+      16  ?_5
+       4  ?_6
+       2  FET_FL_cnt
+      44  FET_value
+          Input_cnt
+          Stable_run_flag
+          FULL_Water_Error
+          Setting_time_out
+          view_flag
+          Mode_delay
+          Stable_water_delay
+          Full_water_check_cnt
+          cnt_time
+          ret
+       1  Mode_flag
+       1  NFC_Reader_Ok
+       6  R_IR_check
+       6  R_IR_check2
+      40  R_MaxWater_check
+      26  R_rfid_check
+      24  R_rfid_clear
+      82  R_setting_menu
+       1  Stable_ch_flag
+      66  basic_mode
+      16  buf_SW_fetvalue
+      16  buf_cnt_sensor
+      16  buf_menu_num
+      42  lcd_view_init
+      32  lcd_view_print
+     256  loop
+       2  loop_main
+      54  main
+      32  main_view
+      16  rfid_temp
+       2  send_rfid
+      46  setting
+       2  test
+      12  timer_1000ms_loop
+     156  timer_100ms_loop
+     210  timer_10ms_loop
+
+ 
+   117 bytes in section .bss
+    20 bytes in section .rodata
+ 1 240 bytes in section .text
+ 
+ 1 240 bytes of CODE  memory
+    20 bytes of CONST memory
+   117 bytes of DATA  memory
+
+Errors: none
+Warnings: none

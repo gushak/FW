@@ -1,0 +1,157 @@
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[stlink]
+stlinkserialNo=5D2CEEE3
+stlinkfoundProbes=
+[SWOTraceHWSettings]
+OverrideDefaultClocks=0
+CpuClock=72000000
+ClockAutoDetect=0
+ClockWanted=2000000
+JtagSpeed=2000000
+Prescaler=36
+TimeStampPrescIndex=0
+TimeStampPrescData=0
+PcSampCYCTAP=1
+PcSampPOSTCNT=15
+PcSampIndex=0
+DataLogMode=0
+ITMportsEnable=0
+ITMportsTermIO=0
+ITMportsLogFile=0
+ITMlogFile=$PROJ_DIR$\ITM.log
+[DebugChecksum]
+Checksum=1616581652
+[Exceptions]
+StopOnUncaught=_ 0
+StopOnThrow=_ 0
+[CodeCoverage]
+Enabled=_ 0
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[JLinkDriver]
+CStepIntDis=_ 0
+LeaveTargetRunning=_ 0
+[PowerLog]
+Title_0=I0
+Symbol_0=0 4 0
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+LiveEnabled=0
+LiveFile=PowerLogLive.log
+[PowerProbe]
+Frequency=10000
+Probe0=I0
+ProbeSetup0=2 1 1 2 0 0
+[StLinkDriver]
+stlinkserialNo=40191867
+stlinkfoundProbes=
+CStepIntDis=_ 0
+LeaveTargetRunning=_ 0
+[struct_types]
+Fmt0=CONFIG_STRUCT-setup	4	0
+Fmt1=WATER_ITAKE_TABLE_STRUCT-date	4	0
+Fmt2=WATER_ITAKE_TABLE_STRUCT-feeder_num	3	0
+[array_types]
+Fmt0=uint16_t[10]	3	0
+Fmt1=uint8_t[10]	4	0
+Fmt2=uint8_t[256]	4	0
+Fmt3=unsigned char[10]	4	0
+Fmt4=unsigned char[256]	4	0
+Fmt5=unsigned char[2]	3	0
+Fmt6=unsigned char[3]	3	0
+[watch_formats]
+Fmt0={W}42:FLASH_Statusx	4	0
+Fmt1={W}42:GetTime	3	0
+Fmt2={W}42:INPUT1_check_flag	3	0
+Fmt3={W}42:Menu	3	0
+Fmt4={W}42:Oper_Cnt	3	0
+Fmt5={W}42:RFID_on_IR_status_flag	3	0
+Fmt6={W}42:R_IR_check	3	0
+Fmt7={W}42:R_rfid_check	3	0
+Fmt8={W}42:ad	4	0
+Fmt9={W}42:adr	4	0
+Fmt10={W}42:datax	4	0
+Fmt11={W}42:gate_waiting_time	3	0
+Fmt12={W}42:inx	3	0
+Fmt13={W}42:itemp	4	0
+Fmt14={W}42:millis	3	0
+Fmt15={W}42:rd	4	0
+Fmt16={W}42:status	1	0
+Fmt17={W}42:water_fill_delay	3	0
+Fmt18={W}42:xtemp	4	0
+[Trace2]
+Enabled=0
+ShowSource=0
+[SWOTraceWindow]
+PcSampling=0
+InterruptLogs=0
+ForcedTimeStamps=0
+EventCPI=0
+EventEXC=0
+EventFOLD=0
+EventLSU=0
+EventSLEEP=0
+[DataLog]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+SumEnabled=0
+ShowTimeSum=1
+[EventLog]
+Title_0=Ch3
+Symbol_0=0 4 1
+Title_1=Ch2
+Symbol_1=0 4 1
+Title_2=Ch1
+Symbol_2=0 4 1
+Title_3=Ch0
+Symbol_3=0 4 1
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+SumEnabled=0
+ShowTimeSum=1
+SumSortOrder=0
+[InterruptLog]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+SumEnabled=0
+ShowTimeSum=1
+SumSortOrder=0
+[Disassemble mode]
+mode=0
+[Breakpoints2]
+Count=0
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[Aliases]
+Count=0
+SuppressDialog=0
+[DriverProfiling]
+Enabled=0
+Mode=3
+Graph=0
+Symbiont=0
+Exclusions=
+[CallStackLog]
+Enabled=0
+[CallStackStripe]
+ShowTiming=1

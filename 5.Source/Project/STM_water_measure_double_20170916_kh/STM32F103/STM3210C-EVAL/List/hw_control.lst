@@ -1,0 +1,434 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.22.1.15669/W32 for ARM       24/May/2019  11:08:38
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\hw_control.c
+#    Command line =  
+#        -f C:\Users\dawoon1\AppData\Local\Temp\EWF354.tmp
+#        (D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\hw_control.c
+#        -D USE_STDPERIPH_DRIVER -D STM32F10X_MD -D USE_STM3210C_EVAL -lcN
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List
+#        --diag_suppress pa082 -o
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj
+#        --debug --endian=little --cpu=Cortex-M3 -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.0_2\arm\INC\c\DLib_Config_Full.h" -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\CoreSupport\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\Common\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\STM3210C_EVAL\
+#        -Ohs --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.0_2\arm\CMSIS\Core\Include\" -I "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 8.0_2\arm\CMSIS\DSP\Include\")
+#    Locale       =  C
+#    List file    =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List\hw_control.lst
+#    Object file  =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\hw_control.o
+#
+###############################################################################
+
+D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\hw_control.c
+      1          #include "hw_control.h"
+      2          
+      3          RCC_ClocksTypeDef clocks;
+      4          
+      5          volatile uint32_t sysTickUptime = 0;
+      6          volatile uint32_t Tflag_1ms = 0;
+      7          #define ADC1_DR_Address    ((u32)0x4001244C)
+      8          uint16_t ADCConvertedValue;
+      9          
+     10          void SysTick_Handler(void)         
+     11          {
+     12          	sysTickUptime++;
+     13          	Tflag_1ms++;
+     14          	timer_check();
+     15          }
+     16          
+     17          void cycleCounterInit(void)
+     18          {
+     19              RCC_GetClocksFreq(&clocks);
+     20              SysTick_Config(clocks.SYSCLK_Frequency / 1000);	
+     21          }
+     22          
+     23          uint32_t micros(void)
+     24          {
+     25              register uint32_t ms, cycle_cnt;
+     26              do {
+     27                  ms = sysTickUptime;
+     28                  cycle_cnt = SysTick->VAL;
+     29              } while (ms != sysTickUptime);
+     30              return (ms * 1000) + (72000 - cycle_cnt) / 72;
+     31          }
+     32          
+     33          uint32_t millis(void)
+     34          {
+     35              return sysTickUptime;
+     36          }
+     37          
+     38          void Delay(uint32_t ms)
+     39          {
+     40          	 uint32_t now = Tflag_1ms;
+     41               while ((Tflag_1ms - now) < ms);
+     42          }
+     43          
+     44          static void delay_t(uint32_t t)
+     45          {
+     46              while(t--)
+     47              {
+     48                  asm volatile ("nop");
+     49                  asm volatile ("nop");
+     50              }
+     51          }
+     52          
+     53          void delay_us(uint32_t t)
+     54          {
+     55              while(t--) delay_t(11);
+     56          }
+     57          
+     58          void delay_ms(uint32_t xx)
+     59          {
+     60              while(xx--) delay_us(1000);
+     61          }
+     62          
+     63          extern void timer_1000ms_loop(void);
+     64          extern void timer_100ms_loop(void);
+     65          extern void timer_10ms_loop(void);
+     66          
+     67          
+     68          void timer_check(void)
+     69          {
+     70          	//loop = 1ms
+     71              static uint16_t tick_10ms = 10,  tick_100ms=100, tick_1000ms=1000;
+     72          
+     73              if(tick_10ms == 0) //10mS
+     74              {		
+     75                  tick_10ms = 9;
+     76                  timer_10ms_loop();
+     77              } 
+     78              else 
+     79              {
+     80                  tick_10ms--;		
+     81              }	
+     82          
+     83              if(tick_100ms == 0)
+     84              {	
+     85                  tick_100ms = 99;
+     86                  timer_100ms_loop();
+     87              }
+     88              else
+     89              {
+     90                  tick_100ms--;
+     91              }   
+     92              
+     93              if(tick_1000ms == 0) 
+     94              {	
+     95                  tick_1000ms = 999;
+     96                  timer_1000ms_loop();
+     97              } 
+     98              else
+     99              {
+    100                  tick_1000ms--;
+    101              }  
+    102          }
+    103          
+    104          void NVIC_Configuration(void)               
+    105          {
+    106              NVIC_InitTypeDef NVIC_InitStructure;
+    107              NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+    108          
+    109              /* Enable and set EXTI9_5 Interrupt to the lowest priority */
+    110              NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
+    111              NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
+    112              NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    113              NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    114              NVIC_Init(&NVIC_InitStructure);
+    115              
+    116              NVIC_InitStructure.NVIC_IRQChannel = EXTI1_IRQn;
+    117              NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 3; 
+    118              NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0; 
+    119              NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    120              NVIC_Init(&NVIC_InitStructure);
+    121              
+    122          
+    123              NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+    124              NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 4;
+    125              NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    126              NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    127              NVIC_Init(&NVIC_InitStructure); 
+    128              
+    129              
+    130              NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;
+    131              NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 5;
+    132              NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    133              NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    134              NVIC_Init(&NVIC_InitStructure); 
+    135              
+    136              
+    137              NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;
+    138              NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 6;
+    139              NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    140              NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    141              NVIC_Init(&NVIC_InitStructure);   
+    142          
+    143              NVIC_SetVectorTable(NVIC_VectTab_FLASH,0x0);
+    144          }
+    145          
+    146          void GPIO_Configuration(void)  
+    147          {
+    148              RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
+    149          
+    150              GPIO_InitTypeDef GPIO_InitStructure;
+    151              RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOD | RCC_APB2Periph_AFIO, ENABLE);
+    152          
+    153              GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);
+    154              
+    155              //GPIO_PinRemapConfig(GPIO_Remap_SPI1, ENABLE);
+    156              //LED
+    157              GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
+    158              GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    159              GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8|GPIO_Pin_9;
+    160              GPIO_Init(GPIOB, &GPIO_InitStructure);	
+    161              LED_OFF;
+    162              LED1_OFF;
+    163          
+    164              //SW
+    165              GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
+    166              GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+    167              GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3 |GPIO_Pin_4 | GPIO_Pin_5 ;
+    168              GPIO_Init(GPIOB, &GPIO_InitStructure);
+    169          
+    170              //INPUT 5:sensor/6:input1,7:input2
+    171              GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
+    172              GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+    173              GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 ;	
+    174              GPIO_Init(GPIOC, &GPIO_InitStructure);
+    175          
+    176              //GPIO OUTPUT-A(FET)
+    177              GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
+    178              GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    179              GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;
+    180              GPIO_Init(GPIOA, &GPIO_InitStructure);
+    181              
+    182              //GPIO OUTPUT-B(FET)
+    183              GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
+    184              GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    185              GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0| GPIO_Pin_1;		
+    186              GPIO_Init(GPIOB, &GPIO_InitStructure);
+    187              
+    188              //Lora reset
+    189              GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
+    190              GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    191              GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;		
+    192              GPIO_Init(GPIOA, &GPIO_InitStructure);
+    193            
+    194              /* Configure PC.04 (ADC Channel14) as analog input -------------------------*/
+    195              GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+    196              GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+    197              GPIO_Init(GPIOA, &GPIO_InitStructure);
+    198              
+    199              LORA_SET;
+    200                
+    201              FET1_OFF;
+    202              FET2_OFF;
+    203              FET3_OFF;
+    204              FET4_OFF;
+    205              
+    206              GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
+    207              GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    208              GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3 ;		
+    209              GPIO_Init(GPIOC, &GPIO_InitStructure);
+    210          
+    211              
+    212              FET5_OFF;
+    213              
+    214              ADC_Config();
+    215          		
+    216          }
+    217          
+    218          void ADC_Config(void)
+    219          {      
+    220              DMA_InitTypeDef DMA_InitStructure;
+    221              ADC_InitTypeDef ADC_InitStructure;
+    222              
+    223              DMA_DeInit(DMA1_Channel1);
+    224              DMA_InitStructure.DMA_PeripheralBaseAddr = ADC1_DR_Address;
+    225              DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)&ADCConvertedValue;
+    226              DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+    227              DMA_InitStructure.DMA_BufferSize = 1;
+    228              DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+    229              DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Disable;
+    230              DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+    231              DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+    232              DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;
+    233              DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+    234              DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+    235              DMA_Init(DMA1_Channel1, &DMA_InitStructure);
+    236              
+    237              /* Enable DMA1 channel1 */
+    238              DMA_Cmd(DMA1_Channel1, ENABLE);
+    239              
+    240              /* ADC1 configuration ------------------------------------------------------*/
+    241              ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+    242              ADC_InitStructure.ADC_ScanConvMode = ENABLE;
+    243              ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;
+    244              ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+    245              ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+    246              ADC_InitStructure.ADC_NbrOfChannel = 1;
+    247              ADC_Init(ADC1, &ADC_InitStructure);
+    248          
+    249              
+    250                  /* ADC1 regular channel14 configuration */ 
+    251              ADC_RegularChannelConfig(ADC1, ADC_Channel_4, 1, ADC_SampleTime_55Cycles5);
+    252          
+    253              /* Enable ADC1 DMA */
+    254              ADC_DMACmd(ADC1, ENABLE);
+    255              
+    256              /* Enable ADC1 */
+    257              ADC_Cmd(ADC1, ENABLE);
+    258          
+    259              /* Enable ADC1 reset calibration register */   
+    260              ADC_ResetCalibration(ADC1);
+    261              /* Check the end of ADC1 reset calibration register */
+    262              while(ADC_GetResetCalibrationStatus(ADC1));
+    263          
+    264              /* Start ADC1 calibration */
+    265              ADC_StartCalibration(ADC1);
+    266              /* Check the end of ADC1 calibration */
+    267              while(ADC_GetCalibrationStatus(ADC1));
+    268                 
+    269              /* Start ADC1 Software Conversion */ 
+    270              ADC_SoftwareStartConvCmd(ADC1, ENABLE);
+    271          }
+    272          
+    273          void setup()
+    274          {
+    275          	cycleCounterInit();
+    276          	RTC_Init();
+    277          	GPIO_Configuration();
+    278          	LCD_init();
+    279          	EXTI9_0_Config();		
+    280          	NVIC_Configuration();
+    281          	UART_init();	
+    282          	lll_eeprom_init();		//EEPROM
+    283          	SPI_FLASH_Init();		//MRAM
+    284          }
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      72   ADC_Config
+        72   -> ADC_Cmd
+        72   -> ADC_DMACmd
+        72   -> ADC_GetCalibrationStatus
+        72   -> ADC_GetResetCalibrationStatus
+        72   -> ADC_Init
+        72   -> ADC_RegularChannelConfig
+        72   -> ADC_ResetCalibration
+        72   -> ADC_SoftwareStartConvCmd
+        72   -> ADC_StartCalibration
+        72   -> DMA_Cmd
+        72   -> DMA_DeInit
+        72   -> DMA_Init
+       0   Delay
+      24   GPIO_Configuration
+        24   -> ADC_Config
+        24   -> GPIO_Init
+        24   -> GPIO_PinRemapConfig
+        24   -> RCC_AHBPeriphClockCmd
+        24   -> RCC_APB2PeriphClockCmd
+       8   NVIC_Configuration
+         8   -> NVIC_Init
+         8   -> NVIC_PriorityGroupConfig
+         8   -> NVIC_SetVectorTable
+       8   SysTick_Handler
+         0   -> timer_1000ms_loop
+         8   -> timer_100ms_loop
+         8   -> timer_10ms_loop
+       8   cycleCounterInit
+         8   -> RCC_GetClocksFreq
+      16   delay_ms
+        16   -> delay_t
+       0   delay_t
+       8   delay_us
+         8   -> delay_t
+       0   micros
+       0   millis
+       8   setup
+         8   -> EXTI9_0_Config
+         8   -> GPIO_Configuration
+         8   -> LCD_init
+         8   -> NVIC_Configuration
+         8   -> RTC_Init
+         0   -> SPI_FLASH_Init
+         8   -> UART_init
+         8   -> cycleCounterInit
+         8   -> lll_eeprom_init
+       8   timer_check
+         0   -> timer_1000ms_loop
+         8   -> timer_100ms_loop
+         8   -> timer_10ms_loop
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable7
+       4  ??DataTable7_1
+       4  ??DataTable7_10
+       4  ??DataTable7_11
+       4  ??DataTable7_12
+       4  ??DataTable7_2
+       4  ??DataTable7_3
+       4  ??DataTable7_4
+       4  ??DataTable7_5
+       4  ??DataTable7_6
+       4  ??DataTable7_7
+       4  ??DataTable7_8
+       4  ??DataTable7_9
+       2  ADCConvertedValue
+     184  ADC_Config
+      14  Delay
+     280  GPIO_Configuration
+     176  NVIC_Configuration
+      78  SysTick_Handler
+      20  clocks
+      50  cycleCounterInit
+      30  delay_ms
+      50  delay_t
+      18  delay_us
+      36  micros
+       6  millis
+      46  setup
+      16  tick_10ms
+          tick_100ms
+          tick_1000ms
+          sysTickUptime
+          Tflag_1ms
+      64  timer_check
+
+ 
+    22 bytes in section .bss
+    16 bytes in section .data
+ 1 084 bytes in section .text
+ 
+ 1 084 bytes of CODE memory
+    38 bytes of DATA memory
+
+Errors: none
+Warnings: none

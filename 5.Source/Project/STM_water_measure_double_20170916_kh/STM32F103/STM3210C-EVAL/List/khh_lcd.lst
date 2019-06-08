@@ -1,0 +1,475 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.22.1.15669/W32 for ARM       24/May/2019  11:08:38
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\khh_lcd.c
+#    Command line =  
+#        -f C:\Users\dawoon1\AppData\Local\Temp\EWF357.tmp
+#        (D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\khh_lcd.c
+#        -D USE_STDPERIPH_DRIVER -D STM32F10X_MD -D USE_STM3210C_EVAL -lcN
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List
+#        --diag_suppress pa082 -o
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj
+#        --debug --endian=little --cpu=Cortex-M3 -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.0_2\arm\INC\c\DLib_Config_Full.h" -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\CoreSupport\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\Common\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\STM3210C_EVAL\
+#        -Ohs --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.0_2\arm\CMSIS\Core\Include\" -I "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 8.0_2\arm\CMSIS\DSP\Include\")
+#    Locale       =  C
+#    List file    =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List\khh_lcd.lst
+#    Object file  =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\khh_lcd.o
+#
+###############################################################################
+
+D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\khh_lcd.c
+      1          #include "hw_control.h"
+      2          #include "khh_lcd.h"
+      3          
+      4          /* Private */
+      5          void TM_HD44780_InitPins(void);
+      6          void TM_HD44780_Cmd(uint8_t cmd);
+      7          void TM_HD44780_Cmd4bit(uint8_t cmd);
+      8          void TM_HD44780_Data(uint8_t data);
+      9          void TM_HD44780_CursorSet(uint8_t col, uint8_t row);
+     10          
+     11          
+     12          static void LCD_GPIO_init(void)
+     13          {
+     14          	GPIO_InitTypeDef GPIO_InitStructure;
+     15          	//SPI_InitTypeDef sSPI;
+     16          	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOD, ENABLE);
+     17          
+     18          	//LCD//>@
+     19          	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+     20          	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+     21          	
+     22          	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11 | GPIO_Pin_12 | GPIO_Pin_15 ;
+     23          	GPIO_Init(GPIOA, &GPIO_InitStructure);	
+     24          	
+     25          	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12; 
+     26          	GPIO_Init(GPIOC, &GPIO_InitStructure);	
+     27          
+     28          	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2 ;
+     29          	GPIO_Init(GPIOD, &GPIO_InitStructure);
+     30          	
+     31          	GPIO_SetBits(GPIOA, GPIO_Pin_15);	
+     32          }
+     33          
+     34          void LCD_init(void)
+     35          {
+     36          	uint8_t customChar0[] = {
+     37          		0x1F,    // xxx 11111
+     38          		0x11,    // xxx 10001
+     39          		0x11,    // xxx 10001
+     40          		0x11,    // xxx 10001
+     41          		0x11,    // xxx 10001
+     42          		0x11,    // xxx 10001
+     43          		0x11,    // xxx 10001
+     44          		0x1F    // xxx 11111
+     45          	};
+     46          
+     47          	uint8_t customChar1[] = {
+     48          		0x1F,    // xxx 11111
+     49          		0x1F,    // xxx 10001
+     50          		0x1F,    // xxx 10001
+     51          		0x1F,    // xxx 10001
+     52          		0x1F,    // xxx 10001
+     53          		0x1F,    // xxx 10001
+     54          		0x1F,    // xxx 10001
+     55          		0x1F    // xxx 11111
+     56          	};
+     57          
+     58          	TM_HD44780_Init(16, 2);
+     59          	
+     60              TM_HD44780_CreateChar(0, &customChar0[0]);
+     61          	TM_HD44780_CreateChar(1, &customChar1[0]);
+     62          //	TM_HD44780_PutCustom(0, 1, 0);
+     63          //	TM_HD44780_PutCustom(1, 1, 1);
+     64          //	TM_HD44780_Puts(0, 0, "1234567891234567");
+     65          //	TM_HD44780_CursorSet(0, 0);
+     66          //	TM_HD44780_CursorOn();
+     67          }
+     68          
+     69          
+     70          typedef struct {
+     71          	uint8_t DisplayControl;
+     72          	uint8_t DisplayFunction;
+     73          	uint8_t DisplayMode;
+     74          	uint8_t Rows;
+     75          	uint8_t Cols;
+     76          	uint8_t currentX;
+     77          	uint8_t currentY;
+     78          } TM_HD44780_Options_t;
+     79          
+     80          TM_HD44780_Options_t TM_HD44780_Opts;
+     81          
+     82          void TM_HD44780_Init(uint8_t cols, uint8_t rows) {
+     83          	/* Init pinout */
+     84          	TM_HD44780_InitPins();
+     85          	/* At least 20ms */
+     86          	TM_HD44780_Delay(100000);
+     87          	
+     88          	TM_HD44780_Opts.Rows = rows;
+     89          	TM_HD44780_Opts.Cols = cols;
+     90          	
+     91          	TM_HD44780_Opts.currentX = 0;
+     92          	TM_HD44780_Opts.currentY = 0;
+     93          	
+     94          	TM_HD44780_Opts.DisplayFunction = TM_HD44780_4BITMODE | TM_HD44780_5x8DOTS | TM_HD44780_1LINE;
+     95          	if (rows > 1) {
+     96          		TM_HD44780_Opts.DisplayFunction |= TM_HD44780_2LINE;
+     97          	}
+     98          	
+     99          	/* Try to set 4bit mode */
+    100          	TM_HD44780_Cmd4bit(0x03);
+    101          	TM_HD44780_Delay(4500);
+    102          	
+    103          	/* Second try */
+    104          	TM_HD44780_Cmd4bit(0x03);
+    105          	TM_HD44780_Delay(4500);
+    106          	
+    107          	/* Third goo! */
+    108          	TM_HD44780_Cmd4bit(0x03);
+    109          	TM_HD44780_Delay(4500);	
+    110          	
+    111          	/* Set 4-bit interface */
+    112          	TM_HD44780_Cmd4bit(0x02);
+    113          	TM_HD44780_Delay(100);
+    114          	
+    115          	/* Set # lines, font size, etc. */
+    116          	TM_HD44780_Cmd(TM_HD44780_FUNCTIONSET | TM_HD44780_Opts.DisplayFunction);
+    117          	TM_HD44780_Delay(100);
+    118          	
+    119          	//TM_HD44780_Cmd(0x28);
+    120          	/* Turn the display on with no cursor or blinking default */
+    121          	TM_HD44780_Opts.DisplayControl = TM_HD44780_DISPLAYON;
+    122          	TM_HD44780_DisplayOn();
+    123          	TM_HD44780_Delay(100);
+    124          	
+    125          	/* Clear lcd */
+    126          	TM_HD44780_Clear();
+    127          	TM_HD44780_Delay(100);
+    128          
+    129          	/* Default font directions */
+    130          	TM_HD44780_Opts.DisplayMode = TM_HD44780_ENTRYLEFT | TM_HD44780_ENTRYSHIFTDECREMENT;
+    131          	TM_HD44780_Cmd(TM_HD44780_ENTRYMODESET | TM_HD44780_Opts.DisplayMode);
+    132          		
+    133          	/* Delay */
+    134          	TM_HD44780_Delay(10000);
+    135          
+    136          }
+    137          
+    138          void TM_HD44780_InitPins(void) {
+    139          	/* Init all pins */
+    140          	//TM_GPIO_Init(TM_HD44780_RS_PORT, TM_HD44780_RS_PIN, TM_GPIO_Mode_OUT, TM_GPIO_OType_PP, TM_GPIO_PuPd_NOPULL, TM_GPIO_Speed_Low);
+    141          	//TM_GPIO_Init(TM_HD44780_E_PORT, TM_HD44780_E_PIN, TM_GPIO_Mode_OUT, TM_GPIO_OType_PP, TM_GPIO_PuPd_NOPULL, TM_GPIO_Speed_Low);
+    142          	//TM_GPIO_Init(TM_HD44780_D4_PORT, TM_HD44780_D4_PIN, TM_GPIO_Mode_OUT, TM_GPIO_OType_PP, TM_GPIO_PuPd_NOPULL, TM_GPIO_Speed_Low);
+    143          	//TM_GPIO_Init(TM_HD44780_D5_PORT, TM_HD44780_D5_PIN, TM_GPIO_Mode_OUT, TM_GPIO_OType_PP, TM_GPIO_PuPd_NOPULL, TM_GPIO_Speed_Low);
+    144          	//TM_GPIO_Init(TM_HD44780_D6_PORT, TM_HD44780_D6_PIN, TM_GPIO_Mode_OUT, TM_GPIO_OType_PP, TM_GPIO_PuPd_NOPULL, TM_GPIO_Speed_Low);
+    145          	//TM_GPIO_Init(TM_HD44780_D7_PORT, TM_HD44780_D7_PIN, TM_GPIO_Mode_OUT, TM_GPIO_OType_PP, TM_GPIO_PuPd_NOPULL, TM_GPIO_Speed_Low);
+    146          	LCD_GPIO_init();
+    147          	
+    148          	/* Set pins low */
+    149          	GPIO_ResetBits(TM_HD44780_RS_PORT, TM_HD44780_RS_PIN);
+    150          	GPIO_ResetBits(TM_HD44780_E_PORT,  TM_HD44780_E_PIN);
+    151          	GPIO_ResetBits(TM_HD44780_D4_PORT, TM_HD44780_D4_PIN);
+    152          	GPIO_ResetBits(TM_HD44780_D5_PORT, TM_HD44780_D5_PIN);
+    153          	GPIO_ResetBits(TM_HD44780_D6_PORT, TM_HD44780_D6_PIN);
+    154          	GPIO_ResetBits(TM_HD44780_D7_PORT, TM_HD44780_D7_PIN);
+    155          }
+    156          
+    157          void TM_HD44780_Clear(void) {
+    158          	TM_HD44780_Cmd(TM_HD44780_CLEARDISPLAY);
+    159          	TM_HD44780_Delay(3000);
+    160          }
+    161          
+    162          void TM_HD44780_Cmd(uint8_t cmd) {
+    163          	/* Command mode */
+    164          	TM_HD44780_RS_LOW;
+    165          	
+    166          	/* High nibble */
+    167          	TM_HD44780_Cmd4bit(cmd >> 4);
+    168          	/* Low nibble */
+    169          	TM_HD44780_Cmd4bit(cmd & 0x0F);
+    170          }
+    171          
+    172          void TM_HD44780_Data(uint8_t data) {
+    173          	/* Data mode */
+    174          	TM_HD44780_RS_HIGH;
+    175          	
+    176          	/* High nibble */
+    177          	TM_HD44780_Cmd4bit(data >> 4);
+    178          	/* Low nibble */
+    179          	TM_HD44780_Cmd4bit(data & 0x0F);
+    180          }
+    181          
+    182          void TM_HD44780_Cmd4bit(uint8_t cmd) {
+    183          	/* Set output port */
+    184          	//uint32_t c = (uint32_t)cmd & 0x000f;
+    185          	//GPIO_Write(GPIOE, c);
+    186          	
+    187          	if((cmd & 0x08) == 0x08) GPIO_WriteBit(TM_HD44780_D7_PORT, TM_HD44780_D7_PIN, Bit_SET); else GPIO_WriteBit(TM_HD44780_D7_PORT, TM_HD44780_D7_PIN, Bit_RESET);
+    188          	if((cmd & 0x04) == 0x04) GPIO_WriteBit(TM_HD44780_D6_PORT, TM_HD44780_D6_PIN, Bit_SET); else GPIO_WriteBit(TM_HD44780_D6_PORT, TM_HD44780_D6_PIN, Bit_RESET);
+    189          	if((cmd & 0x02) == 0x02) GPIO_WriteBit(TM_HD44780_D5_PORT, TM_HD44780_D5_PIN, Bit_SET); else GPIO_WriteBit(TM_HD44780_D5_PORT, TM_HD44780_D5_PIN, Bit_RESET);
+    190          	if((cmd & 0x01) == 0x01) GPIO_WriteBit(TM_HD44780_D4_PORT, TM_HD44780_D4_PIN, Bit_SET); else GPIO_WriteBit(TM_HD44780_D4_PORT, TM_HD44780_D4_PIN, Bit_RESET);
+    191          	
+    192          	TM_HD44780_E_BLINK;
+    193          }
+    194          
+    195          void TM_HD44780_CursorSet(uint8_t col, uint8_t row) {
+    196          	uint8_t row_offsets[] = {0x00, 0x40, 0x14, 0x54};
+    197          	
+    198          	/* Go to the beginning */
+    199          	if (row >= TM_HD44780_Opts.Rows) {
+    200          		row = 0;
+    201          	}
+    202          	
+    203          	/* Save colums and row */
+    204          	TM_HD44780_Opts.currentX = col;
+    205          	TM_HD44780_Opts.currentY = row;
+    206          	
+    207          	/* Set location address */
+    208          	TM_HD44780_Cmd(TM_HD44780_SETDDRAMADDR | (col + row_offsets[row]));
+    209          }
+    210          
+    211          void TM_HD44780_Put(uint8_t x, uint8_t y, char str) {
+    212          	TM_HD44780_CursorSet(x, y);
+    213          	TM_HD44780_Data(str);
+    214          }
+    215          
+    216          void TM_HD44780_Puts(uint8_t x, uint8_t y, char* str) {
+    217            
+    218          	TM_HD44780_CursorSet(x, y);
+    219          	while (*str) {
+    220          		if (TM_HD44780_Opts.currentX >= TM_HD44780_Opts.Cols) {
+    221          			TM_HD44780_Opts.currentX = 0;
+    222          			TM_HD44780_Opts.currentY++;
+    223          			TM_HD44780_CursorSet(TM_HD44780_Opts.currentX, TM_HD44780_Opts.currentY);
+    224          		}
+    225          		if (*str == '\n') {
+    226          			TM_HD44780_Opts.currentY++;
+    227          			TM_HD44780_CursorSet(TM_HD44780_Opts.currentX, TM_HD44780_Opts.currentY);
+    228          		} else if (*str == '\r') {
+    229          			TM_HD44780_CursorSet(0, TM_HD44780_Opts.currentY);
+    230          		} else {
+    231          			TM_HD44780_Data(*str);
+    232          			TM_HD44780_Opts.currentX++;
+    233          		}
+    234          		str++;
+    235          	}
+    236          }
+    237          
+    238          void TM_HD44780_DisplayOn(void) {
+    239          	TM_HD44780_Opts.DisplayControl |= TM_HD44780_DISPLAYON;
+    240          	TM_HD44780_Cmd(TM_HD44780_DISPLAYCONTROL | TM_HD44780_Opts.DisplayControl);
+    241          }
+    242          
+    243          void TM_HD44780_DisplayOff(void) {
+    244          	TM_HD44780_Opts.DisplayControl &= ~TM_HD44780_DISPLAYON;
+    245          	TM_HD44780_Cmd(TM_HD44780_DISPLAYCONTROL | TM_HD44780_Opts.DisplayControl);
+    246          }
+    247          
+    248          void TM_HD44780_BlinkOn(void) {
+    249          	TM_HD44780_Opts.DisplayControl |= TM_HD44780_BLINKON;
+    250          	TM_HD44780_Cmd(TM_HD44780_DISPLAYCONTROL | TM_HD44780_Opts.DisplayControl);
+    251          }
+    252          
+    253          void TM_HD44780_BlinkOff(void) {
+    254          	TM_HD44780_Opts.DisplayControl &= ~TM_HD44780_BLINKON;
+    255          	TM_HD44780_Cmd(TM_HD44780_DISPLAYCONTROL | TM_HD44780_Opts.DisplayControl);
+    256          }
+    257          
+    258          void TM_HD44780_CursorOn(void) {
+    259          	TM_HD44780_Opts.DisplayControl |= TM_HD44780_CURSORON;
+    260          	TM_HD44780_Cmd(TM_HD44780_DISPLAYCONTROL | TM_HD44780_Opts.DisplayControl);
+    261          }
+    262          
+    263          void TM_HD44780_CursorOff(void) {
+    264          	TM_HD44780_Opts.DisplayControl &= ~TM_HD44780_CURSORON;
+    265          	TM_HD44780_Cmd(TM_HD44780_DISPLAYCONTROL | TM_HD44780_Opts.DisplayControl);
+    266          }
+    267          
+    268          void TM_HD44780_ScrollLeft(void) {
+    269          	TM_HD44780_Cmd(TM_HD44780_CURSORSHIFT | TM_HD44780_DISPLAYMOVE | TM_HD44780_MOVELEFT);
+    270          }
+    271          
+    272          void TM_HD44780_ScrollRight(void) {
+    273          	TM_HD44780_Cmd(TM_HD44780_CURSORSHIFT | TM_HD44780_DISPLAYMOVE | TM_HD44780_MOVERIGHT);
+    274          }
+    275          
+    276          void TM_HD44780_CreateChar(uint8_t location, uint8_t *data) {
+    277          	uint8_t i;
+    278          	/* We have 8 locations available for custom characters */
+    279          	location &= 0x07;
+    280          	TM_HD44780_Cmd(TM_HD44780_SETCGRAMADDR | (location << 3));
+    281          	
+    282          	for (i = 0; i < 8; i++) {
+    283          		TM_HD44780_Data(data[i]);
+    284          	}
+    285          }
+    286          
+    287          void TM_HD44780_PutCustom(uint8_t x, uint8_t y, uint8_t location) {
+    288          	TM_HD44780_CursorSet(x, y);
+    289          	TM_HD44780_Data(location);
+    290          }
+    291          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   LCD_init
+         8   -> GPIO_ResetBits
+         8   -> GPIO_SetBits
+         0   -> TM_HD44780_Cmd4bit
+         8   -> TM_HD44780_Cmd4bit
+         8   -> TM_HD44780_Init
+       8   TM_HD44780_BlinkOff
+         8   -> GPIO_ResetBits
+         0   -> TM_HD44780_Cmd4bit
+         8   -> TM_HD44780_Cmd4bit
+       8   TM_HD44780_BlinkOn
+         8   -> GPIO_ResetBits
+         0   -> TM_HD44780_Cmd4bit
+         8   -> TM_HD44780_Cmd4bit
+       8   TM_HD44780_Clear
+         8   -> GPIO_ResetBits
+         8   -> TM_HD44780_Cmd4bit
+         0   -> delay_us
+       8   TM_HD44780_Cmd
+         8   -> GPIO_ResetBits
+         0   -> TM_HD44780_Cmd4bit
+         8   -> TM_HD44780_Cmd4bit
+      16   TM_HD44780_Cmd4bit
+        16   -> GPIO_ResetBits
+        16   -> GPIO_SetBits
+        16   -> GPIO_WriteBit
+         0   -> delay_us
+        16   -> delay_us
+      16   TM_HD44780_CreateChar
+        16   -> GPIO_ResetBits
+        16   -> GPIO_SetBits
+         0   -> TM_HD44780_Cmd4bit
+        16   -> TM_HD44780_Cmd4bit
+       8   TM_HD44780_CursorOff
+         8   -> GPIO_ResetBits
+         0   -> TM_HD44780_Cmd4bit
+         8   -> TM_HD44780_Cmd4bit
+       8   TM_HD44780_CursorOn
+         8   -> GPIO_ResetBits
+         0   -> TM_HD44780_Cmd4bit
+         8   -> TM_HD44780_Cmd4bit
+      16   TM_HD44780_CursorSet
+        16   -> GPIO_ResetBits
+        16   -> TM_HD44780_Cmd4bit
+       8   TM_HD44780_Data
+         8   -> GPIO_SetBits
+         0   -> TM_HD44780_Cmd4bit
+         8   -> TM_HD44780_Cmd4bit
+       8   TM_HD44780_DisplayOff
+         8   -> GPIO_ResetBits
+         0   -> TM_HD44780_Cmd4bit
+         8   -> TM_HD44780_Cmd4bit
+       8   TM_HD44780_DisplayOn
+         8   -> GPIO_ResetBits
+         0   -> TM_HD44780_Cmd4bit
+         8   -> TM_HD44780_Cmd4bit
+      24   TM_HD44780_Init
+        24   -> GPIO_ResetBits
+        24   -> GPIO_SetBits
+        24   -> GPIO_WriteBit
+        24   -> TM_HD44780_Cmd
+        24   -> TM_HD44780_Cmd4bit
+        24   -> TM_HD44780_InitPins
+         0   -> delay_us
+        24   -> delay_us
+      24   TM_HD44780_InitPins
+        24   -> GPIO_Init
+        24   -> GPIO_ResetBits
+        24   -> GPIO_SetBits
+        24   -> RCC_APB2PeriphClockCmd
+      24   TM_HD44780_Put
+        24   -> TM_HD44780_Cmd
+        24   -> TM_HD44780_Data
+       8   TM_HD44780_PutCustom
+         8   -> TM_HD44780_CursorSet
+         0   -> TM_HD44780_Data
+      32   TM_HD44780_Puts
+        32   -> GPIO_SetBits
+        32   -> TM_HD44780_Cmd
+        32   -> TM_HD44780_Cmd4bit
+       8   TM_HD44780_ScrollLeft
+         8   -> GPIO_ResetBits
+         0   -> TM_HD44780_Cmd4bit
+         8   -> TM_HD44780_Cmd4bit
+       8   TM_HD44780_ScrollRight
+         8   -> GPIO_ResetBits
+         0   -> TM_HD44780_Cmd4bit
+         8   -> TM_HD44780_Cmd4bit
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable20
+       4  ??DataTable20_1
+       4  ??DataTable20_2
+       4  ??DataTable20_3
+       4  ??DataTable20_4
+       8  ?_0
+       8  ?_1
+       4  ?_2
+     412  LCD_init
+      42  TM_HD44780_BlinkOff
+      42  TM_HD44780_BlinkOn
+      42  TM_HD44780_Clear
+      32  TM_HD44780_Cmd
+     124  TM_HD44780_Cmd4bit
+     250  TM_HD44780_CreateChar
+      42  TM_HD44780_CursorOff
+      42  TM_HD44780_CursorOn
+      68  TM_HD44780_CursorSet
+      30  TM_HD44780_Data
+      42  TM_HD44780_DisplayOff
+      42  TM_HD44780_DisplayOn
+     500  TM_HD44780_Init
+     154  TM_HD44780_InitPins
+       8  TM_HD44780_Opts
+      54  TM_HD44780_Put
+      16  TM_HD44780_PutCustom
+     222  TM_HD44780_Puts
+      30  TM_HD44780_ScrollLeft
+      30  TM_HD44780_ScrollRight
+
+ 
+     8 bytes in section .bss
+    16 bytes in section .rodata
+ 2 240 bytes in section .text
+ 
+ 2 240 bytes of CODE  memory
+    16 bytes of CONST memory
+     8 bytes of DATA  memory
+
+Errors: none
+Warnings: none

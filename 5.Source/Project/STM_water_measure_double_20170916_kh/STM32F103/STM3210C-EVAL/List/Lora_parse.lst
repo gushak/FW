@@ -1,0 +1,765 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.22.1.15669/W32 for ARM       24/May/2019  11:08:39
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\Lora_parse.c
+#    Command line =  
+#        -f C:\Users\dawoon1\AppData\Local\Temp\EWF6E3.tmp
+#        (D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\Lora_parse.c
+#        -D USE_STDPERIPH_DRIVER -D STM32F10X_MD -D USE_STM3210C_EVAL -lcN
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List
+#        --diag_suppress pa082 -o
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj
+#        --debug --endian=little --cpu=Cortex-M3 -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.0_2\arm\INC\c\DLib_Config_Full.h" -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\CoreSupport\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\Common\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\STM3210C_EVAL\
+#        -Ohs --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.0_2\arm\CMSIS\Core\Include\" -I "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 8.0_2\arm\CMSIS\DSP\Include\")
+#    Locale       =  C
+#    List file    =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List\Lora_parse.lst
+#    Object file  =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\Lora_parse.o
+#
+###############################################################################
+
+D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\Lora_parse.c
+      1          #include "hw_control.h"
+      2          
+      3          volatile uint8_t recv_line_buf[256];
+      4          volatile uint8_t recv_line_cnt=0;
+      5          volatile uint8_t kbuf;
+      6          volatile uint16_t ContentLength = 0;
+      7          volatile uint8_t Recv_parse_num = 0;
+      8          volatile uint8_t Recv_data_ok = 0;
+      9          volatile uint8_t Recv_data_order = 0;
+     10          
+     11          MMQT_StateMachine_t mmqt;
+     12          WATER_ITAKE_TABLE_STRUCT Lora_wintake;
+     13          Error_Struct_t error_st;
+     14          #define CHARISNUM(x)        ((x) >= '0' && (x) <= '9')
+     15          #define CHARISHEXNUM(x)     (((x) >= '0' && (x) <= '9') || ((x) >= 'a' && (x) <= 'f') || ((x) >= 'A' && (x) <= 'F'))
+     16          #define CHAR2NUM(x)         ((x) - '0')
+     17          
+     18          void lora_init(void)
+     19          {
+     20            memset((void *)&Lora_wintake, 0, sizeof(Lora_wintake));
+     21            char *pString;
+     22            char String[16] = "AT+FREQ=1";
+     23            char String1[10] = "AT+GID=123";
+     24            char String2[12] = "AT+FARM=";
+     25            sprintf((char*)&String2[8],"%d",Config.Value[12]);
+     26            
+     27            for(uint8_t init_index = 0; init_index < 3; init_index++)
+     28            {
+     29                if (init_index == 0)
+     30                {
+     31                    pString = String;
+     32                }
+     33                else if (init_index == 1)
+     34                {
+     35                    pString = String1;
+     36                }
+     37                else if (init_index == 2)
+     38                {
+     39                    pString = String2;
+     40                }
+     41                
+     42                Uart_puts(USART1, (char *)pString);
+     43                Uart_puts(USART1, (char *)"\r\n");
+     44                delay_ms(500);
+     45            }
+     46            
+     47            LORA_RESET;
+     48            delay_ms(10);
+     49            LORA_SET;
+     50            
+     51          }
+     52          
+     53          int32_t ParseNumber_W5500(char* ptr, uint8_t* cnt) {
+     54          	uint8_t minus = 0;
+     55          	int32_t sum = 0;
+     56          	uint8_t i = 0;
+     57          	
+     58          	/* Check for minus character */
+     59          	if (*ptr == '-') {
+     60          		minus = 1;
+     61          		ptr++;
+     62          		i++;
+     63          	}
+     64          	
+     65          	/* Parse number */
+     66          	while (CHARISNUM(*ptr)) {
+     67          		sum = 10 * sum + CHAR2NUM(*ptr);
+     68          		ptr++;
+     69          		i++;
+     70          	}
+     71          	
+     72          	/* Save number of characters used for number */
+     73          	if (cnt != NULL) {
+     74          		*cnt = i;
+     75          	}
+     76          	
+     77          	/* Minus detected */
+     78          	if (minus) 
+     79            {
+     80          		return 0 - sum;
+     81          	}
+     82          	
+     83          	/* Return number */
+     84          	return sum;
+     85          }
+     86          
+     87          extern tm_struct Now;
+     88          
+     89          volatile tm_struct Base_time;
+     90          volatile char tbuf[15];
+     91          volatile u32 t1=0,t2=0;
+     92          volatile u8 Lora_Status = true;
+     93          char* ptr;
+     94          char *parse_crc ;
+     95          char *addr;
+     96          uint16_t cal_crc;
+     97          char string_crc[4];
+     98          uint16_t local_index = 0;
+     99          uint16_t crc_index = 0;
+    100          uint8_t buffer[100] = {0,};
+    101          void lora_parse(void)
+    102          {
+    103              uint8_t data = 0;
+    104              //uint16_t local_index = 0;
+    105              ContentLength = 0; 
+    106              
+    107            
+    108              if(!uart1_is_empty())
+    109              {
+    110                  data = uart1_dequeue();
+    111                  
+    112                  if(data == '\n')
+    113                  {    
+    114                      if(recv_line_buf[recv_line_cnt -1] == '\r')
+    115                      {
+    116                        //char *parse_crc ;
+    117                              //char string_crc[4];
+    118                              //uint16_t cal_crc;
+    119                              
+    120                          if((ptr = strstr((char const *)recv_line_buf, "WATER_ACK:")) != NULL)  
+    121                          {
+    122                              //char *parse_crc ;
+    123                              //char string_crc[4];
+    124                              //uint16_t cal_crc;
+    125                              
+    126                              parse_crc = ptr;
+    127                              
+    128                              for(uint8_t i = 0; ptr[i] != '\r'; i++)
+    129                              {
+    130                                  if(local_index == 0)
+    131                                  {
+    132                                      if(parse_crc[0] == 'W' && parse_crc[1] == 'A' && parse_crc[2] == 'T' && parse_crc[3] == 'E')
+    133                                      {
+    134                                          parse_crc += 10;
+    135                                          mmqt.dev_id = atoi(parse_crc);
+    136                                      }
+    137                                  }
+    138                                  else if(local_index == 1)
+    139                                  {
+    140                                     if(parse_crc[0] == 'R' && parse_crc[1] == 'F' && parse_crc[2] ==  'I' && parse_crc[3] == 'D')
+    141                                     {
+    142                                         parse_crc += 5;
+    143                                         mmqt.rf_id = atoi(parse_crc);
+    144                                     }
+    145                                  }
+    146                                  else if(local_index == 2)
+    147                                  {
+    148                                      if(parse_crc[0] == 'T' && parse_crc[1] == 'I' && parse_crc[2] ==  'M' && parse_crc[3] == 'E')
+    149                                      {
+    150                                           parse_crc += 5; 
+    151                                           mmqt.hour1 = ((int)(parse_crc[0] - '0'));
+    152                                           mmqt.hour2 = ((int)(parse_crc[1] - '0'));
+    153                                           mmqt.min1 = ((int)(parse_crc[2] - '0'));
+    154                                           mmqt.min2 = ((int)(parse_crc[3] - '0'));
+    155                                           mmqt.sec1 = ((int)(parse_crc[4] - '0'));
+    156                                           mmqt.sec2 = ((int)(parse_crc[5] - '0'));
+    157                                      }
+    158                                  }
+    159                                  else if(local_index == 3)
+    160                                  {
+    161                                      if(parse_crc[0] == 'D' && parse_crc[1] == 'A' && parse_crc[2] ==  'T' && parse_crc[3] == 'E')
+    162                                      {
+    163                                           parse_crc += 5;
+    164                                           mmqt.year1 = ((int)(parse_crc[0] - '0'));
+    165                                           mmqt.year2 = ((int)(parse_crc[1] - '0'));
+    166                                           mmqt.mon1 = ((int)(parse_crc[2] - '0'));
+    167                                           mmqt.mon2 = ((int)(parse_crc[3] - '0'));
+    168                                           mmqt.day1 = ((int)(parse_crc[4] - '0'));
+    169                                           mmqt.day2 = ((int)(parse_crc[5] - '0'));          
+    170                                      }
+    171                                  }
+    172                                  else if(local_index == 4)
+    173                                  {
+    174                                     parse_crc += 1;
+    175                                     crc_index = i + 25;
+    176                                     local_index = 0;
+    177                                     break;
+    178                                  }
+    179                                  
+    180                                  if(parse_crc[0] == ',')
+    181                                      local_index++;
+    182                             
+    183                                  
+    184                                  parse_crc++;
+    185                              }
+    186                              
+    187                              for(uint8_t i = 0; i < crc_index; i++)
+    188                              {
+    189                                  buffer[i] = atoi(&ptr[i]);
+    190                              }
+    191                              cal_crc = CheckSum((uint8_t*)ptr, crc_index);
+    192                              
+    193                              sprintf(string_crc, "%x", cal_crc);
+    194                              
+    195                              if((string_crc[0] == parse_crc[0]) && (string_crc[1] == parse_crc[1]) && (string_crc[2] == parse_crc[2]))
+    196                              {
+    197                                  if(mmqt.dev_id == CON_ADDRESS)
+    198                                      if(mmqt.rf_id == W_Intake.rfid_num)
+    199                                      {
+    200                                          if (Lora_Status == true)
+    201                                              Send_ok_data_save(); 
+    202                                          else if(Lora_Status == false)
+    203                                          {
+    204                                              Lora_Status = true;
+    205                                          }
+    206                                          
+    207                                          Base_time.tm_hour = mmqt.hour1 * 10;
+    208                                          Base_time.tm_hour += mmqt.hour2;
+    209                                          
+    210                                          Base_time.tm_min = mmqt.min1 * 10;
+    211                                          Base_time.tm_min += mmqt.min2;
+    212                                          
+    213                                          Base_time.tm_sec = mmqt.sec1 * 10;
+    214                                          Base_time.tm_sec += mmqt.sec2;
+    215                                          
+    216                                          Base_time.tm_year = 2000;
+    217                                          Base_time.tm_year += mmqt.year1 * 10;
+    218                                          Base_time.tm_year += mmqt.year2;
+    219                                          
+    220                                          Base_time.tm_mon = mmqt.mon1 * 10;
+    221                                          Base_time.tm_mon += mmqt.mon2;
+    222          
+    223                                          Base_time.tm_mday = mmqt.day1* 10;
+    224                                          Base_time.tm_mday += mmqt.day2;
+    225                                          
+    226                                          if(Base_time.tm_year >= 2019) 
+    227                                            if(Base_time.tm_mon >= 1 && Base_time.tm_mon <=12)
+    228                                              if(Base_time.tm_mday >= 1 && Base_time.tm_mday <= 31)
+    229                                                if(Base_time.tm_hour <= 24)
+    230                                                  if(Base_time.tm_min <= 60)
+    231                                                    if(Base_time.tm_sec <= 60)
+    232                                                    {			
+    233                                                      Base_time.tm_year -= 1900;
+    234                                    
+    235                                                      t1 = RTC_DateToBinary((tm_struct *)&Now);
+    236                                                      t2 = RTC_DateToBinary((tm_struct *)&Base_time);
+    237                                                      
+    238                                                      if( abs(t1-t2) > 60) 
+    239                                                      {
+    240                                                        RTC_Configuration();												
+    241                                                        
+    242                                                        Time_Adjust(Base_time);
+    243                                                        BKP_WriteBackupRegister(BKP_DR1, 0xA5A5);
+    244                                                      }		
+    245                                                    } 
+    246                                           memset((void *)&W_Intake, 0, sizeof(W_Intake));	
+    247                                          LED_FL;
+    248                                      }
+    249                              }
+    250                          }   
+    251                          memset((void *)&recv_line_buf, 0, sizeof(recv_line_buf));
+    252                          recv_line_cnt = 0;
+    253                      }
+    254                  }
+    255                  else
+    256                  {
+    257                      recv_line_buf[recv_line_cnt++] = data;
+    258                  }
+    259              }
+    260          }
+    261          
+    262          void Send_ok_data_save(void)
+    263          {
+    264              Lora_wintake.status = (Lora_wintake.status & 0xf0);	
+    265              SPI_FLASH_PageWrite((uint8_t *)&Lora_wintake,Mram_intake_address[Lora_wintake.index], sizeof(Lora_wintake));
+    266          }
+    267          
+    268          char wp_buf[62];
+    269          void Send_wintake_packet(WATER_ITAKE_TABLE_STRUCT w)
+    270          {
+    271              memset((void *)wp_buf, 0, sizeof(wp_buf));
+    272            
+    273              uint16_t a,b,c,d,f,g,h,i,j,k,l;
+    274              uint16_t year;
+    275              uint8_t month,day;
+    276            
+    277              sprintf((char *)wp_buf, "AT=");
+    278              
+    279              a = CON_ADDRESS;
+    280              b = w.index;
+    281              c = w.status;
+    282              d = rfid;
+    283              year = (w.date & 0xFFFF0000) >> 16;
+    284              month = (w.date & 0x0000FF00) >> 8;
+    285              day = w.date;
+    286              f = w.enter_time;		//@@@@
+    287              g = w.visit_time;		//@@@@
+    288              h = w.water_cnt1;
+    289              i = w.water_cnt2;
+    290              j = w.enter_weight;
+    291              k = w.end_weight;
+    292              l = w.water_temp;		
+    293                  
+    294              sprintf((char *)&wp_buf[3], "W=2,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d"
+    295                      ,a	//a =  ADDRESS
+    296                      ,b	//b= opcnt
+    297                      ,c	//c=@@@@@
+    298                      ,d	//d=@@@@
+    299                      ,year	//@@@ e
+    300                      ,month
+    301                      ,day
+    302                      ,f	//f=@@@@
+    303                      ,g	//g=@@@@
+    304                      ,h	//h=@@@1
+    305                      ,i	//i=@@@2
+    306                      ,j	//j=@@@@1
+    307                      ,k	//k=@@@@
+    308                      ,l);	//
+    309              
+    310              uint16_t index_comma = 0;
+    311              
+    312              for(uint8_t i = 0; i < sizeof(wp_buf); i++)
+    313              {
+    314                  if(wp_buf[i] == ',')
+    315                  {
+    316                      index_comma++;
+    317                      
+    318                      if(index_comma == 14)
+    319                      {
+    320                          for(uint8_t j = 0; j < sizeof(wp_buf) - (j - 1); j++)
+    321                          {
+    322                              wp_buf[i+4] = wp_buf[i+3];
+    323                          }
+    324                          wp_buf[i+3] = '.';
+    325                          wp_buf[i+5] = ',';
+    326                          
+    327                          if(wp_buf[i+4] == '\0')
+    328                              wp_buf[i+4] = '0';
+    329                          
+    330                          break;
+    331                      }
+    332                  }
+    333              }
+    334          
+    335              uint8_t index = 0;
+    336              
+    337              for(uint8_t i = 0; i < sizeof(wp_buf); i ++)
+    338              {
+    339                  if(wp_buf[i] == '\0')
+    340                  {
+    341                    index = i;
+    342                    break;
+    343                  }
+    344              }
+    345              
+    346              
+    347              uint16_t ret = CheckSum((uint8_t*)&wp_buf[5], index - 5);
+    348              
+    349              sprintf((char *)&wp_buf[index],"%x",ret);
+    350                     
+    351              Uart_puts(USART1, (char *)wp_buf);
+    352              Uart_puts(USART1, "\r\n");
+    353              
+    354              Intake_head_increment(); 
+    355              Recv_data_ok = 0;				
+    356          }
+    357          uint32_t rtc;
+    358          uint8_t index = 0;
+    359          void Send_error_packet(Error_Struct_t* e)
+    360          {   
+    361              memset((void *)wp_buf, 0, sizeof(wp_buf));
+    362          
+    363              uint16_t a,b,c,d;
+    364              uint16_t year,month;
+    365              uint8_t day;
+    366              sprintf((char *)wp_buf, "AT=");
+    367              
+    368              rtc = Get_Date();
+    369          	
+    370              a = CON_ADDRESS;
+    371              b = e->status;
+    372              c = e->rf_id;
+    373              year = (rtc >> 16) & 0xFFFF;
+    374              month = (rtc >> 8) & 0xFF;
+    375              day = rtc & 0xFF;
+    376              d = GetTime_min();
+    377                  
+    378              sprintf((char *)&wp_buf[3], "W=3,%d,%d,%d,%d,%d,%d,%d,"
+    379              ,a	
+    380              ,b	
+    381              ,c	
+    382              ,year
+    383              ,month
+    384              ,day
+    385              ,d);	//
+    386                
+    387              for(uint8_t i = 0; i < sizeof(wp_buf); i++)
+    388              {
+    389                    if(wp_buf[i] == '\0')
+    390                    {
+    391                            index = i;
+    392                            break;
+    393                    }
+    394              }
+    395          
+    396              uint16_t ret = CheckSum((uint8_t*)&wp_buf[5], index - 5);
+    397          
+    398              sprintf((char *)&wp_buf[index],"%x",ret);
+    399          
+    400              Uart_puts(USART1, (char *)wp_buf);
+    401              Uart_puts(USART1, "\r\n");
+    402              memset((void*)e, 0x00, sizeof(e));
+    403              index = 0;
+    404          }
+    405          
+    406          extern volatile uint8_t  Oper_Cnt;		// @@ @@@
+    407          void Send_status_packet(WATER_ITAKE_TABLE_STRUCT w)
+    408          { 
+    409              memset((void *)wp_buf, 0, sizeof(wp_buf));
+    410            
+    411              uint16_t a,b,c,d,f,g,h,i,j,k,l;
+    412              uint16_t year;
+    413              uint8_t month,day;
+    414            
+    415              sprintf((char *)wp_buf, "AT=");
+    416              
+    417              a = CON_ADDRESS;
+    418              b = w.index;
+    419              c = w.status;
+    420              d = w.rfid_num;
+    421              year = (w.date & 0xFFFF0000) >> 16;
+    422              month = (w.date & 0x0000FF00) >> 8;
+    423              day = w.date;
+    424              f = w.enter_time;		//@@@@
+    425              g = w.visit_time;		//@@@@
+    426              h = w.water_cnt1;
+    427              i = w.water_cnt2;
+    428              j = w.enter_weight;
+    429              k = w.end_weight;
+    430              l = w.water_temp;		
+    431                  
+    432              sprintf((char *)&wp_buf[3], "W=1,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d"
+    433                      ,a	//a =  ADDRESS
+    434                      ,b	//b= opcnt
+    435                      ,c	//c=@@@@@
+    436                      ,d	//d=@@@@
+    437                      ,year	//@@@ e
+    438                      ,month
+    439                      ,day
+    440                      ,f	//f=@@@@
+    441                      ,g	//g=@@@@
+    442                      ,h	//h=@@@1
+    443                      ,i	//i=@@@2
+    444                      ,j	//j=@@@@1
+    445                      ,k	//k=@@@@
+    446                      ,l);	//
+    447              
+    448              uint16_t index_comma = 0;
+    449              
+    450              for(uint8_t i = 0; i < sizeof(wp_buf); i++)
+    451              {
+    452                  if(wp_buf[i] == ',')
+    453                  {
+    454                      index_comma++;
+    455                      
+    456                      if(index_comma == 14)
+    457                      {
+    458                          for(uint8_t j = 0; j < sizeof(wp_buf) - (j - 1); j++)
+    459                          {
+    460                              wp_buf[i+4] = wp_buf[i+3];
+    461                          }
+    462                          wp_buf[i+3] = '.';
+    463                          wp_buf[i+5] = ',';
+    464                          
+    465                          if(wp_buf[i+4] == '\0')
+    466                              wp_buf[i+4] = '0';
+    467                          
+    468                          break;
+    469                      }
+    470                  }
+    471              }
+    472          
+    473              uint8_t index = 0;
+    474              
+    475              for(uint8_t i = 0; i < sizeof(wp_buf); i ++)
+    476              {
+    477                  if(wp_buf[i] == '\0')
+    478                  {
+    479                    index = i;
+    480                    break;
+    481                  }
+    482              }
+    483              
+    484              
+    485              uint16_t ret = CheckSum((uint8_t*)&wp_buf[5], index - 5);
+    486              
+    487              sprintf((char *)&wp_buf[index],"%x",ret);
+    488                     
+    489              Uart_puts(USART1, (char *)wp_buf);
+    490              Uart_puts(USART1, "\r\n");
+    491              
+    492              Intake_head_increment(); 
+    493              Recv_data_ok = 0;		
+    494          }
+    495          uint16_t lora_tick = 0;
+    496          uint8_t init_send = 0;
+    497          uint16_t search_address = 0;
+    498          void parse_lora_packet(void)
+    499          {
+    500              if(Recv_data_ok == 1)
+    501              {
+    502                  uint8_t delay_var = 0;
+    503                  search_address = 0;
+    504                  
+    505                  if (Lora_Status == true)
+    506                  {
+    507                      if(!init_send)
+    508                      {
+    509                          lora_tick = 10*CON_ADDRESS;
+    510                          init_send = 1;
+    511                      }
+    512                      
+    513                      uint16_t memory_index = Intake_Head();
+    514                      
+    515                      SPI_FLASH_BufferRead((uint8_t*)&Lora_wintake, Mram_intake_address[memory_index], sizeof(WATER_ITAKE_TABLE_STRUCT));
+    516                      if(!memory_index)
+    517                      {
+    518                        if(!lora_tick)
+    519                        {
+    520                          Send_status_packet(Lora_wintake);
+    521                          lora_tick = 10*Config.Value[0];
+    522                        }
+    523                      }
+    524                      else
+    525                      {
+    526                        if(!lora_tick)
+    527                        {
+    528                          Send_wintake_packet(Lora_wintake);
+    529                          lora_tick = 10*Config.Value[0];
+    530                        }
+    531                      }
+    532                       
+    533                  }
+    534                  else
+    535                  {      
+    536                      for(uint16_t i=0;i<MRAM_INTAKE_MAX_ADDRESS;i++) //@@ @@ @@@@ @@@@@ @@@@
+    537                      {		
+    538                          SPI_FLASH_BufferRead((uint8_t*)&Lora_wintake, Mram_intake_address[i], sizeof(WATER_ITAKE_TABLE_STRUCT));
+    539                          
+    540                          if((Lora_wintake.status & 0x01) == 0x01)  //@@ @@@ @@@ @@@@ @@@@@ 
+    541                          {
+    542                              if (delay_var == 0 )
+    543                              {
+    544                                  delay_ms(10*CON_ADDRESS);
+    545                                  delay_var++;
+    546                              }
+    547                              Send_wintake_packet(Lora_wintake);
+    548                              Send_ok_data_save();
+    549                              search_address = 0;    
+    550                              Recv_data_ok = 1;
+    551                          }
+    552                      }
+    553                  }
+    554              }
+    555          	else
+    556          	{
+    557          		
+    558          	}
+    559          }
+    560          
+    561          
+    562          void Sub_lora_process(void)
+    563          {
+    564              lora_parse();
+    565          }
+    566          
+    567          uint16_t CheckSum(uint8_t *buffer, uint16_t size)
+    568          {
+    569              uint16_t Sum = 0;
+    570              uint16_t i = 0;
+    571              
+    572              while(size--)
+    573              {
+    574                  Sum+=buffer[i++];
+    575              }
+    576              return Sum;
+    577          }
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   CheckSum
+      12   ParseNumber_W5500
+      56   Send_error_packet
+        56   -> CheckSum
+        56   -> GetTime_min
+        56   -> Get_Date
+        56   -> Uart_puts
+        56   -> __aeabi_memclr
+        56   -> __aeabi_memclr4
+        56   -> sprintf
+       0   Send_ok_data_save
+         0   -> SPI_FLASH_PageWrite
+      80   Send_status_packet
+        80   -> CheckSum
+        80   -> Intake_head_increment
+        80   -> Uart_puts
+        80   -> __aeabi_memclr4
+        80   -> sprintf
+      80   Send_wintake_packet
+        80   -> CheckSum
+        80   -> Intake_head_increment
+        80   -> Uart_puts
+        80   -> __aeabi_memclr4
+        80   -> sprintf
+       0   Sub_lora_process
+         0   -> lora_parse
+      64   lora_init
+        64   -> Uart_puts
+        64   -> delay_ms
+        64   -> sprintf
+      96   lora_parse
+        80   -> BKP_WriteBackupRegister
+        80   -> CheckSum
+        80   -> RTC_Configuration
+        80   -> RTC_DateToBinary
+        80   -> Send_ok_data_save
+        80   -> Time_Adjust
+        80   -> __aeabi_memclr
+        80   -> __aeabi_memclr4
+        96   -> __aeabi_memcpy4
+        80   -> atoi
+        80   -> sprintf
+        80   -> strstr
+        80   -> uart1_dequeue
+        80   -> uart1_is_empty
+      56   parse_lora_packet
+        40   -> Intake_Head
+        40   -> SPI_FLASH_BufferRead
+        40   -> SPI_FLASH_PageWrite
+        40   -> Send_status_packet
+        40   -> Send_wintake_packet
+        56   -> __aeabi_memcpy4
+        40   -> delay_ms
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable11
+       4  ??DataTable11_1
+       4  ??DataTable13
+       4  ??DataTable15
+       4  ??DataTable16
+       4  ??DataTable16_1
+       4  ??DataTable17
+       4  ??DataTable17_1
+       4  ??DataTable17_10
+       4  ??DataTable17_2
+       4  ??DataTable17_3
+       4  ??DataTable17_4
+       4  ??DataTable17_5
+       4  ??DataTable17_6
+       4  ??DataTable17_7
+       4  ??DataTable17_8
+       4  ??DataTable17_9
+      16  ?_0
+      12  ?_1
+      48  ?_10
+      12  ?_2
+       4  ?_3
+       4  ?_4
+      12  ?_5
+       4  ?_6
+       4  ?_7
+      48  ?_8
+      28  ?_9
+     440  Base_time
+          mmqt
+          string_crc
+          recv_line_cnt
+          ContentLength
+          cal_crc
+          local_index
+          crc_index
+          recv_line_buf
+          t1
+          t2
+          ptr
+          parse_crc
+          buffer
+      76  CheckSum
+     104  Lora_wintake
+          wp_buf
+          Recv_data_ok
+          Lora_Status
+          index
+          init_send
+          lora_tick
+          search_address
+          rtc
+     134  ParseNumber_W5500
+       1  Recv_data_order
+       1  Recv_parse_num
+     194  Send_error_packet
+      28  Send_ok_data_save
+     368  Send_status_packet
+     378  Send_wintake_packet
+       4  Sub_lora_process
+       4  addr
+       8  error_st
+       1  kbuf
+     180  lora_init
+     946  lora_parse
+     260  parse_lora_packet
+      16  tbuf
+
+ 
+   471 bytes in section .bss
+   104 bytes in section .data
+    16 bytes in section .rodata
+ 2 812 bytes in section .text
+ 
+ 2 812 bytes of CODE  memory
+    16 bytes of CONST memory
+   575 bytes of DATA  memory
+
+Errors: none
+Warnings: none

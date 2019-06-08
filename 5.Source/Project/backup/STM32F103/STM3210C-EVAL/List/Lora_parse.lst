@@ -1,0 +1,483 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.70.1.11437/W32 for ARM       24/Apr/2019  16:42:18
+# Copyright 1999-2016 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\Lora_parse.c
+#    Command line =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\Lora_parse.c -D
+#        USE_STDPERIPH_DRIVER -D STM32F10X_MD -D USE_STM3210C_EVAL -lcN
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\List
+#        --diag_suppress pa082 -o
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\Obj
+#        --debug --endian=little --cpu=Cortex-M3 -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.5\arm\INC\c\DLib_Config_Full.h" -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\ -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\CMSIS\CM3\CoreSupport\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\Common\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\STM3210C_EVAL\
+#        -Ohs --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 7.5\arm\CMSIS\Include\"
+#    Locale       =  Korean_Korea.949
+#    List file    =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\List\Lora_parse.lst
+#    Object file  =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\Obj\Lora_parse.o
+#
+###############################################################################
+
+D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\Lora_parse.c
+      1          #include "hw_control.h"
+      2          
+      3          volatile uint8_t recv_line_buf[256];
+      4          volatile uint8_t recv_line_cnt=0;
+      5          volatile uint8_t kbuf;
+      6          volatile uint16_t ContentLength = 0;
+      7          volatile uint8_t Recv_parse_num = 0;
+      8          volatile uint8_t Recv_data_ok = 0;
+      9          volatile uint8_t Recv_data_order = 0;
+     10          
+     11          
+     12          #define CHARISNUM(x)        ((x) >= '0' && (x) <= '9')
+     13          #define CHARISHEXNUM(x)     (((x) >= '0' && (x) <= '9') || ((x) >= 'a' && (x) <= 'f') || ((x) >= 'A' && (x) <= 'F'))
+     14          #define CHAR2NUM(x)         ((x) - '0')
+     15          
+     16          int32_t ParseNumber_W5500(char* ptr, uint8_t* cnt) {
+     17          	uint8_t minus = 0;
+     18          	int32_t sum = 0;
+     19          	uint8_t i = 0;
+     20          	
+     21          	/* Check for minus character */
+     22          	if (*ptr == '-') {
+     23          		minus = 1;
+     24          		ptr++;
+     25          		i++;
+     26          	}
+     27          	
+     28          	/* Parse number */
+     29          	while (CHARISNUM(*ptr)) {
+     30          		sum = 10 * sum + CHAR2NUM(*ptr);
+     31          		ptr++;
+     32          		i++;
+     33          	}
+     34          	
+     35          	/* Save number of characters used for number */
+     36          	if (cnt != NULL) {
+     37          		*cnt = i;
+     38          	}
+     39          	
+     40          	/* Minus detected */
+     41          	if (minus) {
+     42          		return 0 - sum;
+     43          	}
+     44          	
+     45          	/* Return number */
+     46          	return sum;
+     47          }
+     48          
+     49          extern tm_struct Now;
+     50          
+     51          volatile tm_struct Base_time;
+     52          volatile char tbuf[15];
+     53          volatile u32 t1=0,t2=0;
+     54          void lora_parse(void)
+     55          {
+     56          	uint8_t data = 0;
+     57          	char* ptr;
+     58          	
+     59          	ContentLength = 0;
+     60          	if(!uart1_is_empty())
+     61          	{
+     62          		data = uart1_dequeue();
+     63          		
+     64          		if(data == 0x0a)
+     65          		{
+     66          			recv_line_cnt = 0;
+     67          			if ((ptr = strstr((char const *)recv_line_buf, "Urdp:100:")) != NULL					//Slave -> Master
+     68          			) {	
+     69          				ptr += 9;		
+     70          				kbuf = *ptr;
+     71          				/* Parse content length */ //vinagar
+     72          				ContentLength = (kbuf - 0x30);
+     73          				
+     74          				if(ContentLength < 100)		//address 
+     75          				{
+     76          					Recv_parse_num = ContentLength;
+     77          					Recv_data_order = *(recv_line_buf + 11);
+     78          					
+     79          					if(Recv_parse_num == CON_ADDRESS)	//기기번호가 같으면 발송 합니다. 
+     80          					{
+     81          						//요기는 알아서 ~!!
+     82          						if(Recv_data_order == 'A')
+     83          						{
+     84          							
+     85          							Recv_data_ok = 1;
+     86          							//명령에 따름~!!
+     87          							//지꺼 발송~!!
+     88          							//걍 짱나는데 한개씩 할까?
+     89          							// 걍 보내자 ~!!	
+     90          						}
+     91          						else if(Recv_data_order == 'B')
+     92          						{						
+     93          							//SELECT 만들어야함
+     94          							
+     95          							
+     96          							
+     97          						}		
+     98          						else if(Recv_data_order == 'C')
+     99          						{						
+    100          							//ALL ENABLE
+    101          							//다시 받기용도입니다
+    102          							Intake_page_all_enable();
+    103          							
+    104          						}	
+    105          					}
+    106          					
+    107          					memcpy((void *)&tbuf, (const void *)&recv_line_buf[15], 15);
+    108          					/*8
+    109          					tbuf[0] =  (recv_line_buf + 15);					
+    110          					tbuf[1] =  *(recv_line_buf + 16);
+    111          					tbuf[2] =  *(recv_line_buf + 17);
+    112          					tbuf[3] =  *(recv_line_buf + 18);
+    113          					tbuf[4] =  *(recv_line_buf + 19);
+    114          					tbuf[5] =  *(recv_line_buf + 20);
+    115          					tbuf[6] =  *(recv_line_buf + 21);
+    116          					tbuf[7] =  *(recv_line_buf + 22);
+    117          					tbuf[8] =  *(recv_line_buf + 23);
+    118          					tbuf[9] =  *(recv_line_buf + 24);
+    119          					tbuf[10] =  *(recv_line_buf + 25);
+    120          					tbuf[11] =  *(recv_line_buf + 26);
+    121          					tbuf[12] =  *(recv_line_buf + 27);
+    122          					tbuf[13] =  *(recv_line_buf + 28);
+    123          					tbuf[14] =  *(recv_line_buf + 29);
+    124          					*/
+    125          					Base_time.tm_year = ((int)(tbuf[0] - '0') * 1000);
+    126          					Base_time.tm_year += ((int)(tbuf[1] - '0') * 100);
+    127          					Base_time.tm_year += ((int)(tbuf[2] - '0') * 10);
+    128          					Base_time.tm_year += ((int)(tbuf[3] - '0'));
+    129          					
+    130          					Base_time.tm_mon = ((int)(tbuf[4] - '0') * 10);
+    131          					Base_time.tm_mon += ((int)(tbuf[5] - '0'));
+    132          
+    133          					Base_time.tm_mday = ((int)(tbuf[6] - '0') * 10);
+    134          					Base_time.tm_mday += ((int)(tbuf[7] - '0'));
+    135          					
+    136          					Base_time.tm_hour = ((int)(tbuf[8] - '0') * 10);
+    137          					Base_time.tm_hour += ((int)(tbuf[9] - '0'));
+    138          					
+    139          					Base_time.tm_min = ((int)(tbuf[10] - '0') * 10);
+    140          					Base_time.tm_min += ((int)(tbuf[11] - '0'));
+    141          					
+    142          					Base_time.tm_sec = ((int)(tbuf[12] - '0') * 10);
+    143          					Base_time.tm_sec += ((int)(tbuf[13] - '0'));
+    144          
+    145          					
+    146          					if(Base_time.tm_year >= 2017) 
+    147          						if(Base_time.tm_mon >= 1 && Base_time.tm_mon <=12)
+    148          							if(Base_time.tm_mday >= 1 && Base_time.tm_mday <= 31)
+    149          								if(Base_time.tm_hour <= 24)
+    150          									if(Base_time.tm_min <= 60)
+    151          										if(Base_time.tm_sec <= 60)
+    152          										{			
+    153          											Base_time.tm_year -= 1900;
+    154          		
+    155          											t1 = RTC_DateToBinary((tm_struct *)&Now);
+    156          											t2 = RTC_DateToBinary((tm_struct *)&Base_time);
+    157          											
+    158          											if(abs(t1-t2) > 60) {
+    159          											
+    160          												RTC_Configuration();												
+    161          												
+    162          												Time_Adjust(Base_time);
+    163          												BKP_WriteBackupRegister(BKP_DR1, 0xA5A5);
+    164          
+    165          											}		
+    166          										}
+    167          											
+    168          					
+    169          					
+    170          					//datetime
+    171          				}				
+    172          			}
+    173          			
+    174          			if ((ptr = strstr((char const *)recv_line_buf, "succesfully")) != NULL					//Slave -> Master
+    175          			) {				
+    176          				//데이타를 정상적으로 발송했을 경우만 나타남
+    177          				//데이타 이후 파싱할거 없음
+    178          				//
+    179          				Send_ok_data_save();
+    180          				LED_FL;
+    181          			}
+    182          			
+    183          			memset((void *)&recv_line_buf, 0, sizeof(recv_line_buf));
+    184          		}
+    185          		else {
+    186          			recv_line_buf[recv_line_cnt++] = data;
+    187          		}
+    188          	}
+    189          	
+    190          }
+    191          
+    192          WATER_ITAKE_TABLE_STRUCT Lora_wintake;
+    193          void Send_ok_data_save(void)
+    194          {
+    195          	Lora_wintake.status = (Lora_wintake.status & 0xf0);	//갱신 초기화
+    196          	SPI_FLASH_PageWrite((uint8_t *)&Lora_wintake,Mram_intake_address[Lora_wintake.index], sizeof(Lora_wintake));
+    197          	
+    198          }
+    199          
+    200          char wp_buf[256];
+    201          void Send_wintake_packet(WATER_ITAKE_TABLE_STRUCT w)
+    202          {
+    203          	/*
+    204          	
+    205          	uint16_t index;				//일련번호 
+    206          	uint8_t status;				//급여조 상태		//급이 테이블이 변경되었다면 해당 스테이터스 증가 시켜 변경내용을 전송할수 있도록 합니다. 
+    207          	uint16_t rfid_num;		//개체 식별번호 RFID
+    208          	uint16_t date;				//저장된 날짜 년월일(변환) 
+    209          	uint16_t enter_time;		//입장시간
+    210          	uint16_t visit_time;		//체류시간
+    211          	uint16_t water_cnt1;		//pcnt1//qt1;				//1사료 섭취량
+    212          	uint16_t water_cnt2;		 //pcnt2//qt2;				//2사료 섭취량  
+    213          	uint16_t water_temp;	 //weight//temp//qt3;				//3사료 섭취량
+    214          	uint16_t aqt1;					//첨가제1 섭취량
+    215          	uint16_t aqt2;					//첨가제2 섭취량
+    216          	uint16_t intake_weight;			//섭취량 무게 //개체 무게
+    217          	uint8_t feeder_num;			//섭취한 급이기 번호
+    218          	*/
+    219          	uint16_t a,b,c,d,e,f,g,h,i,j,k,l;
+    220          		
+    221          	a = CON_ADDRESS;
+    222          	b = w.index;
+    223          	c = w.status;
+    224          	d = w.rfid_num;
+    225          	e = w.date;
+    226          	f = w.enter_time;		//입장시간
+    227          	g = w.visit_time;		//머문시간
+    228          	h = w.water_cnt1;
+    229          	i = w.water_cnt2;
+    230          	j = w.water_temp;
+    231          	k = w.intake_weight;
+    232          	l = w.aqt1;		
+    233          	
+    234          		
+    235          	memset((void *)&wp_buf, 0, sizeof(wp_buf));	//초기화
+    236          	sprintf((char *)&wp_buf, "$Trup=W:a%d:b%d:c%d:d%d:e%d:f%d:g%d:h%d:i%d:j%d:k%d:l%d:E\n\r"
+    237          					,a		//a =  물섭취 번호 
+    238          					,b	//b=일련번호
+    239          					,c	//c=급여조상태
+    240          					,d	//d=개체번호
+    241          					,e	//e=날짜
+    242          					,f	//f=입장시간
+    243          					,g	//g=퇴장시간
+    244          					,h	//h=카운트1
+    245          					,i	//i=카운트2
+    246          					,j	//j=시작저울1
+    247          					,k	//k=종료저울
+    248          					,l);	//
+    249          	
+    250          	Uart_puts(USART1, (char *)&wp_buf);						
+    251          	
+    252          }
+    253          
+    254          extern volatile uint8_t  Oper_Cnt;		// 섭취 동작중
+    255          
+    256          void Send_status_packet(WATER_ITAKE_TABLE_STRUCT w)
+    257          {
+    258          	/*	
+    259          	uint16_t index;				//일련번호 
+    260          	uint8_t status;				//급여조 상태		//급이 테이블이 변경되었다면 해당 스테이터스 증가 시켜 변경내용을 전송할수 있도록 합니다. 
+    261          	uint16_t rfid_num;		//개체 식별번호 RFID
+    262          	uint16_t date;				//저장된 날짜 년월일(변환) 
+    263          	uint16_t enter_time;		//입장시간
+    264          	uint16_t visit_time;		//체류시간
+    265          	uint16_t water_cnt1;		//pcnt1//qt1;				//1사료 섭취량
+    266          	uint16_t water_cnt2;		 //pcnt2//qt2;				//2사료 섭취량  
+    267          	uint16_t water_temp;	 //weight//temp//qt3;				//3사료 섭취량
+    268          	uint16_t aqt1;					//첨가제1 섭취량
+    269          	uint16_t aqt2;					//첨가제2 섭취량
+    270          	uint16_t intake_weight;			//섭취량 무게 //개체 무게
+    271          	uint8_t feeder_num;			//섭취한 급이기 번호
+    272          	*/
+    273          	uint16_t a,b,c,d,e,f,g,h,i,j,k,l;
+    274          		
+    275          	a = CON_ADDRESS;
+    276          	b = Oper_Cnt;
+    277          	c = w.status;
+    278          	d = w.rfid_num;
+    279          	e = w.date;
+    280          	f = w.enter_time;		//입장시간
+    281          	g = w.visit_time;		//머문시간
+    282          	h = Water_pcnt1_read();
+    283          	i =  Water_pcnt2_read();
+    284          	j = w.water_temp;
+    285          	k = Stable_weight;
+    286          	l = 0;		
+    287          	
+    288          		
+    289          	memset((void *)&wp_buf, 0, sizeof(wp_buf));	//초기화
+    290          	sprintf((char *)&wp_buf, "$Trup=S:a%d:b%d:c%d:d%d:e%d:f%d:g%d:h%d:i%d:j%d:k%d:l%d:E\n\r"
+    291          					,a	//a =  ADDRESS
+    292          					,b	//b= opcnt
+    293          					,c	//c=급여조상태
+    294          					,d	//d=개체번호
+    295          					,e	//e=날짜
+    296          					,f	//f=입장시간
+    297          					,g	//g=퇴장시간
+    298          					,h	//h=카운트1
+    299          					,i	//i=카운트2
+    300          					,j	//j=시작저울1
+    301          					,k	//k=종료저울
+    302          					,l);	//
+    303          	
+    304          	Uart_puts(USART1, (char *)&wp_buf);						
+    305          	
+    306          }
+    307          
+    308          uint16_t search_address = 0;
+    309          void Send_lora_packet(void)
+    310          {
+    311          	
+    312          	if(Recv_data_ok == 1)
+    313          	{
+    314          		Recv_data_ok = 0;
+    315          	
+    316          		search_address = 0;
+    317          		memset((void *)&Lora_wintake, 0, sizeof(Lora_wintake));
+    318          		//일단 보낼 데이타가 존재하는지 확인한다!!
+    319          		for(uint16_t i=0;i<MRAM_INTAKE_MAX_ADDRESS;i++)
+    320          		{		
+    321          			SPI_FLASH_BufferRead((uint8_t*)&Lora_wintake, Mram_intake_address[i], sizeof(WATER_ITAKE_TABLE_STRUCT));
+    322          			//Intake_data_load((uint8_t*)&Lora_wintake, Mram_intake_address[i]);
+    323          			if((Lora_wintake.status & 0x01) == 0x01) {
+    324          				//해당 정보는 보내지 않은거라 보내야한다 ~!!
+    325          				search_address = i;	//몇번째 데이타가 갱신안된건가 확인
+    326          				break;
+    327          			}
+    328          		}
+    329          		
+    330          		if(search_address != 0)
+    331          		{
+    332          			//보낼게 있는거다~!! 		
+    333          			Send_wintake_packet(Lora_wintake);
+    334          			
+    335          		}
+    336          		else
+    337          		{
+    338          			//없으면??
+    339          			//상태 정보를 보내는거다~!!
+    340          			Send_status_packet(W_Intake);
+    341          		}
+    342          	}	
+    343          }
+    344          
+    345          void Sub_lora_process(void)
+    346          {
+    347          	lora_parse();
+    348          	
+    349          	//발송은 여기서
+    350          	
+    351          }
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      12   ParseNumber_W5500
+      40   Send_lora_packet
+        24   -> SPI_FLASH_BufferRead
+        24   -> Send_status_packet
+        24   -> Send_wintake_packet
+        40   -> __aeabi_memcpy
+        40   -> __aeabi_memcpy4
+       0   Send_ok_data_save
+         0   -> SPI_FLASH_PageWrite
+      88   Send_status_packet
+        88   -> Uart_puts
+        88   -> Water_pcnt1_read
+        88   -> Water_pcnt2_read
+        88   -> __aeabi_memclr4
+        88   -> sprintf
+      64   Send_wintake_packet
+        64   -> Uart_puts
+        64   -> __aeabi_memclr4
+        64   -> sprintf
+       0   Sub_lora_process
+         0   -> lora_parse
+      88   lora_parse
+        72   -> BKP_WriteBackupRegister
+        72   -> Intake_page_all_enable
+        72   -> RTC_Configuration
+        72   -> RTC_DateToBinary
+        72   -> SPI_FLASH_PageWrite
+        72   -> Time_Adjust
+         0   -> __aeabi_memclr4
+        72   -> __aeabi_memcpy
+        88   -> __aeabi_memcpy4
+        72   -> __iar_Strstr
+        72   -> uart1_dequeue
+        72   -> uart1_is_empty
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable8
+       4  ??DataTable8_1
+       4  ??DataTable8_10
+       4  ??DataTable8_2
+       4  ??DataTable8_3
+       4  ??DataTable8_4
+       4  ??DataTable8_5
+       4  ??DataTable8_6
+       4  ??DataTable8_7
+       4  ??DataTable8_8
+       4  ??DataTable8_9
+      12  ?_0
+      12  ?_1
+      60  ?_2
+      60  ?_3
+     324  Base_time
+          tbuf
+          recv_line_buf
+          recv_line_cnt
+          kbuf
+          Recv_parse_num
+          Recv_data_order
+          ContentLength
+          t1
+          t2
+      28  Lora_wintake
+          Recv_data_ok
+          search_address
+     134  ParseNumber_W5500
+     110  Send_lora_packet
+      24  Send_ok_data_save
+     130  Send_status_packet
+     112  Send_wintake_packet
+       2  Sub_lora_process
+     578  lora_parse
+     256  wp_buf
+
+ 
+   608 bytes in section .bss
+ 1 278 bytes in section .text
+ 
+ 1 278 bytes of CODE memory
+   608 bytes of DATA memory
+
+Errors: none
+Warnings: none

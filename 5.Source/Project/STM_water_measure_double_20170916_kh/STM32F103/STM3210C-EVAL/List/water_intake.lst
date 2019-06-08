@@ -1,0 +1,524 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.22.1.15669/W32 for ARM       24/May/2019  11:08:41
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\water_intake.c
+#    Command line =  
+#        -f C:\Users\dawoon1\AppData\Local\Temp\EWFC5B.tmp
+#        (D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\water_intake.c
+#        -D USE_STDPERIPH_DRIVER -D STM32F10X_MD -D USE_STM3210C_EVAL -lcN
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List
+#        --diag_suppress pa082 -o
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj
+#        --debug --endian=little --cpu=Cortex-M3 -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.0_2\arm\INC\c\DLib_Config_Full.h" -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\CoreSupport\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\Common\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\STM3210C_EVAL\
+#        -Ohs --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.0_2\arm\CMSIS\Core\Include\" -I "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 8.0_2\arm\CMSIS\DSP\Include\")
+#    Locale       =  C
+#    List file    =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List\water_intake.lst
+#    Object file  =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\water_intake.o
+#
+###############################################################################
+
+D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\water_intake.c
+      1          #include "hw_control.h"
+      2          #include "water_intake.h"
+      3          #include "main.h"
+      4          //> struct
+      5          WATER_ITAKE_TABLE_STRUCT W_Intake = {0,};
+      6          uint32_t W_Intake_Time;
+      7          uint32_t W_Intake_Time_visit;
+      8          
+      9          extern Wight_struct Parse_st;
+     10          extern volatile char Wbuf[100];
+     11          
+     12          volatile uint8_t  Oper_Cnt=0;		 
+     13          
+     14          extern volatile uint8_t INPUT1_check_flag; 
+     15          
+     16          extern uint32_t RFID_rx_point_tail; 
+     17          uint16_t id_cnt = 0;
+     18          extern volatile uint16_t send_rfid; 
+     19          extern uint32_t pcnt, pcnt2;
+     20          
+     21          volatile uint8_t  water_fill_delay = 0; 
+     22          //volatile uint16_t gate_waiting_time = 0;
+     23          //volatile uint16_t Rfid_check_timeover = 0;
+     24          volatile uint16_t water_max_wait_time = 0;
+     25          volatile uint16_t Stable_weight = 0, weight = 0;
+     26          extern volatile uint16_t Intake_page_num;
+     27          extern volatile uint16_t FET_value[10];
+     28          Water_Info_t Weight;
+     29          
+     30          #define WATER_BOX_SINGLE
+     31          
+     32          volatile uint8_t flag_flag_flag = 0;
+     33          
+     34          void Gate_open(uint16_t m_cnt)
+     35          {
+     36              static int isOpen;
+     37              if (!isOpen)
+     38              {
+     39                FET_value[0] = 0;
+     40                isOpen = 0;
+     41              }
+     42          }
+     43          
+     44          void Gate_close()
+     45          {
+     46          	FET_value[0] = 9999;	//60@@ @@ 
+     47          }
+     48          
+     49          void Gate_open_Delay(uint16_t m_cnt)
+     50          {
+     51          	FET_value[0] = 0;
+     52          }
+     53          
+     54          void ch_check_init()
+     55          {
+     56            #ifdef WEIGHT_SINGLE
+     57          	Stable_weight = Stable_weight_ch1;
+     58          	weight = weight_ch1;
+     59          #else
+     60          	if(flag_flag_flag == 0)
+     61          	{
+     62          		Stable_weight = Stable_weight_ch1;
+     63          		weight = weight_ch1;
+     64          	} 
+     65            else
+     66            {
+     67          		Stable_weight = Stable_weight_ch2;
+     68          		weight = weight_ch2;
+     69          	}
+     70          #endif
+     71          }
+     72          
+     73          extern volatile uint8_t FULL_Water_Error;
+     74          extern volatile uint16_t Full_water_check_cnt ;
+     75          
+     76          #define OPER_INIT								0
+     77          #define OPER_WATER_WAIT	        1
+     78          #define OPER_COW_WAIT			      2
+     79          #define OPER_INCOW						  3
+     80          #define OPER_WATER						  4
+     81          #define OPER_NEXT_WAIT		      5
+     82          #define OPER_COMPLTE			      6
+     83          volatile uint16_t Run_wait = 0;
+     84          volatile uint32_t time = 0;
+     85          uint8_t buf[17];
+     86          uint32_t tick;
+     87          uint16_t rfid = RFID_UNKNOWN;	
+     88          void intake_Run(uint32_t current_time)
+     89          {
+     90          	static uint8_t complete_intake = 0;
+     91          	static uint16_t Intake_head = 0;
+     92          	static uint16_t In_rfid = 0;
+     93          	static uint16_t Incow_ir_cnt = 0;
+     94          	static uint16_t Incow_rfid_cnt = 0;
+     95          	static uint16_t reenter_cnt = 0;
+     96          	static uint16_t start_weight = 0;	
+     97          	static uint32_t Old_Watercnt = 0;
+     98          	static uint16_t Water_stable_cnt = 0;
+     99          	uint32_t Watercnt = 0;
+    100          	int32_t diff_Watercnt = 0;
+    101          	static uint16_t xxx_cnt = 0;
+    102          	static uint16_t oper_water_wait_cnt = 0;
+    103          	static uint8_t Incow_re_enter = 0;
+    104          	if(Run_wait != 0) {	Run_wait--;	return; };
+    105            
+    106            ch_check_init();
+    107            
+    108          	switch(Oper_Cnt)     
+    109          	{
+    110          		
+    111          		case OPER_INIT:
+    112                  
+    113          		uint8_t cnt = 0;
+    114                  oper_water_wait_cnt = 0;
+    115                
+    116                  Water_pcnt1_clear();	
+    117          		Water_pcnt2_clear();
+    118                    
+    119                  In_rfid = 0;
+    120                  start_weight = 0;
+    121                  
+    122                  GATE = 0;		//@@@
+    123                  
+    124                  R_rfid_clear();
+    125                  
+    126                  Oper_Cnt = OPER_WATER_WAIT;
+    127          		
+    128                  break;
+    129          		
+    130           		case OPER_WATER_WAIT :
+    131          		
+    132          		if(!R_IR_check2())
+    133          		{
+    134          			FET_value[1] = 80;
+    135          			FET_value[2] = 80;
+    136          			FET_sum[1] += FET_value[2];
+    137          		}
+    138                  else if(R_IR_check2())
+    139          		{
+    140          			Oper_Cnt = OPER_COW_WAIT;
+    141          		}        		
+    142          
+    143          			break;
+    144          			
+    145          		case OPER_COW_WAIT :
+    146                  
+    147                  xxx_cnt++;
+    148                  
+    149                  sprintf(buf, "Cow Wait : %04d ", Water_pcnt1_read());	
+    150                  TM_HD44780_Puts(0 ,0, buf); 		
+    151                  memset((void *)&buf, 0, sizeof(buf));
+    152                  sprintf(buf, "R:%03d,1:%01d,2:%01d,%02d", In_rfid, R_IR_check(), R_IR_check2(), (xxx_cnt / 100));	
+    153                  TM_HD44780_Puts(0 ,1, buf);
+    154                  
+    155                  if(rfid != RFID_UNKNOWN)
+    156                  {
+    157                      GATE = 0xFFFF;    
+    158          			
+    159                      Water_pcnt1_clear();	
+    160                      Water_pcnt2_clear();
+    161                      
+    162                      In_rfid = rfid;
+    163                      Oper_Cnt = OPER_INCOW;
+    164                      
+    165                      Intake_head = Intake_Head(); //mram;  
+    166                      W_Intake.index = Intake_head; 
+    167                      W_Intake.date = Get_Date();
+    168                      W_Intake.enter_time = GetTime_min();		//@@@@				
+    169                      W_Intake.rfid_num = rfid;
+    170                      W_Intake.feeder_num = CON_ADDRESS;
+    171                      W_Intake.enter_weight = weight;
+    172                  
+    173                      W_Intake_Time = RTC_GetCounter();		//@@ @@@. @@@@!@@ @.,@;
+    174                      start_weight = Stable_weight;
+    175                      W_Intake.enter_weight = start_weight; //@@
+    176                      
+    177                      Incow_rfid_cnt = CON_COWIN_RFID_CNT;
+    178                      Incow_ir_cnt = CON_COWIN_IR_CNT;
+    179                      
+    180                      W_Intake.rfid_num = rfid;
+    181          			
+    182                  }			
+    183                  
+    184                  break;			
+    185          			
+    186                  case OPER_INCOW:		
+    187                  
+    188                  if(Incow_rfid_cnt != 0) Incow_rfid_cnt--; 
+    189                  
+    190                  uint16_t water = Weight.factor*Water_pcnt1_read();
+    191          
+    192                  sprintf(buf, "IN:%04d,%03d,%03d",In_rfid,Incow_ir_cnt, Incow_rfid_cnt);	
+    193                  TM_HD44780_Puts(0 ,0, buf); 			
+    194                  sprintf(buf, "W%04d,P%03d,P%03d ",water, Water_pcnt1_read(), Water_pcnt2_read());	
+    195                  TM_HD44780_Puts(0 ,1, buf);				
+    196          	
+    197                    if(R_IR_check2())
+    198                    {
+    199                            tick = Config.Value[11];
+    200                    }
+    201          
+    202                    if(!tick)
+    203                    {	
+    204                            if(!R_IR_check2())
+    205                            {
+    206                                    FET_value[1] = 80;
+    207                                    FET_value[2] = 80;
+    208                                    tick = Config.Value[11];
+    209                                    FET_sum[1] += FET_value[2];
+    210                            }
+    211                    }
+    212          		
+    213          		
+    214                  if(rfid != RFID_UNKNOWN)
+    215                  {
+    216          		    In_rfid = rfid;				
+    217          			GATE = 0xFFFF;
+    218          			
+    219                      if(W_Intake.rfid_num != rfid) 			
+    220                      {
+    221          				if(!R_IR_check2())
+    222          				{
+    223          					while(!R_IR_check2())
+    224          					{	
+    225          						if(!tick)
+    226          						{
+    227          							water = Weight.factor*Water_pcnt1_read();
+    228          								
+    229          							sprintf(buf, "IN:%04d,%03d,%03d",In_rfid,Incow_ir_cnt, Incow_rfid_cnt);	
+    230          							TM_HD44780_Puts(0 ,0, buf); 			
+    231          							sprintf(buf, "W%04d,P%03d,P%03d ",water, Water_pcnt1_read(), Water_pcnt2_read());	
+    232          							TM_HD44780_Puts(0 ,1, buf);				
+    233          							
+    234          							FET_value[1] = 80;
+    235          							FET_value[2] = 80;
+    236          							tick = Config.Value[11];
+    237          							FET_sum[1] += FET_value[2];
+    238          							complete_intake++;
+    239          						}
+    240          
+    241          						if(complete_intake > 10)
+    242          						{
+    243          							reenter_cnt = 3000;
+    244          							Oper_Cnt = OPER_COMPLTE;
+    245          							complete_intake = 0;
+    246          							
+    247          						}
+    248          					}
+    249          				}	
+    250          			}
+    251          			else if(W_Intake.rfid_num == rfid)
+    252          			{
+    253          				while(!R_IR_check2())
+    254          				{	
+    255          					if(!tick)
+    256          					{
+    257          						water = Weight.factor*Water_pcnt1_read();
+    258          							
+    259          						sprintf(buf, "IN:%04d,%03d,%03d",In_rfid,Incow_ir_cnt, Incow_rfid_cnt);	
+    260          						TM_HD44780_Puts(0 ,0, buf); 			
+    261          						sprintf(buf, "W%04d,P%03d,P%03d ",water, Water_pcnt1_read(), Water_pcnt2_read());	
+    262          						TM_HD44780_Puts(0 ,1, buf);				
+    263          						
+    264          						FET_value[1] = 80;
+    265          						FET_value[2] = 80;
+    266          						tick = Config.Value[11];
+    267          						FET_sum[1] += FET_value[2];
+    268          					}
+    269          				}
+    270          				
+    271          				if(!Incow_rfid_cnt)
+    272          				{
+    273          					Incow_rfid_cnt = CON_COWIN_RFID_CNT;	
+    274          	
+    275          				}
+    276          			}
+    277          		}
+    278                  else if(rfid == RFID_UNKNOWN)
+    279          		{
+    280          				if(R_IR_check2())
+    281          				{
+    282          					if(!Incow_rfid_cnt)
+    283          					{
+    284          						GATE = 0;   
+    285          						Oper_Cnt = OPER_NEXT_WAIT;
+    286          						reenter_cnt = CON_COWIN_RFID_CNT;
+    287          					}
+    288          				}
+    289                    } 
+    290          		
+    291                  break;
+    292          			
+    293          		case OPER_NEXT_WAIT:
+    294          	
+    295                  if(reenter_cnt != 0)
+    296                  {				
+    297                      reenter_cnt--;
+    298          			
+    299          			if(W_Intake.rfid_num != rfid) //@@@@@ @@ @@ @@ !! 
+    300          			{
+    301          				while(!R_IR_check2() && complete_intake > 10)
+    302          				{
+    303          					if(!tick)
+    304          					{
+    305          						FET_value[1] = 80;
+    306          						FET_value[2] = 80;
+    307          						FET_sum[1] += FET_value[2];
+    308          						complete_intake++;
+    309          						
+    310          						if(complete_intake > 10 && R_IR_check2())
+    311          						{
+    312          							W_Intake.rfid_num = rfid;
+    313          							Oper_Cnt = OPER_COMPLTE;
+    314          							complete_intake = 0;
+    315          							break;
+    316          						}
+    317          					}
+    318          				}
+    319          			}
+    320          			else if(rfid != RFID_UNKNOWN)
+    321          			{
+    322          				GATE = 0xFFFF;   					
+    323          				Incow_ir_cnt = CON_COWIN_IR_CNT;
+    324          				Incow_rfid_cnt = CON_COWIN_RFID_CNT;
+    325          				Oper_Cnt = OPER_INCOW;
+    326          				Incow_re_enter = 1; 
+    327          			}
+    328          		}
+    329          
+    330          		if(reenter_cnt == 0)
+    331          		{
+    332          			if(rfid == RFID_UNKNOWN)
+    333          			{
+    334          				W_Intake.rfid_num = rfid;
+    335          				Oper_Cnt = OPER_COMPLTE;
+    336          			}
+    337          		}
+    338                  
+    339                 
+    340                  sprintf(buf, "RE_ENTER_WAIT   "); //@@@ @@!!! 	
+    341                  TM_HD44780_Puts(0 ,0, buf); 			
+    342                  sprintf(buf, "C:%04d, R:%04d  ",In_rfid, reenter_cnt);	
+    343                  TM_HD44780_Puts(0 ,1, buf);
+    344                  
+    345           	   break;
+    346          			
+    347          			
+    348          			
+    349          		case OPER_COMPLTE:
+    350                  
+    351                  W_Intake.water_cnt1 = Water_pcnt1_read();			
+    352                  W_Intake.water_cnt2 = Water_pcnt2_read();				
+    353                  W_Intake.end_weight = Weight.factor*Water_pcnt1_read();		 		
+    354                  
+    355                  W_Intake.status = 0x01;
+    356                  
+    357                  W_Intake.visit_time = GetTime_min();
+    358                  
+    359                  sprintf(buf, "SAVE DATA       ");	
+    360                  TM_HD44780_Puts(0 ,0, buf);
+    361          
+    362                  sprintf(buf, "%04d,%04d,%04d", W_Intake.water_cnt1, W_Intake.water_cnt2, W_Intake.end_weight);	
+    363                  TM_HD44780_Puts(0 ,1, buf);
+    364          
+    365                  
+    366                  SPI_FLASH_PageWrite((uint8_t *)&W_Intake, Mram_intake_address[Intake_head], 
+    367                                  sizeof(W_Intake));
+    368                                  
+    369                  Oper_Cnt = OPER_INIT;
+    370                  
+    371                  Recv_data_ok = 1;
+    372                  
+    373                  R_rfid_clear();
+    374                  Run_wait = 200;	
+    375                  
+    376          		break;
+    377          			
+    378          	default:
+    379          		break;
+    380          		
+    381          	}
+    382          }
+    383          
+    384          
+    385          
+    386          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   Gate_close
+       0   Gate_open
+       0   Gate_open_Delay
+       0   ch_check_init
+      40   intake_Run
+        40   -> GetTime_min
+        40   -> Get_Date
+        40   -> Intake_Head
+        40   -> RTC_GetCounter
+        40   -> R_IR_check
+        40   -> R_IR_check2
+        40   -> R_rfid_clear
+        40   -> SPI_FLASH_PageWrite
+         0   -> TM_HD44780_Puts
+        40   -> TM_HD44780_Puts
+        40   -> Water_pcnt1_clear
+        40   -> Water_pcnt1_read
+        40   -> Water_pcnt2_clear
+        40   -> Water_pcnt2_read
+        40   -> __aeabi_f2iz
+        40   -> __aeabi_fmul
+        40   -> __aeabi_memclr4
+        40   -> __aeabi_ui2f
+        40   -> sprintf
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable12
+       4  ??DataTable12_1
+       4  ??DataTable12_2
+       4  ??DataTable12_3
+       4  ??DataTable12_4
+       4  ??DataTable12_5
+       4  ??DataTable12_6
+       4  ??DataTable12_7
+      20  ?_0
+      28  ?_1
+      20  ?_2
+      20  ?_3
+      20  ?_4
+      20  ?_5
+      20  ?_6
+      16  ?_7
+      12  Gate_close
+      10  Gate_open
+      10  Gate_open_Delay
+       1  Incow_re_enter
+      96  W_Intake
+          Weight
+          Oper_Cnt
+          complete_intake
+          Stable_weight
+          weight
+          Run_wait
+          rfid
+          Intake_head
+          In_rfid
+          Incow_ir_cnt
+          Incow_rfid_cnt
+          reenter_cnt
+          start_weight
+          xxx_cnt
+          W_Intake_Time
+          tick
+          buf
+       4  W_Intake_Time_visit
+      22  ch_check_init
+       1  flag_flag_flag
+       2  id_cnt
+    1306  intake_Run
+       4  isOpen
+       2  oper_water_wait_cnt
+       4  time
+       1  water_fill_delay
+       2  water_max_wait_time
+
+ 
+    21 bytes in section .bss
+    96 bytes in section .data
+ 1 556 bytes in section .text
+ 
+ 1 556 bytes of CODE memory
+   117 bytes of DATA memory
+
+Errors: none
+Warnings: 37

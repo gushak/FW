@@ -1,0 +1,644 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.70.1.11437/W32 for ARM       24/Apr/2019  16:42:23
+# Copyright 1999-2016 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\water_intake.c
+#    Command line =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\water_intake.c
+#        -D USE_STDPERIPH_DRIVER -D STM32F10X_MD -D USE_STM3210C_EVAL -lcN
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\List
+#        --diag_suppress pa082 -o
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\Obj
+#        --debug --endian=little --cpu=Cortex-M3 -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.5\arm\INC\c\DLib_Config_Full.h" -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\ -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\CMSIS\CM3\CoreSupport\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\Common\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\STM3210C_EVAL\
+#        -Ohs --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 7.5\arm\CMSIS\Include\"
+#    Locale       =  Korean_Korea.949
+#    List file    =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\List\water_intake.lst
+#    Object file  =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\Obj\water_intake.o
+#
+###############################################################################
+
+D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\water_intake.c
+      1          #include "hw_control.h"
+      2          #include "water_intake.h"
+      3          
+      4          //> struct
+      5          WATER_ITAKE_TABLE_STRUCT W_Intake = {0,};
+      6          uint32_t W_Intake_Time;
+      7          uint32_t W_Intake_Time_visit;
+      8          
+      9          extern Wight_struct Parse_st;
+     10          extern volatile char Wbuf[100];
+     11          
+     12          volatile uint8_t  Oper_Cnt=0;		 
+     13          
+     14          extern volatile uint8_t INPUT1_check_flag; 
+     15          
+     16          extern uint32_t RFID_rx_point_tail; 
+     17          uint16_t id_cnt = 0;
+     18          extern volatile uint16_t send_rfid; 
+     19          extern uint32_t pcnt, pcnt2;
+     20          
+     21          volatile uint8_t  water_fill_delay = 0; 
+     22          //volatile uint16_t gate_waiting_time = 0;
+     23          //volatile uint16_t Rfid_check_timeover = 0;
+     24          volatile uint16_t water_max_wait_time = 0;
+     25          volatile uint16_t Stable_weight = 0, weight = 0;
+     26          extern volatile uint16_t Intake_page_num;
+     27          extern volatile uint16_t FET_value[10];
+     28          
+     29          #define WATER_BOX_SINGLE
+     30          
+     31          volatile uint8_t flag_flag_flag = 0;
+     32          
+     33          void Gate_open(uint16_t m_cnt)
+     34          {
+     35              static int isOpen;
+     36              if (!isOpen)
+     37              {
+     38                FET_value[0] = 0;
+     39                isOpen = 0;
+     40              }
+     41          }
+     42          
+     43          void Gate_close()
+     44          {
+     45          	FET_value[0] = 9999;	//60초간 닫침 
+     46          	//에어 끈다 문열려있도록 	
+     47          }
+     48          
+     49          void Gate_open_Delay(uint16_t m_cnt)
+     50          {
+     51          	FET_value[0] = 0;
+     52          
+     53          	
+     54          }
+     55          
+     56          void ch_check_init()
+     57          {
+     58          #ifdef WEIGHT_SINGLE
+     59          	Stable_weight = Stable_weight_ch1;
+     60          	weight = weight_ch1;
+     61          #else
+     62          	if(flag_flag_flag == 0)
+     63          	{
+     64          		Stable_weight = Stable_weight_ch1;
+     65          		weight = weight_ch1;
+     66          	} else {
+     67          		Stable_weight = Stable_weight_ch2;
+     68          		weight = weight_ch2;
+     69          	}
+     70          #endif
+     71          }
+     72          
+     73          extern volatile uint8_t FULL_Water_Error;
+     74          extern volatile uint16_t Full_water_check_cnt ;
+     75          
+     76          #define OPER_INIT								0
+     77          #define OPER_WATER_WAIT	1
+     78          #define OPER_COW_WAIT			2
+     79          #define OPER_INCOW						3
+     80          #define OPER_WATER						4
+     81          #define OPER_NEXT_WAIT		5
+     82          #define OPER_COMPLTE			6
+     83          
+     84          volatile uint16_t Run_wait = 0;
+     85          //메인 초기화할때 모터 닫기 넣기
+     86          void intake_Run()
+     87          {
+     88          	static uint16_t Intake_head = 0;
+     89          	char buf[17];
+     90          	static uint16_t rfid = 0;	
+     91          	static uint16_t In_rfid = 0;
+     92          	static uint16_t Incow_ir_cnt = 0;
+     93          	static uint16_t Incow_rfid_cnt = 0;
+     94          	static uint16_t reenter_cnt = 0;
+     95          	static uint16_t start_weight = 0;	
+     96          	static uint32_t Old_Watercnt = 0;
+     97          	static uint16_t Water_stable_cnt = 0;
+     98          	uint32_t Watercnt = 0;
+     99          	int32_t diff_Watercnt = 0;
+    100          	static uint16_t xxx_cnt = 0;
+    101          	static uint16_t oper_water_wait_cnt = 0;
+    102          
+    103          	if(Run_wait != 0) {	Run_wait--;	return; };
+    104          	
+    105          	//무게 가져오기 
+    106          	ch_check_init();
+    107          	
+    108          	switch(Oper_Cnt)     
+    109          	{
+    110          		
+    111          		case OPER_INIT:
+    112          			
+    113          			oper_water_wait_cnt = 0;
+    114          			Water_pcnt1_clear();	//물카운트 초기화 하기 
+    115          			Water_pcnt2_clear();
+    116          			
+    117          			
+    118          			rfid = 0;
+    119          			In_rfid = 0;
+    120          			start_weight = 0;
+    121          			
+    122          			GATE = 0;		//문닫기
+    123          			
+    124          			R_rfid_clear();
+    125          			Oper_Cnt = OPER_WATER_WAIT;
+    126          			
+    127          			break;
+    128          		// 입자을 받을수 있는 상태인지 확인하고 대기 함
+    129          		// 중간 정산중인지 확인 하는 부분 필요함
+    130          		case OPER_WATER_WAIT:
+    131          						
+    132          			//10mS단위는 너무 작다!!
+    133          			if(oper_water_wait_cnt ++ >= 10)
+    134          			{
+    135          				oper_water_wait_cnt = 0;
+    136          				
+    137          				Watercnt = Water_pcnt1_read();
+    138          				diff_Watercnt = Watercnt - Old_Watercnt;
+    139          				Old_Watercnt = Watercnt;
+    140          
+    141          				
+    142          				if(abs(diff_Watercnt) < CON_WATER_WAIT_DIFF)
+    143          				{
+    144          					Water_stable_cnt++;
+    145          					if(Water_stable_cnt >= CON_WATER_WAIT_TIME) 
+    146          					{
+    147          						//일정시간 이상 기다렸다가!!
+    148          						Water_stable_cnt = 0;
+    149          						Oper_Cnt = OPER_COW_WAIT;
+    150          						xxx_cnt = 0;
+    151          					}				
+    152          				}
+    153          				else
+    154          				{
+    155          					Water_stable_cnt = 0;
+    156          				}
+    157          				
+    158          				sprintf(buf, "Water empty:%04d", Water_stable_cnt);	
+    159          				TM_HD44780_Puts(0 ,0, buf); 			
+    160          				sprintf(buf, "C1:%04d,Dif:%04d", Watercnt,diff_Watercnt);	
+    161          				TM_HD44780_Puts(0 ,1, buf);	
+    162          			}
+    163          
+    164          			break;
+    165          			
+    166          		case OPER_COW_WAIT :
+    167          			
+    168          			rfid = R_rfid_check();	
+    169          			xxx_cnt++;
+    170          			
+    171          			sprintf(buf, "Cow Wait : %04d ", Water_pcnt1_read());	
+    172          			TM_HD44780_Puts(0 ,0, buf); 		
+    173          			memset((void *)&buf, 0, sizeof(buf));
+    174          			sprintf(buf, "R:%03d,1:%01d,2:%01d,%02d", In_rfid, R_IR_check(), R_IR_check2(), (xxx_cnt / 100));	
+    175          			TM_HD44780_Puts(0 ,1, buf);
+    176          			
+    177          			if(rfid != RFID_UNKNOWN && ((R_IR_check() == 1) || (R_IR_check2() == 1))) 
+    178          			{
+    179          				GATE = 1000;    //문을 10초간 열어 놓는다
+    180          				//  초기 설정 하고 다음으로 넘어가기!!				
+    181          				Water_pcnt1_clear();	//물카운트 초기화 하기 
+    182          				Water_pcnt2_clear();
+    183          				
+    184          				In_rfid = rfid;
+    185          				Oper_Cnt = OPER_INCOW;
+    186          				
+    187          				memset((void *)&W_Intake, 0, sizeof(W_Intake));
+    188          				Intake_head = Intake_Head(); //mram;  
+    189          				W_Intake.index = Intake_head; 
+    190          				W_Intake.date = Get_Date();
+    191          				W_Intake.enter_time = GetTime_min();		//입장시간				
+    192          				W_Intake.rfid_num = rfid;
+    193          				W_Intake.feeder_num = CON_ADDRESS;
+    194          
+    195          				W_Intake_Time = RTC_GetCounter();		//시간 계산용. 필요없당!@@ ㅡ.,ㅡ;
+    196          
+    197          				start_weight = Stable_weight;
+    198          				W_Intake.water_temp = start_weight; //저울
+    199          				
+    200          				Incow_rfid_cnt = CON_COWIN_RFID_CNT;
+    201          				Incow_ir_cnt = CON_COWIN_IR_CNT;
+    202          			}			
+    203          			break;			
+    204          			
+    205          		case OPER_INCOW:		
+    206          			//급이 도중 소가 			
+    207          			if(Incow_rfid_cnt != 0) Incow_rfid_cnt--;
+    208          			
+    209          			sprintf(buf, "IN:%04d,%03d,%03d",In_rfid,Incow_ir_cnt, Incow_rfid_cnt);	
+    210          			TM_HD44780_Puts(0 ,0, buf); 			
+    211          			sprintf(buf, "W%04d,P%03d,P%03d ",weight, Water_pcnt1_read(), Water_pcnt2_read());	
+    212          			TM_HD44780_Puts(0 ,1, buf);			
+    213          				
+    214          			rfid = R_rfid_check();
+    215          			if(rfid != RFID_UNKNOWN)
+    216          			{
+    217          				In_rfid = rfid;				
+    218          				Incow_rfid_cnt = CON_COWIN_RFID_CNT;
+    219          				if(W_Intake.rfid_num != rfid)
+    220          				{
+    221          					//다른개체면 정산 바로 하기 !! 
+    222          					// 정상개체면 
+    223          					Oper_Cnt = OPER_COMPLTE;
+    224          				}
+    225          				else
+    226          				{
+    227          					GATE = 1000;    //문을 60초간 열어 놓는다
+    228          					//정상적으로 섭취중 
+    229          				}
+    230          			}
+    231          			
+    232          			
+    233          			//소 입장시 주기적으로 센서 갑지 안되면 바로 닫고 정산대기
+    234          			if((R_IR_check() == 0) && (R_IR_check2() == 0))
+    235          			{				
+    236          				
+    237          				GATE = 0;	//게이트 닫기 !! 
+    238          				//퇴장이라 감지하기 !! 소없음 
+    239          				Oper_Cnt = OPER_NEXT_WAIT;
+    240          				reenter_cnt = COM_RE_ENTER_CNT;
+    241          						
+    242          			}
+    243          			else
+    244          			{
+    245          				GATE = 1000;
+    246          				
+    247          			}
+    248          			
+    249          			
+    250          			break;
+    251          			
+    252          		case OPER_NEXT_WAIT:
+    253          	
+    254          			
+    255          			if(reenter_cnt != 0)
+    256          			{				
+    257          				reenter_cnt--;
+    258          				
+    259          				rfid = R_rfid_check();
+    260          				if(rfid != RFID_UNKNOWN)
+    261          				{
+    262          					In_rfid = rfid;	
+    263          					if(W_Intake.rfid_num != rfid)
+    264          					{
+    265          						//다른개체면 정산 바로 하기 !! 
+    266          						// 정상개체면 
+    267          						Oper_Cnt = OPER_COMPLTE;
+    268          					}
+    269          					else
+    270          					{
+    271          						if((R_IR_check() == 1) || (R_IR_check2() == 1))
+    272          						{	
+    273          							//기존소가 또 들어오면 
+    274          							GATE = 1000;    //문을 60초간 열어 놓는다								
+    275          							Incow_ir_cnt = CON_COWIN_IR_CNT;
+    276          							Incow_rfid_cnt = CON_COWIN_RFID_CNT;
+    277          							Oper_Cnt = OPER_INCOW;
+    278          						}
+    279          					}
+    280          				}
+    281          				
+    282          			}
+    283          			else
+    284          			{
+    285          				//정산하기 
+    286          				Oper_Cnt = OPER_COMPLTE;
+    287          			}
+    288          			
+    289          			//다음소 대기!!! 
+    290          			sprintf(buf, "RE_ENTER_WAIT   ");	
+    291          			TM_HD44780_Puts(0 ,0, buf); 			
+    292          			sprintf(buf, "C:%04d, R:%04d  ",In_rfid, reenter_cnt);	
+    293          			TM_HD44780_Puts(0 ,1, buf);		
+    294          			
+    295          			break;
+    296          			
+    297          			
+    298          			
+    299          		case OPER_COMPLTE:
+    300          			//개체 정산
+    301          			
+    302          		W_Intake.water_cnt1 = Water_pcnt1_read();	//종료시 무게!!		
+    303          		W_Intake.water_cnt2 = Water_pcnt2_read();	//종료시 무게!!				
+    304          		W_Intake.intake_weight = weight;		//종료시점에 무게 그냥 넣는다 		
+    305          		//2017-04-03 _ㅠㅠ 아래 수정 필요 
+    306          		W_Intake.status = 0x01;
+    307          		
+    308          		sprintf(buf, "SAVE DATA       ");	
+    309          		TM_HD44780_Puts(0 ,0, buf);
+    310          
+    311          		sprintf(buf, "%04d,%04d,%04d", W_Intake.water_cnt1, W_Intake.water_cnt2, W_Intake.intake_weight);	
+    312          		TM_HD44780_Puts(0 ,1, buf);
+    313          
+    314          		
+    315          		SPI_FLASH_PageWrite(
+    316          										(uint8_t *)&W_Intake,
+    317          										Mram_intake_address[Intake_head], 
+    318          										sizeof(W_Intake));
+    319          										
+    320          		Intake_head_increment();
+    321          	
+    322          
+    323          		Oper_Cnt = OPER_INIT;
+    324          		
+    325          	
+    326          		memset((void *)&W_Intake, 0, sizeof(W_Intake));
+    327          		
+    328          		R_rfid_clear();
+    329          		Run_wait = 200;	
+    330          		
+    331          			break;
+    332          			
+    333          #if 0
+    334          		
+    335          		case 0:	// 센서 와 칩번호가 감지, 또는 칩이 감지 되었을 경우 입장으로 간주하고 초기화
+    336          		
+    337          			rfid = R_rfid_check();	
+    338          			TM_HD44780_Puts(0 ,0, "RUN:RFID&IR WAIT"); 			
+    339          			sprintf(buf, "RFID>%04d  ", rfid);	
+    340          			TM_HD44780_Puts(0 ,1, buf);
+    341                          
+    342          
+    343          			if((R_IR_check() == 1 && rfid != RFID_UNKNOWN) || rfid != RFID_UNKNOWN) 
+    344          			{	
+    345          				//  입장 
+    346          				
+    347                                          FET_value[0] = 6000;    //문을 60초간 열어 놓는다
+    348                                  
+    349          				
+    350                                         
+    351                                                                                                        
+    352                                            #ifdef WEIGHT_SINGLE
+    353                                            #else
+    354                                            sprintf(buf, "CH>%d            ", Stable_ch_flag + 1);	
+    355                                            TM_HD44780_Puts(0 ,1, buf);
+    356                                            #endif
+    357          				
+    358                                            memset((void *)&W_Intake, 0, sizeof(W_Intake));
+    359                                            Intake_head = Intake_Head(); //mram;  
+    360          				
+    361                                            W_Intake.index = Intake_head; 
+    362                                            W_Intake.date = Get_Date();
+    363                                            W_Intake.enter_time = GetTime_min();		//입장시간				
+    364                                            W_Intake.rfid_num = rfid;
+    365                                            W_Intake.feeder_num = CON_ADDRESS;
+    366          				
+    367                                            W_Intake_Time = RTC_GetCounter();		//시간 계산용. 필요없당!@@ ㅡ.,ㅡ;
+    368          				
+    369                                            start_weight = Stable_weight;
+    370                                            W_Intake.water_temp = start_weight; //저울
+    371          				
+    372                                            #ifdef WEIGHT_SINGLE
+    373                                            Water_pcnt1_clear();
+    374                                            Water_pcnt2_clear();
+    375                                            #else
+    376                                            if(flag_flag_flag == 0)
+    377                                            {
+    378          					Water_pcnt1_clear();	
+    379                                            } else {
+    380          					Water_pcnt2_clear();	
+    381                                            }
+    382                                            #endif
+    383                                            //test 후 삭제
+    384                                           
+    385                                            Oper_Cnt = 1;
+    386                                            in_flag = 0;
+    387          			}
+    388          		break;
+    389          		
+    390          	case 1: 
+    391          			
+    392          		if(R_IR_check() == 0)
+    393          		{
+    394          			//소 퇴장
+    395          			Oper_Cnt = 2;
+    396          			//gate_close_flag = 1;
+    397          
+    398          			//Rfid_check_timeover = RFID_TIMEOVER;
+    399          			//gate_waiting_time = 0;	//정산시간은 바로
+    400                                  W_Intake.rfid_num = rfid;
+    401          			in_flag = 0;
+    402          		}
+    403          		else
+    404          		{
+    405          			in_flag = 1;		
+    406          			//Rfid_check_timeover = RFID_TIMEOVER;
+    407          		
+    408          			if (rfid == RFID_UNKNOWN)
+    409          			{
+    410          				rfid = R_rfid_check();
+    411          			}
+    412          		
+    413          	#ifdef WEIGHT_SINGLE
+    414          			W_Intake.water_cnt1 = Stable_weight;
+    415          			W_Intake.water_cnt2 = 0;
+    416          	#else
+    417          			if(flag_flag_flag == 0)
+    418          			{
+    419          				W_Intake.water_cnt1 = Water_pcnt1_read();
+    420          			} else {
+    421          				W_Intake.water_cnt2 = Water_pcnt2_read();
+    422          			}
+    423          	#endif 
+    424          			W_Intake_Time_visit = RTC_GetCounter();	
+    425          			
+    426          			//sprintf(buf, "EAT>%03d,%03d,%03d ", Water_pcnt1_read()%999, Water_pcnt2_read()%999, Rfid_check_timeover);	
+    427          			sprintf(buf, "EAT>%03d,%03d", Water_pcnt1_read()%999, Water_pcnt2_read()%999);	
+    428          			TM_HD44780_Puts(0 ,0, buf);
+    429          			
+    430          		//	sprintf(buf, "DRINK..ing>%5d", Stable_weight);	
+    431          			TM_HD44780_Puts(0 ,1, buf);
+    432          		}
+    433          		//섭취량 모니터		
+    434          		
+    435          		break;
+    436          
+    437          
+    438          	case 2:  
+    439          
+    440          		v_time = (int64_t)W_Intake_Time_visit - (int64_t)W_Intake_Time;			//머문 시간 계산 , 초단위
+    441          		
+    442                          
+    443                          if(v_time < 0) v_time= 0;
+    444          		
+    445          		W_Intake.visit_time = v_time;		// 머문 시간이고 단위는 S
+    446          		
+    447          		water_max_wait_time = 0;
+    448          		Oper_Cnt = 3;
+    449          		
+    450          		break;
+    451          		
+    452          		
+    453          	case 3:
+    454          		//Gate_close();		
+    455          		Oper_Cnt = 4;
+    456          
+    457          		sprintf(buf, "C_Weight>%5d  ", weight);	
+    458          		TM_HD44780_Puts(0 ,1, buf);
+    459          				
+    460          		sprintf(buf, "RUN->CLOSE");	
+    461          		TM_HD44780_Puts(0 ,0, buf);
+    462          		
+    463          		break;
+    464          		
+    465          	case 4:
+    466          		// 만수대기 
+    467          		//이번버전에서 만수가 나올수가 없는데??? 물안채워야 하거든!!
+    468          		
+    469          		
+    470          		//20170328 정산이후 만수채우고 대기하지 않음..무게 측정함
+    471          		
+    472          		
+    473          		//W_Intake.water_cnt1 = Water_pcnt1_read();
+    474          		W_Intake.water_cnt2 = weight;	//종료시 무게!!		
+    475          		W_Intake.intake_weight = weight;		//종료시점에 무게 그냥 넣는다 
+    476          		
+    477          		//2017-04-03 _ㅠㅠ 아래 수정 필요 
+    478          		W_Intake.status = 0x01;
+    479          		
+    480          		sprintf(buf, "C_Weight>%5d  ", W_Intake.intake_weight);	
+    481          		TM_HD44780_Puts(0 ,1, buf);
+    482          		
+    483                          if (W_Intake.intake_weight != W_Intake.water_temp)
+    484                          {
+    485                          
+    486                            SPI_FLASH_PageWrite(
+    487                                            (uint8_t *)&W_Intake,
+    488                                            Mram_intake_address[Intake_head], 
+    489                                            sizeof(W_Intake));
+    490                                            
+    491                            Intake_head_increment();
+    492                          }
+    493          
+    494          		Oper_Cnt = 0;
+    495          		
+    496          		sprintf(buf, "RUN->INTAKE_END " );
+    497          		TM_HD44780_Puts(0 ,0, buf)	;
+    498          		
+    499          		memset((void *)&W_Intake, 0, sizeof(W_Intake));
+    500          		
+    501          		R_rfid_clear();
+    502          		
+    503          
+    504          		break;
+    505          #endif
+    506          
+    507          	default:
+    508          		break;
+    509          		
+    510          	}
+    511          }
+    512          
+    513          
+    514          
+    515          
+    516          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   Gate_close
+       0   Gate_open
+       0   Gate_open_Delay
+       0   ch_check_init
+      48   intake_Run
+        48   -> GetTime_min
+        48   -> Get_Date
+        48   -> Intake_Head
+        48   -> Intake_head_increment
+        48   -> RTC_GetCounter
+        48   -> R_IR_check
+        48   -> R_IR_check2
+        48   -> R_rfid_check
+        48   -> R_rfid_clear
+        48   -> SPI_FLASH_PageWrite
+        48   -> TM_HD44780_Puts
+        48   -> Water_pcnt1_clear
+        48   -> Water_pcnt1_read
+        48   -> Water_pcnt2_clear
+        48   -> Water_pcnt2_read
+        48   -> __aeabi_memclr4
+        48   -> sprintf
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable14
+       4  ??DataTable14_1
+       4  ??DataTable14_2
+       4  ??DataTable14_3
+       4  ??DataTable14_4
+       4  ??DataTable14_5
+      20  ?_0
+      20  ?_1
+      20  ?_2
+      28  ?_3
+      20  ?_4
+      20  ?_5
+      20  ?_6
+      20  ?_7
+      20  ?_8
+      16  ?_9
+      10  Gate_close
+       8  Gate_open
+       8  Gate_open_Delay
+      60  W_Intake
+          Oper_Cnt
+          Stable_weight
+          weight
+          Run_wait
+          Intake_head
+          rfid
+          In_rfid
+          Incow_ir_cnt
+          Incow_rfid_cnt
+          reenter_cnt
+          start_weight
+          Water_stable_cnt
+          xxx_cnt
+          oper_water_wait_cnt
+          W_Intake_Time
+          Old_Watercnt
+       4  W_Intake_Time_visit
+      16  ch_check_init
+       1  flag_flag_flag
+       2  id_cnt
+     820  intake_Run
+       4  isOpen
+       1  water_fill_delay
+       2  water_max_wait_time
+
+ 
+    74 bytes in section .bss
+ 1 090 bytes in section .text
+ 
+ 1 090 bytes of CODE memory
+    74 bytes of DATA memory
+
+Errors: none
+Warnings: none

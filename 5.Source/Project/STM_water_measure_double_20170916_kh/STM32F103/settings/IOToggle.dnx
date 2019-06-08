@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<settings>
+    <Stack>
+        <FillEnabled>0</FillEnabled>
+        <OverflowWarningsEnabled>1</OverflowWarningsEnabled>
+        <WarningThreshold>90</WarningThreshold>
+        <SpWarningsEnabled>1</SpWarningsEnabled>
+        <WarnLogOnly>1</WarnLogOnly>
+        <UseTrigger>1</UseTrigger>
+        <TriggerName>main</TriggerName>
+        <LimitSize>0</LimitSize>
+        <ByteLimit>50</ByteLimit>
+    </Stack>
+    <stlink>
+        <stlinkserialNo>5D2CEEE3</stlinkserialNo>
+        <stlinkfoundProbes />
+    </stlink>
+    <SWOTraceHWSettings>
+        <OverrideDefaultClocks>0</OverrideDefaultClocks>
+        <CpuClock>72000000</CpuClock>
+        <ClockAutoDetect>0</ClockAutoDetect>
+        <ClockWanted>2000000</ClockWanted>
+        <JtagSpeed>2000000</JtagSpeed>
+        <Prescaler>36</Prescaler>
+        <TimeStampPrescIndex>0</TimeStampPrescIndex>
+        <TimeStampPrescData>0</TimeStampPrescData>
+        <PcSampCYCTAP>1</PcSampCYCTAP>
+        <PcSampPOSTCNT>15</PcSampPOSTCNT>
+        <PcSampIndex>0</PcSampIndex>
+        <DataLogMode>0</DataLogMode>
+        <ITMportsEnable>0</ITMportsEnable>
+        <ITMportsTermIO>0</ITMportsTermIO>
+        <ITMportsLogFile>0</ITMportsLogFile>
+        <ITMlogFile>$PROJ_DIR$\ITM.log</ITMlogFile>
+    </SWOTraceHWSettings>
+    <DebugChecksum>
+        <Checksum>3247663379</Checksum>
+    </DebugChecksum>
+    <Exceptions>
+        <StopOnUncaught>_ 0</StopOnUncaught>
+        <StopOnThrow>_ 0</StopOnThrow>
+    </Exceptions>
+    <CodeCoverage>
+        <Enabled>_ 0</Enabled>
+    </CodeCoverage>
+    <CallStack>
+        <ShowArgs>0</ShowArgs>
+    </CallStack>
+    <Disassembly>
+        <InstrCount>0</InstrCount>
+        <MixedMode>1</MixedMode>
+    </Disassembly>
+    <JLinkDriver>
+        <CStepIntDis>_ 0</CStepIntDis>
+        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
+    </JLinkDriver>
+    <PowerLog>
+        <Title_0>I0</Title_0>
+        <Symbol_0>0 4 0</Symbol_0>
+        <LogEnabled>0</LogEnabled>
+        <GraphEnabled>0</GraphEnabled>
+        <ShowTimeLog>1</ShowTimeLog>
+        <LiveEnabled>0</LiveEnabled>
+        <LiveFile>PowerLogLive.log</LiveFile>
+    </PowerLog>
+    <PowerProbe>
+        <Frequency>10000</Frequency>
+        <Probe0>I0</Probe0>
+        <ProbeSetup0>2 1 1 2 0 0</ProbeSetup0>
+    </PowerProbe>
+    <StLinkDriver>
+        <stlinkserialNo>43471881</stlinkserialNo>
+        <stlinkfoundProbes />
+        <stlinkResetStyle>0</stlinkResetStyle>
+        <stlinkResetStrategy>1</stlinkResetStrategy>
+        <CStepIntDis>_ 0</CStepIntDis>
+        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
+    </StLinkDriver>
+    <Log_file>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+        <Category>_ 0</Category>
+    </Log_file>
+    <Disassemble_mode>
+        <mode>0</mode>
+    </Disassemble_mode>
+    <struct_types>
+        <Fmt0>CONFIG_STRUCT-setup	4	0</Fmt0>
+        <Fmt1>WATER_ITAKE_TABLE_STRUCT-date	4	0</Fmt1>
+        <Fmt2>WATER_ITAKE_TABLE_STRUCT-feeder_num	3	0</Fmt2>
+    </struct_types>
+    <array_types>
+        <Fmt0>uint16_t[10]	3	0</Fmt0>
+        <Fmt1>uint8_t[10]	4	0</Fmt1>
+        <Fmt2>uint8_t[256]	4	0</Fmt2>
+        <Fmt3>unsigned char[10]	4	0</Fmt3>
+        <Fmt4>unsigned char[256]	4	0</Fmt4>
+        <Fmt5>unsigned char[2]	3	0</Fmt5>
+        <Fmt6>unsigned char[3]	3	0</Fmt6>
+    </array_types>
+    <watch_formats>
+        <Fmt0>{W}42:FLASH_Statusx	4	0</Fmt0>
+        <Fmt1>{W}42:GetTime	3	0</Fmt1>
+        <Fmt2>{W}42:INPUT1_check_flag	3	0</Fmt2>
+        <Fmt3>{W}42:Menu	3	0</Fmt3>
+        <Fmt4>{W}42:Oper_Cnt	3	0</Fmt4>
+        <Fmt5>{W}42:RFID_on_IR_status_flag	3	0</Fmt5>
+        <Fmt6>{W}42:R_IR_check	3	0</Fmt6>
+        <Fmt7>{W}42:R_rfid_check	3	0</Fmt7>
+        <Fmt8>{W}42:ad	4	0</Fmt8>
+        <Fmt9>{W}42:adr	4	0</Fmt9>
+        <Fmt10>{W}42:datax	4	0</Fmt10>
+        <Fmt11>{W}42:gate_waiting_time	3	0</Fmt11>
+        <Fmt12>{W}42:inx	3	0</Fmt12>
+        <Fmt13>{W}42:itemp	4	0</Fmt13>
+        <Fmt14>{W}42:millis	3	0</Fmt14>
+        <Fmt15>{W}42:rd	4	0</Fmt15>
+        <Fmt16>{W}42:status	1	0</Fmt16>
+        <Fmt17>{W}42:water_fill_delay	3	0</Fmt17>
+        <Fmt18>{W}42:xtemp	4	0</Fmt18>
+    </watch_formats>
+    <Trace2>
+        <Enabled>0</Enabled>
+        <ShowSource>0</ShowSource>
+    </Trace2>
+    <SWOTraceWindow>
+        <PcSampling>0</PcSampling>
+        <InterruptLogs>0</InterruptLogs>
+        <ForcedTimeStamps>0</ForcedTimeStamps>
+        <EventCPI>0</EventCPI>
+        <EventEXC>0</EventEXC>
+        <EventFOLD>0</EventFOLD>
+        <EventLSU>0</EventLSU>
+        <EventSLEEP>0</EventSLEEP>
+    </SWOTraceWindow>
+    <DataLog>
+        <LogEnabled>0</LogEnabled>
+        <GraphEnabled>0</GraphEnabled>
+        <ShowTimeLog>1</ShowTimeLog>
+        <SumEnabled>0</SumEnabled>
+        <ShowTimeSum>1</ShowTimeSum>
+    </DataLog>
+    <InterruptLog>
+        <LogEnabled>0</LogEnabled>
+        <GraphEnabled>0</GraphEnabled>
+        <ShowTimeLog>1</ShowTimeLog>
+        <SumEnabled>0</SumEnabled>
+        <ShowTimeSum>1</ShowTimeSum>
+        <SumSortOrder>0</SumSortOrder>
+    </InterruptLog>
+    <EventLog>
+        <Title_0>Ch3</Title_0>
+        <Symbol_0>0 4 1</Symbol_0>
+        <Title_1>Ch2</Title_1>
+        <Symbol_1>0 4 1</Symbol_1>
+        <Title_2>Ch1</Title_2>
+        <Symbol_2>0 4 1</Symbol_2>
+        <Title_3>Ch0</Title_3>
+        <Symbol_3>0 4 1</Symbol_3>
+        <LogEnabled>0</LogEnabled>
+        <GraphEnabled>0</GraphEnabled>
+        <ShowTimeLog>1</ShowTimeLog>
+        <SumEnabled>0</SumEnabled>
+        <ShowTimeSum>1</ShowTimeSum>
+        <SumSortOrder>0</SumSortOrder>
+    </EventLog>
+    <LogFile>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+        <Category>_ 0</Category>
+    </LogFile>
+    <TermIOLog>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+    </TermIOLog>
+    <DriverProfiling>
+        <Enabled>0</Enabled>
+        <Mode>3</Mode>
+        <Graph>0</Graph>
+        <Symbiont>0</Symbiont>
+        <Exclusions />
+    </DriverProfiling>
+    <CallStackLog>
+        <Enabled>0</Enabled>
+    </CallStackLog>
+    <CallStackStripe>
+        <ShowTiming>1</ShowTiming>
+    </CallStackStripe>
+    <DisassembleMode>
+        <mode>0</mode>
+    </DisassembleMode>
+    <Breakpoints2>
+        <Bp0>_ 0 "EMUL_CODE" "{D:\}.15.3" 0 0 1 "" 0 "" 0</Bp0>
+        <Bp1>_ 0 "EMUL_CODE" "{D:\}.157.16" 0 0 1 "" 0 "" 0</Bp1>
+        <Bp2>_ 0 "EMUL_CODE" "{$PROJ_DIR$\main.c}.0.1" 0 0 1 "" 0 "" 0</Bp2>
+        <Bp3>_ 0 "EMUL_CODE" "{$PROJ_DIR$\khh_eeprom.c}.36.1" 0 0 1 "" 0 "" 0</Bp3>
+        <Bp4>_ 0 "EMUL_CODE" "{$PROJ_DIR$\water_intake.c}.388.1" 0 0 1 "" 0 "" 0</Bp4>
+        <Bp5>_ 0 "EMUL_CODE" "{$PROJ_DIR$\gpio.c}.59.9" 0 0 1 "" 0 "" 0</Bp5>
+        <Bp6>_ 0 "EMUL_CODE" "{$PROJ_DIR$\gpio.c}.49.9" 0 0 1 "" 0 "" 0</Bp6>
+        <Bp7>_ 0 "EMUL_CODE" "{$PROJ_DIR$\main.c}.56.1" 0 0 1 "" 0 "" 0</Bp7>
+        <Bp8>_ 0 "EMUL_CODE" "{$PROJ_DIR$\main.c}.56.5" 0 0 1 "" 0 "" 0</Bp8>
+        <Bp9>_ 0 "EMUL_CODE" "{$PROJ_DIR$\main.c}.41.4" 0 0 1 "" 0 "" 0</Bp9>
+        <Bp10>_ 0 "EMUL_CODE" "{$PROJ_DIR$\main.c}.45.3" 0 0 1 "" 0 "" 0</Bp10>
+        <Bp11>_ 0 "EMUL_CODE" "{$PROJ_DIR$\main.c}.43.2" 0 0 1 "" 0 "" 0</Bp11>
+        <Bp12>_ 0 "EMUL_CODE" "{$PROJ_DIR$\main.c}.387.1" 0 0 1 "" 0 "" 0</Bp12>
+        <Bp13>_ 0 "EMUL_CODE" "{$PROJ_DIR$\Rfid_reader.c}.10.2" 0 0 1 "" 0 "" 0</Bp13>
+        <Bp14>_ 0 "EMUL_CODE" "{$PROJ_DIR$\water_intake.c}.388.1" 0 0 1 "" 0 "" 0</Bp14>
+        <Bp15>_ 0 "EMUL_CODE" "{$PROJ_DIR$\water_intake.c}.388.1" 0 0 1 "" 0 "" 0</Bp15>
+        <Bp16>_ 0 "EMUL_CODE" "{$PROJ_DIR$\water_intake.c}.388.1" 0 0 1 "" 0 "" 0</Bp16>
+        <Bp17>_ 0 "EMUL_CODE" "{$PROJ_DIR$\water_intake.c}.388.1" 0 0 1 "" 0 "" 0</Bp17>
+        <Bp18>_ 0 "EMUL_CODE" "{$PROJ_DIR$\water_intake.c}.227.30" 0 0 1 "" 0 "" 0</Bp18>
+        <Bp19>_ 0 "EMUL_CODE" "{$PROJ_DIR$\water_intake.c}.388.1" 0 0 1 "" 0 "" 0</Bp19>
+        <Bp20>_ 0 "EMUL_CODE" "{$PROJ_DIR$\water_intake.c}.221.9" 0 0 1 "" 0 "" 0</Bp20>
+        <Bp21>_ 0 "EMUL_CODE" "{$PROJ_DIR$\main.c}.105.2" 0 0 1 "" 0 "" 0</Bp21>
+        <Bp22>_ 0 "EMUL_CODE" "{$PROJ_DIR$\water_intake.c}.122.9" 0 0 1 "" 0 "" 0</Bp22>
+        <Bp23>_ 1 "EMUL_CODE" "{$PROJ_DIR$\Lora_parse.c}.432.5" 0 0 1 "" 0 "" 0</Bp23>
+        <Bp24>_ 1 "EMUL_CODE" "{$PROJ_DIR$\water_intake.c}.167.29" 0 0 1 "" 0 "" 0</Bp24>
+        <Count>25</Count>
+    </Breakpoints2>
+    <Aliases>
+        <A0>_ "C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Libraries\STM32F10x_StdPeriph_Driver\src\misc.c" ""</A0>
+        <A1>_ "C:\Users\Dawoon\Desktop\12.물섭취량조사기\5.Source\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_dma.c" ""</A1>
+        <A2>_ "D:\12.물섭취량조사기\5.Source\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\iar\startup_stm32f10x_md.s" ""</A2>
+        <Count>3</Count>
+        <SuppressDialog>1</SuppressDialog>
+    </Aliases>
+</settings>

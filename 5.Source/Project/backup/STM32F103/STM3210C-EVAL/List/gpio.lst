@@ -1,0 +1,181 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.70.1.11437/W32 for ARM       24/Apr/2019  16:42:17
+# Copyright 1999-2016 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\gpio.c
+#    Command line =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\gpio.c -D
+#        USE_STDPERIPH_DRIVER -D STM32F10X_MD -D USE_STM3210C_EVAL -lcN
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\List
+#        --diag_suppress pa082 -o
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\Obj
+#        --debug --endian=little --cpu=Cortex-M3 -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.5\arm\INC\c\DLib_Config_Full.h" -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\ -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\CMSIS\CM3\CoreSupport\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\Common\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\STM3210C_EVAL\
+#        -Ohs --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 7.5\arm\CMSIS\Include\"
+#    Locale       =  Korean_Korea.949
+#    List file    =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\List\gpio.lst
+#    Object file  =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\Obj\gpio.o
+#
+###############################################################################
+
+D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\gpio.c
+      1          #include "hw_control.h"
+      2          //gpio인터럽트 :번호가 있음 pin5번이면 5번인터럽트를 선택해야 한다.
+      3          uint32_t pcnt = 0;
+      4          uint32_t pcnt2 = 0;
+      5          
+      6          
+      7          void EXTI9_0_Config(void) 
+      8          {
+      9          	EXTI_InitTypeDef   EXTI_InitStructure;
+     10          	GPIO_InitTypeDef   GPIO_InitStructure;
+     11          
+     12          	/* Enable GPIOB clock */
+     13          	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+     14          
+     15          	/* Configure PB.09 pin as input floating */
+     16          	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1; 
+     17          	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+     18          	GPIO_Init(GPIOA, &GPIO_InitStructure);
+     19          
+     20          	/* Enable AFIO clock */
+     21          	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+     22          	/* Connect EXTI9 Line to PB.09 pin */
+     23          	
+     24          	
+     25          	GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource0 );
+     26          	
+     27          	/* Connect EXTI9 Line to PB.09 pin */
+     28          	GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource1);
+     29          
+     30          	/* Configure EXTI9 line */
+     31          	EXTI_InitStructure.EXTI_Line = EXTI_Line0 ;
+     32          	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+     33          	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
+     34          	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+     35          	EXTI_Init(&EXTI_InitStructure);
+     36          	
+     37          	/* Configure EXTI9 line */
+     38          	EXTI_InitStructure.EXTI_Line = EXTI_Line1 ;
+     39          	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+     40          	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
+     41          	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+     42          	EXTI_Init(&EXTI_InitStructure);
+     43          
+     44          
+     45          }
+     46          
+     47          void EXTI0_IRQHandler(void)
+     48          {
+     49            if(EXTI_GetITStatus(EXTI_Line0) != RESET)
+     50            {
+     51          	pcnt2++;
+     52              /* Clear the  EXTI line 5 pending bit */
+     53              EXTI_ClearITPendingBit(EXTI_Line0);
+     54            }
+     55          
+     56          }
+     57          
+     58          void EXTI1_IRQHandler(void)
+     59          {
+     60            if(EXTI_GetITStatus(EXTI_Line1) != RESET)
+     61            {
+     62          		pcnt++;
+     63          	  
+     64              /* Clear the  EXTI line 5 pending bit */
+     65              EXTI_ClearITPendingBit(EXTI_Line1);
+     66            }
+     67          
+     68          }
+     69          
+     70          uint32_t Water_pcnt1_read(void)
+     71          {	
+     72          	return pcnt;
+     73          }
+     74          
+     75          void Water_pcnt1_clear(void)
+     76          {
+     77          	pcnt = 0;
+     78          }
+     79          
+     80          uint32_t Water_pcnt2_read(void)
+     81          {	
+     82          	return pcnt2;
+     83          
+     84          }
+     85          
+     86          void Water_pcnt2_clear(void)
+     87          {
+     88          	pcnt2 = 0;
+     89          
+     90          }
+     91          
+     92          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   EXTI0_IRQHandler
+         0   -> EXTI_ClearITPendingBit
+         8   -> EXTI_GetITStatus
+       8   EXTI1_IRQHandler
+         0   -> EXTI_ClearITPendingBit
+         8   -> EXTI_GetITStatus
+      16   EXTI9_0_Config
+        16   -> EXTI_Init
+        16   -> GPIO_EXTILineConfig
+        16   -> GPIO_Init
+        16   -> RCC_APB2PeriphClockCmd
+       0   Water_pcnt1_clear
+       0   Water_pcnt1_read
+       0   Water_pcnt2_clear
+       0   Water_pcnt2_read
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable6
+       4  ??DataTable6_1
+       4  ??DataTable6_2
+      36  EXTI0_IRQHandler
+      36  EXTI1_IRQHandler
+     116  EXTI9_0_Config
+       8  Water_pcnt1_clear
+       6  Water_pcnt1_read
+       8  Water_pcnt2_clear
+       6  Water_pcnt2_read
+       4  pcnt
+       4  pcnt2
+
+ 
+   8 bytes in section .bss
+ 228 bytes in section .text
+ 
+ 228 bytes of CODE memory
+   8 bytes of DATA memory
+
+Errors: none
+Warnings: none

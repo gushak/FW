@@ -1,0 +1,326 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.22.1.15669/W32 for ARM       24/May/2019  11:08:40
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\w_weight.c
+#    Command line =  
+#        -f C:\Users\dawoon1\AppData\Local\Temp\EWFBCD.tmp
+#        (D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\w_weight.c
+#        -D USE_STDPERIPH_DRIVER -D STM32F10X_MD -D USE_STM3210C_EVAL -lcN
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List
+#        --diag_suppress pa082 -o
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj
+#        --debug --endian=little --cpu=Cortex-M3 -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.0_2\arm\INC\c\DLib_Config_Full.h" -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\CoreSupport\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\Common\
+#        -I
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\..\..\..\Utilities\STM32_EVAL\STM3210C_EVAL\
+#        -Ohs --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.0_2\arm\CMSIS\Core\Include\" -I "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 8.0_2\arm\CMSIS\DSP\Include\")
+#    Locale       =  C
+#    List file    =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\List\w_weight.lst
+#    Object file  =  
+#        D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\STM3210C-EVAL\Obj\w_weight.o
+#
+###############################################################################
+
+D:\12.@@@@@@@\5.Source\Project\STM_water_measure_double_20170916_kh\STM32F103\w_weight.c
+      1          #include "hw_control.h"
+      2          
+      3          uint8_t Co2[5];
+      4          uint8_t Temp[5];
+      5          uint8_t Humidity[5];
+      6          
+      7          uint32_t response;
+      8          uint16_t humidity,temperature;
+      9          
+     10          uint16_t Co2_value = 0;
+     11          
+     12          Wight_struct Parse_st;
+     13          
+     14          char Weight_Dim[10];
+     15          volatile uint16_t Stable_weight_ch1 = 0, weight_ch1 = 0;
+     16          volatile uint16_t Stable_weight_ch2 = 0, weight_ch2 = 0;
+     17          
+     18          void weight_ParseData_ch1(char* Buffer)
+     19          {
+     20              char *token, *last;		
+     21              char *buf = NULL;
+     22              uint8_t tcnt = 0;
+     23              buf = Buffer;
+     24              
+     25              while((token = strtok_r(buf,",", &last))!= NULL)
+     26              {
+     27                  buf = NULL;
+     28                  
+     29                  if(tcnt == 0) 
+     30                    sprintf((char *)&Parse_st.name1, "%s", token);
+     31                  else if(tcnt == 1)
+     32                    sprintf((char *)&Parse_st.name2, "%s", token);
+     33                  else if(tcnt == 2)
+     34                    sprintf((char *)&Parse_st.name3, "%s", token);
+     35                  else if(tcnt == 3)
+     36                    sprintf((char *)&Parse_st.value, "%s", token);
+     37                  
+     38                  if(++tcnt >= 5) break;
+     39              }		
+     40          
+     41              tcnt = 0;
+     42              uint8_t len = 0;
+     43              
+     44              memset((void *)&Weight_Dim, 0, sizeof(Weight_Dim));
+     45             
+     46              for(int i=0; i < strlen((char const *)&Parse_st.value); i++)
+     47              {
+     48                if(Parse_st.value[i] >= '0' && Parse_st.value[i] <= '9')
+     49                {
+     50                    Weight_Dim[len++] = Parse_st.value[i];
+     51                    if(len >= 10) break;
+     52                }		
+     53              }
+     54              
+     55              //weight = atoi((const char *)&Weight_Dim);
+     56              weight_ch1 = atoi((const char *)&Weight_Dim);
+     57              
+     58              if(Parse_st.name1[1] == 'T') 
+     59              {
+     60                  //LED1_FL;
+     61                    Stable_weight_ch1 = weight_ch1;
+     62              }
+     63          } 
+     64          
+     65          void weight_ParseData_ch2(char* Buffer)
+     66          {
+     67              char *token, *last;		
+     68              char*buf = NULL;
+     69              uint8_t tcnt = 0;
+     70              buf = Buffer;
+     71              
+     72              sprintf("%s\r\n", Buffer);
+     73              
+     74              while((token = strtok_r(buf,",", &last))!= NULL)
+     75              {
+     76                  buf = NULL;
+     77                  
+     78                  if(tcnt == 0) 
+     79                      sprintf((char *)&Parse_st.name1, "%s", token);
+     80                  else if(tcnt == 1) 
+     81                      sprintf((char *)&Parse_st.name2, "%s", token);
+     82                  else if(tcnt == 2)
+     83                      sprintf((char *)&Parse_st.name3, "%s", token);
+     84                  else if(tcnt == 3)
+     85                      sprintf((char *)&Parse_st.value, "%s", token);
+     86                  
+     87                  if(++tcnt >= 5) break;
+     88              }		
+     89          
+     90              tcnt = 0;
+     91              uint8_t len = 0;
+     92              
+     93              memset((void *)&Weight_Dim, 0, sizeof(Weight_Dim));
+     94              for(int i=0; i < strlen((char const *)&Parse_st.value); i++)
+     95              {
+     96                  if(Parse_st.value[i] >= '0' && Parse_st.value[i] <= '9')
+     97                  {
+     98                      Weight_Dim[len++] = Parse_st.value[i];
+     99                      if(len >= 10) break;
+    100                  }		
+    101              }
+    102              
+    103              weight_ch2 = atoi((const char *)&Weight_Dim);
+    104              
+    105              if(Parse_st.name1[1] == 'T') 
+    106              {
+    107                  //LED1_FL;
+    108                  Stable_weight_ch2 = weight_ch2;
+    109              }
+    110          } 
+    111          extern volatile uint8_t Stable_ch_flag;
+    112          volatile char Wbuf[100];
+    113          void parse_weight(void)
+    114          {	
+    115              static uint8_t cntx = 0;
+    116              static uint8_t stable_ch_flag_old = 0;
+    117              static uint8_t dummy_cnt = 0;
+    118              
+    119              uint8_t c = 0;
+    120              if(!uart2_is_empty())
+    121              {
+    122                  c = uart2_dequeue();
+    123                  
+    124                  if(c == 0x0A && cntx == 21) 
+    125                  {
+    126                    Wbuf[cntx] = 0x0A;
+    127                        
+    128          
+    129                    if(stable_ch_flag_old != Stable_ch_flag)
+    130                    {
+    131                        dummy_cnt = 3;
+    132                        stable_ch_flag_old = Stable_ch_flag;
+    133                    }
+    134                    else 
+    135                    {		
+    136                        if(dummy_cnt != 0)
+    137                        {
+    138                            dummy_cnt--;
+    139                        } 
+    140                        else 
+    141                        {
+    142                            if(Stable_ch_flag != 0) weight_ParseData_ch1((char *)&Wbuf);
+    143                            else weight_ParseData_ch2((char *)&Wbuf);
+    144                        }
+    145                    }        
+    146                        cntx = 0;
+    147                        memset((void *)&Wbuf, 0, sizeof(Wbuf));
+    148                  } 
+    149                  else if(cntx > 22) 
+    150                  {
+    151                      cntx = 0;
+    152                      memset((void *)&Wbuf, 0, sizeof(Wbuf));
+    153                  } 
+    154                  else 
+    155                  {
+    156                      Wbuf[cntx++] = c;			
+    157                  }
+    158              }
+    159          }
+    160          
+    161          void parse_weight_interrupt(uint8_t c)
+    162          {
+    163              static uint8_t cntx = 0;
+    164          #ifndef WEIGHT_SINGLE
+    165              static uint8_t stable_ch_flag_old = 0;
+    166              static uint8_t dummy_cnt = 0;
+    167          #endif
+    168          	
+    169              if(c == 0x0A && cntx >= 21) 
+    170              {
+    171                  Wbuf[cntx] = 0x0A;
+    172                      
+    173          #ifdef WEIGHT_SINGLE
+    174                  weight_ParseData_ch1((char *)&Wbuf);
+    175          #else		
+    176                  if(stable_ch_flag_old != Stable_ch_flag)
+    177                  {
+    178                      dummy_cnt = 1;
+    179                      stable_ch_flag_old = Stable_ch_flag;
+    180                  }
+    181                  else 
+    182                  {		
+    183                      if(dummy_cnt != 0) 
+    184                      {
+    185                        dummy_cnt--;
+    186                      } else 
+    187                      {
+    188                        if(Stable_ch_flag != 0) 
+    189                          weight_ParseData_ch1((char *)&Wbuf);
+    190                        else 
+    191                          weight_ParseData_ch2((char *)&Wbuf);
+    192                      }
+    193                  }
+    194            #endif
+    195                
+    196                  cntx = 0;
+    197                  memset((void *)&Wbuf, 0, sizeof(Wbuf));
+    198              } 
+    199              else if(cntx > 22) 
+    200              {
+    201                cntx = 0;
+    202                memset((void *)&Wbuf, 0, sizeof(Wbuf));
+    203              } 
+    204              else 
+    205              {
+    206                Wbuf[cntx++] = c;			
+    207              }		
+    208          }
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   parse_weight
+         0   -> __aeabi_memclr4
+         8   -> uart2_dequeue
+         8   -> uart2_is_empty
+         8   -> weight_ParseData_ch1
+         8   -> weight_ParseData_ch2
+      16   parse_weight_interrupt
+        16   -> __aeabi_memclr
+        16   -> weight_ParseData_ch1
+      32   weight_ParseData_ch1
+        32   -> __aeabi_memclr4
+        32   -> atoi
+        32   -> sprintf
+        32   -> strlen
+        32   -> strtok_r
+      32   weight_ParseData_ch2
+        32   -> __aeabi_memclr4
+        32   -> atoi
+        32   -> sprintf
+        32   -> strlen
+        32   -> strtok_r
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable6
+       4  ??DataTable6_1
+       4  ??DataTable6_2
+       4  ??DataTable6_3
+       4  ??DataTable6_4
+       4  ?_0
+       2  ?_1
+       8  ?_2
+       8  Co2
+       2  Co2_value
+       8  Humidity
+     100  Parse_st
+          Stable_weight_ch1
+          weight_ch1
+          Stable_weight_ch2
+          weight_ch2
+          Weight_Dim
+       8  Temp
+     104  cntx
+          stable_ch_flag_old
+          dummy_cnt
+          cntx
+          Wbuf
+       2  humidity
+     110  parse_weight
+      60  parse_weight_interrupt
+       4  response
+       2  temperature
+     184  weight_ParseData_ch1
+     196  weight_ParseData_ch2
+
+ 
+ 238 bytes in section .bss
+   6 bytes in section .rodata
+ 578 bytes in section .text
+ 
+ 578 bytes of CODE  memory
+   6 bytes of CONST memory
+ 238 bytes of DATA  memory
+
+Errors: none
+Warnings: none

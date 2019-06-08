@@ -1,0 +1,418 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.70.1.11437/W32 for ARM       24/Apr/2019  16:42:19
+# Copyright 1999-2016 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\menu.c
+#    Command line =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\menu.c -D
+#        USE_STDPERIPH_DRIVER -D STM32F10X_MD -D USE_STM3210C_EVAL -lcN
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\List
+#        --diag_suppress pa082 -o
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\Obj
+#        --debug --endian=little --cpu=Cortex-M3 -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.5\arm\INC\c\DLib_Config_Full.h" -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\ -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\CMSIS\CM3\CoreSupport\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\Common\
+#        -I
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\..\..\..\Utilities\STM32_EVAL\STM3210C_EVAL\
+#        -Ohs --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 7.5\arm\CMSIS\Include\"
+#    Locale       =  Korean_Korea.949
+#    List file    =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\List\menu.lst
+#    Object file  =  
+#        D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\STM3210C-EVAL\Obj\menu.o
+#
+###############################################################################
+
+D:\12.물섭취량조사기\5.Source\Project\backup\STM32F103\menu.c
+      1          #include "hw_control.h"
+      2          
+      3          volatile uint8_t Setting_enable = 0;    
+      4          volatile uint8_t SW_S[3] = {0,};	
+      5          volatile uint8_t SW_L[3] = {0,};	
+      6          volatile uint8_t SW_Push[3] = {0,}; 
+      7          volatile uint8_t SW_Cnt[3] = {0,}; 	
+      8          
+      9          #define SW_LONG_CNT 100	
+     10          
+     11          void view_test(void);
+     12          
+     13          void SW_check(void)
+     14          {
+     15          	if(SW1==0) {
+     16          		if(SW_L[0]==0) {	
+     17          			if(SW_Cnt[0]++ >= SW_LONG_CNT)	{ 
+     18          				SW_Push[0] = 0;	
+     19          				SW_Cnt[0] = 0;		
+     20          				SW_L[0] = 1;
+     21          				
+     22          			} else {
+     23          				SW_Push[0] = 1; 
+     24          			}
+     25          		} else {
+     26          			SW_Push[0] = 1; 
+     27          		}
+     28          	} else {
+     29          		if(SW_Push[0] == 1) {
+     30          			SW_Push[0] = 0; //누름
+     31          			//SW_S[0] = 1;	
+     32          			SW_S[0] ++;	
+     33          		}
+     34          		SW_Cnt[0] = 0;	
+     35          	}
+     36          		
+     37          	if(SW2==0) {
+     38          		if(SW_L[1] == 0) {
+     39          			if(SW_Cnt[1]++>= SW_LONG_CNT) {
+     40          				SW_Push[1] = 0;
+     41          				SW_Cnt[1] = 0;
+     42          				SW_L[1] = 1;
+     43          			} else {
+     44          				SW_Push[1] = 1;
+     45          			}
+     46          		} else {
+     47          			SW_Push[1] = 1;
+     48          		}
+     49          		
+     50          	} else {
+     51          		if(SW_Push[1] == 1) {
+     52          			SW_Push[1] = 0;
+     53          			SW_S[1] ++ ;
+     54          		}
+     55          		SW_Cnt[1] =0;
+     56          	} 
+     57          	
+     58          	if(SW3==0) {
+     59          		if(SW_L[2] == 0) {
+     60          			if(SW_Cnt[2]++>= SW_LONG_CNT) {
+     61          				SW_Push[2] = 0;
+     62          				SW_Cnt[2] = 0;
+     63          				SW_L[2] = 1;
+     64          			} else {
+     65          				SW_Push[2] = 1;
+     66          			}
+     67          		} else {
+     68          			SW_Push[2] = 1;
+     69          		}
+     70          		
+     71          	} else {
+     72          		if(SW_Push[2] == 1) {
+     73          			SW_Push[2] = 0;
+     74          			//SW_S[2] =1 ;
+     75          			SW_S[2] ++ ;
+     76          		}
+     77          		SW_Cnt[2] =0;
+     78          		
+     79          	}
+     80          	
+     81          	
+     82          }
+     83          
+     84          #define	MENU_CNT		MAX_EEPROM_ADDRESS          
+     85          
+     86          volatile uint8_t menu_key_wait=0;  
+     87          volatile uint8_t main_key_wait=0;
+     88          volatile uint8_t Menu = 0;  
+     89          volatile uint8_t setValue = 0;  
+     90          
+     91          
+     92          volatile uint16_t MAX_Value[MAX_EEPROM_ADDRESS]  = { 		//11
+     93          												CON_ADDRESS_MAX, 
+     94          												CON_WATER_WAIT_DIFF_MAX, 
+     95          												CON_WATER_WAIT_TIME_MAX, 
+     96          												9999,
+     97          												9999,
+     98          												COM_RE_ENTER_CNT_MAX,
+     99          												9999,
+    100          												9999,
+    101          												9999,
+    102          												9999
+    103          												
+    104          												};      
+    105          
+    106          volatile uint16_t MIN_Value[MAX_EEPROM_ADDRESS] = {1,0,0,0,0,0,0,0,0,0,0};
+    107          volatile uint16_t Setting_delay = 0;
+    108          
+    109          extern char buf_menu_num[16]; 
+    110          extern volatile uint16_t FET_value[10];
+    111          
+    112          #define SW_LONG_ADD		50
+    113          
+    114          char str[100];
+    115          void menu_list();
+    116          extern volatile uint8_t SW_mode_flag;
+    117          
+    118          void setting_mode(void)
+    119          {
+    120          	static uint16_t sw_long_add=0;
+    121          	char str[100];
+    122          	
+    123          	if(Setting_delay !=0) return;
+    124          	
+    125          	if(Setting_enable == 1) {
+    126          
+    127          		//다음으로 넘어가는거 방지
+    128          		if(SW1 == 1 && menu_key_wait == 0 ) 
+    129          		{   //설정버튼을 길게눌럿을때   	
+    130          			Delay(300);				  
+    131          			menu_key_wait = 1; SW_L[0] = 0; SW_S[0] = 0;
+    132          
+    133          		}
+    134          		else if(SW_L[0] != 0 && menu_key_wait == 1)
+    135          		{
+    136          			//종료 이탈 
+    137          			SW_L[0] = 0;                                            
+    138          			Setting_enable = 0;                                                                   
+    139          			menu_key_wait = 0;
+    140          			main_key_wait = 0;          
+    141          			Menu = 0;
+    142          			Setting_delay = 20;
+    143          			
+    144          			return;
+    145          		} 
+    146          		
+    147          		else if(SW_S[0] != 0 && menu_key_wait == 1)                 
+    148          		{
+    149          			SW_S[0] = 0;                                                        
+    150          			
+    151          			Setting_enable = 2;
+    152          			menu_key_wait = 0;			
+    153          			Setting_delay = 5;			
+    154          			return;
+    155          		}
+    156          	
+    157          		if(SW_S[1] != 0 || SW_L[1] != 0) { 
+    158          			Menu++; SW_S[1] = 0; SW_L[1] = 0; }  
+    159          		
+    160          		else if(SW_S[2] != 0 || SW_L[2] != 0) { 
+    161          			Menu--; SW_S[2] = 0; SW_L[2] = 0; 
+    162          		}                      
+    163          
+    164          		if(Menu <= 1) Menu = 1;                                                                                                  
+    165          		else if(Menu > MENU_CNT) {                                                                                  
+    166          		  Setting_enable = 0;
+    167          		  Menu = 0;
+    168          		  
+    169          		  main_key_wait = 0;
+    170          		  SW_L[0] = 0;
+    171          		  SW_S[0] = 0;
+    172          
+    173          		  
+    174          		  return;		//종료 합니다. 
+    175          
+    176          		} 
+    177          
+    178          		sprintf((char*)&str, "%02d>", Menu); 
+    179          		TM_HD44780_Puts(0,0, str);
+    180          		menu_list();
+    181          
+    182          		sprintf(str, "  Value : %03d  ", Config.Value[Menu-1]); //10
+    183          		TM_HD44780_Puts(0,1, str);	
+    184          
+    185          	} else if(Setting_enable == 2 ) {       
+    186          		
+    187          		if(SW1 == 1 && menu_key_wait == 0 ) {   
+    188          			
+    189          			Setting_delay = 2;
+    190          			menu_key_wait = 1; SW_L[0] = 0; SW_S[0] = 0; 	
+    191          		} else	if(SW_S[0] != 0 && menu_key_wait == 1){                 
+    192          			SW_S[0] = 0;                                                           
+    193          			SW_L[0] = 0;
+    194          			menu_key_wait = 0;
+    195          			Setting_enable = 1;                                                   
+    196          			save_all_eeprom();
+    197          			
+    198          			Setting_delay = 2;
+    199          			
+    200          			//해당값을 초기화 안해 놓으면 다음번에 메뉴가 바뀜
+    201          			SW_S[1] = 0; SW_L[1] = 0;
+    202          			SW_S[2] = 0; SW_L[2] = 0;
+    203          			
+    204          			Menu ++;                                                           
+    205          			if(Menu > MENU_CNT) {             
+    206          			  Setting_enable = 0; 
+    207          			  Menu = 0;                                                        
+    208          			  //dp_clear();			                                
+    209          			  return;
+    210          			}
+    211          		} else {			
+    212          				
+    213          			if(SW2 == 1) //떨어졌으면 !
+    214          			{
+    215          				SW_L[1] = 0;	//길초기화
+    216          				SW_Cnt[1] = 0;   
+    217          			} else {
+    218          				if(SW_L[1] != 0) {		//길게 눌렸으면 !!     
+    219          					SW_S[1] = 0;          // 짧 초기화
+    220          					if(sw_long_add ++ > 2) {
+    221          						sw_long_add = 0;                 
+    222          						if(Config.Value[Menu-1] < (MAX_Value[Menu-1] + SW_LONG_ADD))   
+    223          							Config.Value[Menu-1]+=SW_LONG_ADD;
+    224          						
+    225          						if(Config.Value[Menu-1] >= MAX_Value[Menu-1])   
+    226          						{
+    227          							Config.Value[Menu-1] = MAX_Value[Menu-1] ;
+    228          						}
+    229          					}
+    230          				} else if(SW_S[1] != 0) {	
+    231          					SW_S[1]  = 0;
+    232          					if(Config.Value[Menu-1] < MAX_Value[Menu-1])                   
+    233          							Config.Value[Menu-1]++;                                      
+    234          				}
+    235          
+    236          			}
+    237          			
+    238          				
+    239          			if(SW3 == 1)                                        
+    240          			{
+    241          				SW_L[2] = 0;	
+    242          				SW_Cnt[2] = 0;  
+    243          			} else {
+    244          				if(SW_L[2] != 0) {		 
+    245          					SW_S[2] = 0;            
+    246          					if(sw_long_add ++ > 2) {           
+    247          						sw_long_add = 0;               
+    248          						if(Config.Value[Menu-1] >= SW_LONG_ADD)   
+    249          						Config.Value[Menu-1]-=SW_LONG_ADD;	     
+    250          					}
+    251          					
+    252          				} else if(SW_S[2] != 0) {	                     
+    253          					SW_S[2] = 0;                                   
+    254          					if(Config.Value[Menu-1] !=0)               
+    255          					Config.Value[Menu-1]--;	               
+    256          				}
+    257          
+    258          			}
+    259          			sprintf(str, " Set Value:%02d   ", Menu); 
+    260          			TM_HD44780_Puts(0,0, str);
+    261          			
+    262          			sprintf(str, "  Value : %03d   ", Config.Value[Menu-1]); 
+    263          			TM_HD44780_Puts(0,1, str);
+    264          
+    265          		}
+    266          
+    267          	}
+    268          
+    269          }
+    270          
+    271          
+    272          //#define COW_NUM	volatile uint8_t Menu = 0;  
+    273          void menu_list()
+    274          {	
+    275          	//TM_HD44780_Puts(3,1, "         ");
+    276          	 switch(Menu-1)
+    277          	 {
+    278          	 case 0: TM_HD44780_Puts(3,0, "Address      "); break;
+    279          	 case 1: TM_HD44780_Puts(3,0, "WaterDiff    "); break;
+    280          	 case 2: TM_HD44780_Puts(3,0, "WaterDiffT   "); break;	
+    281          	 case 3: TM_HD44780_Puts(3,0, "Not use       "); break;
+    282          	 case 4: TM_HD44780_Puts(3,0, "Not use       "); break;
+    283          	 case 5: TM_HD44780_Puts(3,0, "Re_Enter_T   "); break;
+    284          	 case 6: TM_HD44780_Puts(3,0, "Not use       "); break;
+    285          	 case 7: TM_HD44780_Puts(3,0, "Not use       "); break;
+    286          	 case 8: TM_HD44780_Puts(3,0, "Not use       "); break;
+    287          	 case 9: TM_HD44780_Puts(3,0, "Not use       "); break;	
+    288          	 case 10: TM_HD44780_Puts(3,0, "Not use       "); break;	
+    289          	 default: TM_HD44780_Puts(3,0, "###########  "); break;
+    290          	 }
+    291          }
+    292          
+    293          
+    294          
+    295          /*
+    296          
+    297          
+    298          #define CHANNELwaiting_time			Config.Value[8] 
+    299          #define CHANNELwaiting_time_MAX	9000
+    300          
+    301          #define CON_Water_eat					Config.Value[9] 
+    302          #define CON_Water_eat_MAX			1
+    303          */
+    304          
+    305          
+    306          
+    307          
+    308          
+    309          
+    310          
+    311          
+    312          
+    313          
+    314          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      16   SW_check
+        16   -> GPIO_ReadInputDataBit
+       0   menu_list
+         0   -> TM_HD44780_Puts
+     112   setting_mode
+       112   -> Delay
+       112   -> GPIO_ReadInputDataBit
+       112   -> TM_HD44780_Puts
+       112   -> menu_list
+       112   -> save_all_eeprom
+       112   -> sprintf
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable12
+       4  ??DataTable12_1
+       4  ??DataTable12_2
+       8  ?_0
+      20  ?_1
+      20  ?_2
+      20  ?_3
+      16  ?_4
+      16  ?_5
+      16  ?_6
+      16  ?_7
+      16  ?_8
+      16  ?_9
+      24  MIN_Value
+      48  SW_S
+          SW_L
+          SW_Push
+          SW_Cnt
+          Setting_enable
+          menu_key_wait
+          main_key_wait
+          Menu
+          Setting_delay
+          sw_long_add
+          MAX_Value
+     206  SW_check
+      68  menu_list
+       1  setValue
+     644  setting_mode
+     100  str
+
+ 
+   101 bytes in section .bss
+    72 bytes in section .data
+ 1 094 bytes in section .text
+ 
+ 1 094 bytes of CODE memory
+   173 bytes of DATA memory
+
+Errors: none
+Warnings: none
