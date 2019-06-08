@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<settings>
+    <StLinkDriver>
+        <stlinkserialNo>67073610</stlinkserialNo>
+        <stlinkfoundProbes>67073610:FFFFFFFF:</stlinkfoundProbes>
+        <stlinkResetStyle>0</stlinkResetStyle>
+        <stlinkResetStrategy>1</stlinkResetStrategy>
+        <CStepIntDis>_ 0</CStepIntDis>
+        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
+    </StLinkDriver>
+    <DebugChecksum>
+        <Checksum>3513586494</Checksum>
+    </DebugChecksum>
+    <Exceptions>
+        <StopOnUncaught>_ 0</StopOnUncaught>
+        <StopOnThrow>_ 0</StopOnThrow>
+    </Exceptions>
+    <CodeCoverage>
+        <Enabled>_ 0</Enabled>
+    </CodeCoverage>
+    <Stack>
+        <FillEnabled>0</FillEnabled>
+        <OverflowWarningsEnabled>1</OverflowWarningsEnabled>
+        <WarningThreshold>90</WarningThreshold>
+        <SpWarningsEnabled>1</SpWarningsEnabled>
+        <WarnLogOnly>1</WarnLogOnly>
+        <UseTrigger>1</UseTrigger>
+        <TriggerName>main</TriggerName>
+        <LimitSize>0</LimitSize>
+        <ByteLimit>50</ByteLimit>
+    </Stack>
+    <Disassembly>
+        <MixedMode>1</MixedMode>
+        <InstrCount>0</InstrCount>
+    </Disassembly>
+    <CallStack>
+        <ShowArgs>0</ShowArgs>
+    </CallStack>
+    <SWOTraceHWSettings>
+        <OverrideDefaultClocks>0</OverrideDefaultClocks>
+        <CpuClock>72000000</CpuClock>
+        <ClockAutoDetect>0</ClockAutoDetect>
+        <ClockWanted>2000000</ClockWanted>
+        <JtagSpeed>2000000</JtagSpeed>
+        <Prescaler>36</Prescaler>
+        <TimeStampPrescIndex>0</TimeStampPrescIndex>
+        <TimeStampPrescData>0</TimeStampPrescData>
+        <PcSampCYCTAP>1</PcSampCYCTAP>
+        <PcSampPOSTCNT>15</PcSampPOSTCNT>
+        <PcSampIndex>0</PcSampIndex>
+        <DataLogMode>0</DataLogMode>
+        <ITMportsEnable>0</ITMportsEnable>
+        <ITMportsTermIO>0</ITMportsTermIO>
+        <ITMportsLogFile>0</ITMportsLogFile>
+        <ITMlogFile>$PROJ_DIR$\ITM.log</ITMlogFile>
+    </SWOTraceHWSettings>
+    <struct_types>
+        <Fmt0>RfDataStruct-Input	1	0</Fmt0>
+        <Fmt1>RfDataStruct-Mode	3	0</Fmt1>
+        <Fmt2>RfDataStruct-Relay	3	0</Fmt2>
+    </struct_types>
+    <watch_formats>
+        <Fmt0>{W}42:pendingeventback	4	0</Fmt0>
+    </watch_formats>
+    <Trace2>
+        <Enabled>0</Enabled>
+        <ShowSource>0</ShowSource>
+    </Trace2>
+    <SWOTraceWindow>
+        <PcSampling>0</PcSampling>
+        <InterruptLogs>0</InterruptLogs>
+        <ForcedTimeStamps>0</ForcedTimeStamps>
+        <EventCPI>0</EventCPI>
+        <EventEXC>0</EventEXC>
+        <EventFOLD>0</EventFOLD>
+        <EventLSU>0</EventLSU>
+        <EventSLEEP>0</EventSLEEP>
+    </SWOTraceWindow>
+    <DataLog>
+        <LogEnabled>0</LogEnabled>
+        <GraphEnabled>0</GraphEnabled>
+        <ShowTimeLog>1</ShowTimeLog>
+        <SumEnabled>0</SumEnabled>
+        <ShowTimeSum>1</ShowTimeSum>
+    </DataLog>
+    <InterruptLog>
+        <LogEnabled>0</LogEnabled>
+        <GraphEnabled>0</GraphEnabled>
+        <ShowTimeLog>1</ShowTimeLog>
+        <SumEnabled>0</SumEnabled>
+        <ShowTimeSum>1</ShowTimeSum>
+        <SumSortOrder>0</SumSortOrder>
+    </InterruptLog>
+    <EventLog>
+        <Title_0>Ch3</Title_0>
+        <Symbol_0>0 0 1</Symbol_0>
+        <Title_1>Ch2</Title_1>
+        <Symbol_1>0 0 1</Symbol_1>
+        <Title_2>Ch1</Title_2>
+        <Symbol_2>0 0 1</Symbol_2>
+        <Title_3>Ch0</Title_3>
+        <Symbol_3>0 0 1</Symbol_3>
+        <LogEnabled>0</LogEnabled>
+        <GraphEnabled>0</GraphEnabled>
+        <ShowTimeLog>1</ShowTimeLog>
+        <SumEnabled>0</SumEnabled>
+        <ShowTimeSum>1</ShowTimeSum>
+        <SumSortOrder>0</SumSortOrder>
+    </EventLog>
+    <LogFile>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+        <Category>_ 0</Category>
+    </LogFile>
+    <TermIOLog>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+    </TermIOLog>
+    <DriverProfiling>
+        <Enabled>0</Enabled>
+        <Mode>3</Mode>
+        <Graph>0</Graph>
+        <Symbiont>0</Symbiont>
+        <Exclusions />
+    </DriverProfiling>
+    <CallStackLog>
+        <Enabled>0</Enabled>
+    </CallStackLog>
+    <CallStackStripe>
+        <ShowTiming>1</ShowTiming>
+    </CallStackStripe>
+    <DisassembleMode>
+        <mode>0</mode>
+    </DisassembleMode>
+    <Breakpoints2>
+        <Bp0>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp0>
+        <Bp1>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp1>
+        <Bp2>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp2>
+        <Bp3>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\main.c}.1933.31" 0 0 1 "" 0 "" 0</Bp3>
+        <Bp4>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\Http_Read_Parser.c}.76.11" 0 0 1 "" 0 "" 0</Bp4>
+        <Bp5>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\main.c}.1219.24" 0 0 1 "" 0 "" 0</Bp5>
+        <Bp6>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\main.c}.675.19" 0 0 1 "" 0 "" 0</Bp6>
+        <Bp7>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp7>
+        <Bp8>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp8>
+        <Bp9>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp9>
+        <Bp10>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp10>
+        <Bp11>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp11>
+        <Bp12>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.149.37" 0 0 1 "" 0 "" 0</Bp12>
+        <Bp13>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.114.23" 0 0 1 "" 0 "" 0</Bp13>
+        <Bp14>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.125.29" 0 0 1 "" 0 "" 0</Bp14>
+        <Bp15>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\main.c}.627.26" 0 0 1 "" 0 "" 0</Bp15>
+        <Bp16>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp16>
+        <Bp17>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\lcd.c}.104.1" 0 0 1 "" 0 "" 0</Bp17>
+        <Bp18>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp18>
+        <Bp19>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\main.c}.3489.3" 0 0 1 "" 0 "" 0</Bp19>
+        <Bp20>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp20>
+        <Bp21>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\lcd.c}.55.9" 0 0 1 "" 0 "" 0</Bp21>
+        <Bp22>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\lcd.c}.708.12" 0 0 1 "" 0 "" 0</Bp22>
+        <Bp23>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\lcd.c}.730.9" 0 0 1 "" 0 "" 0</Bp23>
+        <Bp24>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp24>
+        <Bp25>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.146.31" 0 0 1 "" 0 "" 0</Bp25>
+        <Bp26>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp26>
+        <Bp27>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp27>
+        <Bp28>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp28>
+        <Bp29>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2778.1" 0 0 1 "" 0 "" 0</Bp29>
+        <Bp30>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2616.13" 0 0 1 "" 0 "" 0</Bp30>
+        <Bp31>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2616.13" 0 0 1 "" 0 "" 0</Bp31>
+        <Bp32>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\rf_modules.c}.2584.9" 0 0 1 "" 0 "" 0</Bp32>
+        <Bp33>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\main.c}.3097.4" 0 0 1 "" 0 "" 0</Bp33>
+        <Bp34>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\Http_Read_Parser.c}.180.3" 0 0 1 "" 0 "" 0</Bp34>
+        <Bp35>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\Lora_Sensor.c}.152.31" 0 0 1 "" 0 "" 0</Bp35>
+        <Bp36>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\Lora_Sensor.c}.282.31" 0 0 1 "" 0 "" 0</Bp36>
+        <Bp37>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\main.c}.543.5" 0 0 1 "" 0 "" 0</Bp37>
+        <Bp38>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\src\lcd.c}.33.13" 0 0 1 "" 0 "" 0</Bp38>
+        <Bp39>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\src\main.c}.3077.4" 0 0 1 "" 0 "" 0</Bp39>
+        <Bp40>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\src\lcd.c}.1324.7" 0 0 1 "" 0 "" 0</Bp40>
+        <Count>41</Count>
+    </Breakpoints2>
+    <Aliases>
+        <A0>_ "D:\work\IOT\CycloneTCP_429ZI\cyclone_tcp\ipv6\slaac.c" ""</A0>
+        <A1>_ "D:\work\IOT\CycloneTCP_429ZI\cyclone_tcp\mqtt\mqtt_client_packet.c" ""</A1>
+        <A2>_ "D:\work\IOT\CycloneTCP_429ZI\third_party\freertos\tasks.c" ""</A2>
+        <A3>_ "D:\work\IOT\CycloneTCP_429ZI\third_party\st\stm32f4xx_hal_driver\src\stm32f4xx_hal.c" ""</A3>
+        <A4>_ "D:\work\IOT\CycloneTCP_429ZI\third_party\st\stm32f4xx_hal_driver\src\stm32f4xx_hal_dma.c" ""</A4>
+        <A5>_ "D:\work\IOT\CycloneTCP_429ZI\third_party\st\stm32f4xx_hal_driver\src\stm32f4xx_hal_uart.c" ""</A5>
+        <Count>6</Count>
+        <SuppressDialog>1</SuppressDialog>
+    </Aliases>
+</settings>

@@ -1,0 +1,15 @@
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0_2\arm\bin\armproc.dll" 
+
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0_2\arm\bin\armstlink2.dll" 
+
+"D:\Users\dawoon1\Desktop\IOT_BASEBOARD\demo\st\nucleo_f429zi\mqtt_client_demo\iar\FLASH\Exe\mqtt_client_demo.out" 
+
+--plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0_2\arm\bin\armbat.dll" 
+
+--device_macro "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0_2\arm\config\debugger\ST\STM32F4xx.dmac" 
+
+--flash_loader "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0_2\arm\config\flashloader\ST\FlashSTM32F427xI.board" 
+
+
+
+
