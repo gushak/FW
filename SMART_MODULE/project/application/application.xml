@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<EmbeddedProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
+  <BspID>com.visualgdb.bsp.in-place</BspID>
+  <BspVersion>1.0</BspVersion>
+  <McuID>DISCO_F407VG</McuID>
+  <BSPSubdirectory>../../../../mbedos_561</BSPSubdirectory>
+  <MCUDefinitionFile>DeviceDefinitions\stm32f407xx.xml</MCUDefinitionFile>
+  <MCUProperties>
+    <Entries />
+  </MCUProperties>
+  <InPlaceMCU>
+    <ID>DISCO_F407VG</ID>
+    <UserFriendlyName>DISCO_F407VG</UserFriendlyName>
+    <CompilationFlags>
+      <PreprocessorMacros>
+        <string>USBMSC_SPI_FLASH</string>
+        <string>USE_USBSERIAL</string>
+      </PreprocessorMacros>
+      <IncludeDirectories>
+        <string>../../application</string>
+        <string>../../application/BSP/core</string>
+        <string>../../application/BSP/drivers</string>
+        <string>../../application/LIB</string>
+        <string>../../application/APP</string>
+      </IncludeDirectories>
+      <CFLAGS>-std=c++11</CFLAGS>
+      <CXXFLAGS>-std=c++11</CXXFLAGS>
+      <LDFLAGS>--specs=nano.specs --specs=nosys.specs</LDFLAGS>
+      <ASFLAGS>-std=c++11</ASFLAGS>
+      <LinkerScript>../../application/STM32F407XG.ld</LinkerScript>
+      <COMMONFLAGS>-mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=softfp</COMMONFLAGS>
+      <EnableLinkerGroups>true</EnableLinkerGroups>
+    </CompilationFlags>
+    <AdditionalSourceFiles />
+    <AdditionalHeaderFiles />
+    <MemoryMap>
+      <Memories>
+        <MCUMemory>
+          <Name>FLASH</Name>
+          <Address>134217728</Address>
+          <Size>1048576</Size>
+          <AddressSpaceSize>0</AddressSpaceSize>
+          <Flags>None</Flags>
+        </MCUMemory>
+        <MCUMemory>
+          <Name>CCM</Name>
+          <Address>268435456</Address>
+          <Size>65536</Size>
+          <AddressSpaceSize>0</AddressSpaceSize>
+          <Flags>None</Flags>
+        </MCUMemory>
+        <MCUMemory>
+          <Name>RAM</Name>
+          <Address>536871304</Address>
+          <Size>130680</Size>
+          <AddressSpaceSize>0</AddressSpaceSize>
+          <Flags>None</Flags>
+        </MCUMemory>
+      </Memories>
+    </MemoryMap>
+    <ConfigurableProperties>
+      <PropertyGroups>
+        <PropertyGroup>
+          <UniqueID>com.sysprogs.mbed.</UniqueID>
+          <Properties>
+            <PropertyEntry xsi:type="String">
+              <Name>platform.stdio-baud-rate</Name>
+              <UniqueID>platform.stdio-baud-rate</UniqueID>
+              <OmitPrefixIfEmpty>false</OmitPrefixIfEmpty>
+              <Description>Baud rate for stdio</Description>
+              <DefaultValue>9600</DefaultValue>
+            </PropertyEntry>
+            <PropertyEntry xsi:type="String">
+              <Name>platform.default-serial-baud-rate</Name>
+              <UniqueID>platform.default-serial-baud-rate</UniqueID>
+              <OmitPrefixIfEmpty>false</OmitPrefixIfEmpty>
+              <Description>Default baud rate for a Serial or RawSerial instance (if not specified in the constructor)</Description>
+              <DefaultValue>9600</DefaultValue>
+            </PropertyEntry>
+            <PropertyEntry xsi:type="Boolean">
+              <Name>platform.stdio-flush-at-exit</Name>
+              <UniqueID>platform.stdio-flush-at-exit</UniqueID>
+              <OmitPrefixIfEmpty>false</OmitPrefixIfEmpty>
+              <Description>Enable or disable the flush of standard I/O's at exit.</Description>
+              <DefaultValue>true</DefaultValue>
+              <ValueForTrue>1</ValueForTrue>
+              <ValueForFalse>0</ValueForFalse>
+            </PropertyEntry>
+            <PropertyEntry xsi:type="Boolean">
+              <Name>platform.stdio-convert-newlines</Name>
+              <UniqueID>platform.stdio-convert-newlines</UniqueID>
+              <OmitPrefixIfEmpty>false</OmitPrefixIfEmpty>
+              <Description>Enable conversion to standard newlines on stdin/stdout</Description>
+              <DefaultValue>false</DefaultValue>
+              <ValueForTrue>1</ValueForTrue>
+              <ValueForFalse>0</ValueForFalse>
+            </PropertyEntry>
+            <PropertyEntry xsi:type="Enumerated">
+              <Name>Floating point support</Name>
+              <UniqueID>floatmode</UniqueID>
+              <OmitPrefixIfEmpty>false</OmitPrefixIfEmpty>
+              <SuggestionList>
+                <Suggestion>
+                  <UserFriendlyName>Software</UserFriendlyName>
+                  <InternalValue>-mfloat-abi=soft</InternalValue>
+                </Suggestion>
+                <Suggestion>
+                  <UserFriendlyName>Hardware</UserFriendlyName>
+                  <InternalValue>-mfloat-abi=hard</InternalValue>
+                </Suggestion>
+                <Suggestion>
+                  <UserFriendlyName>Hardware with Software interface</UserFriendlyName>
+                  <InternalValue>-mfloat-abi=softfp</InternalValue>
+                </Suggestion>
+                <Suggestion>
+                  <UserFriendlyName>Unspecified</UserFriendlyName>
+                  <InternalValue />
+                </Suggestion>
+              </SuggestionList>
+              <DefaultEntryIndex>2</DefaultEntryIndex>
+              <AllowFreeEntry>false</AllowFreeEntry>
+            </PropertyEntry>
+          </Properties>
+          <CollapsedByDefault>false</CollapsedByDefault>
+        </PropertyGroup>
+        <PropertyGroup>
+          <Properties>
+            <PropertyEntry xsi:type="Enumerated">
+              <Name>C Library Type</Name>
+              <UniqueID>com.sysprogs.toolchainoptions.arm.libctype</UniqueID>
+              <OmitPrefixIfEmpty>false</OmitPrefixIfEmpty>
+              <SuggestionList>
+                <Suggestion>
+                  <UserFriendlyName>Default</UserFriendlyName>
+                  <InternalValue />
+                </Suggestion>
+                <Suggestion>
+                  <UserFriendlyName>Newlib-nano</UserFriendlyName>
+                  <InternalValue>--specs=nano.specs</InternalValue>
+                </Suggestion>
+                <Suggestion>
+                  <UserFriendlyName>Newlib-nano with floating point support in printf()</UserFriendlyName>
+                  <InternalValue>--specs=nano.specs -u _printf_float</InternalValue>
+                </Suggestion>
+                <Suggestion>
+                  <UserFriendlyName>Newlib-nano with floating point support in printf() and scanf()</UserFriendlyName>
+                  <InternalValue>--specs=nano.specs -u _printf_float -u _scanf_float</InternalValue>
+                </Suggestion>
+              </SuggestionList>
+              <DefaultEntryIndex>1</DefaultEntryIndex>
+              <AllowFreeEntry>false</AllowFreeEntry>
+            </PropertyEntry>
+            <PropertyEntry xsi:type="Enumerated">
+              <Name>Implementations for _sbrk(), etc.</Name>
+              <UniqueID>com.sysprogs.toolchainoptions.arm.libnosys</UniqueID>
+              <OmitPrefixIfEmpty>false</OmitPrefixIfEmpty>
+              <DefaultEntryIndex>0</DefaultEntryIndex>
+              <AllowFreeEntry>false</AllowFreeEntry>
+            </PropertyEntry>
+            <PropertyEntry xsi:type="Boolean">
+              <Name>Provide default stubs for system calls</Name>
+              <UniqueID>com.sysprogs.toolchainoptions.arm.libnosys</UniqueID>
+              <OmitPrefixIfEmpty>false</OmitPrefixIfEmpty>
+              <DefaultValue>true</DefaultValue>
+              <ValueForTrue>--specs=nosys.specs</ValueForTrue>
+            </PropertyEntry>
+          </Properties>
+          <CollapsedByDefault>false</CollapsedByDefault>
+        </PropertyGroup>
+      </PropertyGroups>
+    </ConfigurableProperties>
+    <FamilyID>MBED_CORE</FamilyID>
+    <FLASHSize>1048576</FLASHSize>
+    <RAMSize>130680</RAMSize>
+    <FLASHBase>134217728</FLASHBase>
+    <RAMBase>536871304</RAMBase>
+    <MCUDefinitionFile>DeviceDefinitions\stm32f407xx.xml</MCUDefinitionFile>
+    <AdditionalSourcesRequiredForTesting>false</AdditionalSourcesRequiredForTesting>
+  </InPlaceMCU>
+  <MCUMakFile>application.mak</MCUMakFile>
+  <ReferencedFrameworks />
+  <FrameworkProperties>
+    <Entries />
+  </FrameworkProperties>
+  <TestFrameworkProperties>
+    <Entries />
+  </TestFrameworkProperties>
+</EmbeddedProfile>

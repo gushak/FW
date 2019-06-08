@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{72f53dd3-9c41-4d09-af96-e280eb25a4cb}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;txt;cmake;json</Extensions>
+    </Filter>
+    <Filter Include="Header files">
+      <UniqueIdentifier>{936a4052-67aa-4a9f-a3b1-0df09f9b23f3}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource files">
+      <UniqueIdentifier>{203ef4f3-9786-4ce2-9cd2-bb96e9191235}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="VisualGDB settings">
+      <UniqueIdentifier>{0cc027de-9ac9-43a6-942e-636a7d3109f1}</UniqueIdentifier>
+      <Extensions>*.vgdbsettings</Extensions>
+    </Filter>
+    <Filter Include="Source files\APP">
+      <UniqueIdentifier>{d9098b9e-485f-49a3-b595-b5f802b767bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BSP">
+      <UniqueIdentifier>{4d8aaead-8031-4d19-8b34-47b25b77f198}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\LIB">
+      <UniqueIdentifier>{37b2b8d3-5d04-4c80-9e13-a4491e96f70c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\APP">
+      <UniqueIdentifier>{e37a69ab-6269-4ec4-a63b-e6e6fce6a453}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\BSP">
+      <UniqueIdentifier>{db9a4c62-da1a-4a5f-9cdf-a62d4e1b541b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\BSP\core">
+      <UniqueIdentifier>{24bafdae-e1f5-484b-bc9c-c2dff94db1f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\BSP\drivers">
+      <UniqueIdentifier>{7b4b70c1-3fff-4405-8c46-63d6c110bf00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\LIB">
+      <UniqueIdentifier>{d6c8bb96-25b0-4e1d-9fa6-687c47223ee7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BSP\drivers">
+      <UniqueIdentifier>{a50e2774-211a-4b39-b5fc-1a2d2c84d6fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\TEST">
+      <UniqueIdentifier>{dfd3a542-e158-4893-98fb-5ffbab60c62a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\TEST">
+      <UniqueIdentifier>{7dd1ecc4-ce7e-4671-9118-93a8ebb55afe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\LIB\spi_dma">
+      <UniqueIdentifier>{b2b11a50-28c8-4746-ab4b-f79b7dbb069a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\LIB\spi_dma">
+      <UniqueIdentifier>{d500a779-940d-4400-a1ca-f6c7f17a4c80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\BSP\drivers\UWB">
+      <UniqueIdentifier>{84b1b5f1-f8d9-4c11-b7af-6c70db3d0144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BSP\drivers\UWB">
+      <UniqueIdentifier>{7351943f-5ca8-45ec-93bf-3da801b800c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Device-specific files">
+      <UniqueIdentifier>{7867d49d-89ff-4dcb-b3dc-fbd579a0215a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\APP\Device-specific files">
+      <UniqueIdentifier>{747d2c72-8c27-42b6-a64b-770f38850eac}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="application-Debug.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="application-Release.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="application.props">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="application.xml">
+      <Filter>VisualGDB settings</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\application\APP\app_common.cpp">
+      <Filter>Source files\APP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\APP\config.cpp">
+      <Filter>Source files\APP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\APP\debug.cpp">
+      <Filter>Source files\APP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\APP\led.cpp">
+      <Filter>Source files\APP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\APP\usb_serial.cpp">
+      <Filter>Source files\APP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\LIB\LibString.cpp">
+      <Filter>Source files\LIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\main.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\LIB\SoftI2C.cpp">
+      <Filter>Source files\LIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\LIB\spi_dma\spi_dma_common.c">
+      <Filter>Source files\LIB\spi_dma</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\LIB\spi_dma\spi_dma_stm32f4.c">
+      <Filter>Source files\LIB\spi_dma</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\BSP\drivers\tm_stm32f4_otp.c">
+      <Filter>Source files\BSP\drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\LIB\util.cpp">
+      <Filter>Source files\LIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\LIB\SerialPipe.cpp">
+      <Filter>Source files\LIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\LIB\LibBits.cpp">
+      <Filter>Source files\LIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\LIB\LibEDC.cpp">
+      <Filter>Source files\LIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\APP\uwb.cpp">
+      <Filter>Source files\APP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\BSP\drivers\UWB\UWBSpi.cpp">
+      <Filter>Source files\BSP\drivers\UWB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\APP\lora.cpp">
+      <Filter>Source files\APP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\APP\ext_flash.cpp">
+      <Filter>Source files\APP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\APP\uru_tool.cpp">
+      <Filter>Source files\APP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\application\BSP\drivers\SPI_NOR.cpp">
+      <Filter>Source files\BSP\drivers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\application\APP\common.h">
+      <Filter>Header files\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\APP\config.h">
+      <Filter>Header files\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\APP\context.h">
+      <Filter>Header files\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\APP\debug.h">
+      <Filter>Header files\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\APP\led.h">
+      <Filter>Header files\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\APP\state.h">
+      <Filter>Header files\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\LIB\LibString.h">
+      <Filter>Header files\LIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\BSP\core\PeripheralNames.h">
+      <Filter>Header files\BSP\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\BSP\core\PinNames.h">
+      <Filter>Header files\BSP\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\BSP\core\flash_hw_map.h">
+      <Filter>Header files\BSP\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\BSP\core\pll_values.h">
+      <Filter>Header files\BSP\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\BSP\core\custom_hal_msp.h">
+      <Filter>Header files\BSP\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\APP\usb_serial.h">
+      <Filter>Header files\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\TEST\TestFS.h">
+      <Filter>Header files\TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\TEST\TestOLED.h">
+      <Filter>Header files\TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\LIB\SoftI2C.h">
+      <Filter>Header files\LIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\LIB\spi_dma\spi_dma.h">
+      <Filter>Header files\LIB\spi_dma</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\BSP\core\custom_hal_hcd.h">
+      <Filter>Header files\BSP\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\BSP\core\custom_hal_pcd.h">
+      <Filter>Header files\BSP\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\LIB\Pipe.h">
+      <Filter>Header files\LIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\BSP\core\custom_hal_uart.h">
+      <Filter>Header files\BSP\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\BSP\core\custom_hal_sd.h">
+      <Filter>Header files\BSP\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\APP\main.h">
+      <Filter>Header files\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\LIB\util.h">
+      <Filter>Header files\LIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\LIB\SerialPipe.h">
+      <Filter>Header files\LIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\LIB\LibBits.h">
+      <Filter>Header files\LIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\LIB\LibEDC.h">
+      <Filter>Header files\LIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\APP\uwb.h">
+      <Filter>Header files\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\BSP\drivers\UWB\UWBSpi.h">
+      <Filter>Header files\BSP\drivers\UWB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\APP\lora.h">
+      <Filter>Header files\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\APP\ext_flash.h">
+      <Filter>Header files\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\APP\uru_tool.h">
+      <Filter>Header files\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\application\BSP\drivers\SPI_NOR.h">
+      <Filter>Header files\BSP\drivers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <LinkerScript Include="..\..\application\STM32F407XG.ld">
+      <Filter>VisualGDB settings</Filter>
+    </LinkerScript>
+  </ItemGroup>
+</Project>

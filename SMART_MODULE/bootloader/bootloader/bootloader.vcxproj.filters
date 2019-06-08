@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{36e07f53-0707-4975-9e8f-38caac88b1df}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header files">
+      <UniqueIdentifier>{58c1dbc5-cce5-4cda-bfd8-1062b11b600c}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource files">
+      <UniqueIdentifier>{c6f87c03-5f8a-42b7-a676-f2371bf13e47}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Source files\Inc">
+      <UniqueIdentifier>{4be50903-4763-4099-b07a-4bc6ec78bfec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Inc">
+      <UniqueIdentifier>{7bf791e6-01e4-4628-ade5-579aa80e58fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Src">
+      <UniqueIdentifier>{891cb1e8-8760-463a-bc0f-5d485dbec1bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Src">
+      <UniqueIdentifier>{18c69b66-91c9-44cb-821c-f01d2d1a789a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Shared sources">
+      <UniqueIdentifier>{c30fc887-5322-4ff8-9c4c-adb693e8230a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VisualGDB settings">
+      <UniqueIdentifier>{17da4b6a-0ca6-45dc-bfdb-4f6e1a6a48bf}</UniqueIdentifier>
+      <Extensions>*.vgdbsettings</Extensions>
+    </Filter>
+    <Filter Include="Source files\Device-specific files">
+      <UniqueIdentifier>{639cd09f-73d8-4fd0-b962-3cd9ea8ba935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Device-specific files">
+      <UniqueIdentifier>{475fa3a6-1248-455b-baf5-dfc8a9a50c41}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt">
+      <Filter>Source files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Inc\main.h">
+      <Filter>Header files\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\stm32f4xx_hal_conf.h">
+      <Filter>Header files\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\stm32f4xx_it.h">
+      <Filter>Header files\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\usbd_conf.h">
+      <Filter>Header files\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\usbd_desc.h">
+      <Filter>Header files\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\usbd_dfu_flash.h">
+      <Filter>Header files\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_iwdg.h">
+      <Filter>Header files\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\tm_stm32f4_otp.h">
+      <Filter>Header files\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\config.h">
+      <Filter>Header files\Inc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\main.c">
+      <Filter>Source files\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\stm32f4xx_it.c">
+      <Filter>Source files\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\system_stm32f4xx.c">
+      <Filter>Source files\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\usbd_conf.c">
+      <Filter>Source files\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\usbd_desc.c">
+      <Filter>Source files\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\usbd_dfu_flash.c">
+      <Filter>Source files\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32_USB_Device_Library\Class\DFU\Src\usbd_dfu.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32_USB_Device_Library\Core\Src\usbd_core.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32_USB_Device_Library\Core\Src\usbd_ctlreq.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_fsmc.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_usb.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_sram.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_iwdg.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c_ex.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pcd_ex.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pcd.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c">
+      <Filter>Source files\Shared sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Support\STM32Cube_FW_F4_V1.16.0\Drivers\BSP\STM324xG_EVAL\stm324xg_eval.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="Support\STM32Cube_FW_F4_V1.16.0\Drivers\BSP\STM324xG_EVAL\stm324xg_eval_io.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="Support\STM32Cube_FW_F4_V1.16.0\Drivers\BSP\Components\stmpe811\stmpe811.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="BSP\STM32F4xxxx\StartupFiles\startup_stm32f405xx.c">
+      <Filter>Source files\Device-specific files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\RaphaelJoh\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F4xxxx\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\tm_stm32f4_otp.c">
+      <Filter>Source files\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\config.c">
+      <Filter>Source files\Src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bootloader-Debug.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="bootloader-Release.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="stm32.props">
+      <Filter>Source files\Device-specific files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="stm32.xml">
+      <Filter>VisualGDB settings</Filter>
+    </Xml>
+  </ItemGroup>
+</Project>
