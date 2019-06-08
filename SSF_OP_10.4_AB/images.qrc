@@ -1,0 +1,44 @@
+<RCC>
+    <qresource prefix="/">
+        <file>new_images/bg.png</file>
+        <file>new_images/sub_bg.png</file>
+        <file>new_images/b_close.png</file>
+        <file>new_images/b_update.png</file>
+        <file>new_images/sub_bg1.png</file>
+        <file>new_images/bg_2.png</file>
+        <file>new_images/warning.png</file>
+        <file>new_images/1.png</file>
+        <file>new_images/bg_full.png</file>
+        <file>new_images/blank.png</file>
+        <file>new_images/ssfbg.png</file>
+        <file>new_images/btn_icon.png</file>
+        <file>img/img1.png</file>
+        <file>img/img2.png</file>
+        <file>img/img3.png</file>
+        <file>img/img4.png</file>
+        <file>img/img5.png</file>
+        <file>img/img6.png</file>
+        <file>img/tuning/back.png</file>
+        <file>img/tuning/complete.png</file>
+        <file>img/tuning/home.png</file>
+        <file>img/tuning/sub_title.png</file>
+        <file>img/tuning/tuning_ed.png</file>
+        <file>img/tuning/tuning_st.png</file>
+        <file>img/countDown1.png</file>
+        <file>img/countUp1.png</file>
+        <file>img/reset.png</file>
+        <file>img/process.png</file>
+        <file>img/standard.png</file>
+        <file>img/worker,tunning.png</file>
+        <file>img/processNum.png</file>
+        <file>img/kolon/num_test.png</file>
+        <file>img/kolon/process_test.png</file>
+        <file>img/kolon/setting_test.png</file>
+        <file>img/kolon/standard_test.png</file>
+        <file>img/kolon/tunning_test.png</file>
+        <file>img/kolon/worker_test.png</file>
+        <file>img/kolon/test_key.png</file>
+        <file>img/job/main.png</file>
+        <file>img/kolon/process.png</file>
+    </qresource>
+</RCC>
