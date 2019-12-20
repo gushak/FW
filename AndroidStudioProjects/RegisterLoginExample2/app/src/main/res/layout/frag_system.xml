@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/RUID"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="RU ID"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/tvCascadeId"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/Cascade_ID"
+            app:layout_constraintTop_toBottomOf="@+id/tvRuId" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="LS 제조사"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/RUINITSTAT" />
+
+        <TextView
+            android:id="@+id/MISMATCHID"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="Mismatch(ID)"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Cascade_ID" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="206dp"
+            android:layout_marginLeft="206dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="Cen Freq"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+        <TextView
+            android:id="@+id/Cascade_ID"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="Cascade ID"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/RUID" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="CH Band"
+            app:layout_constraintStart_toEndOf="@+id/tvRuInitState"
+            app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="Port No."
+            app:layout_constraintStart_toEndOf="@+id/tvRuInitState"
+            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="L/S ID"
+            app:layout_constraintStart_toEndOf="@+id/tvRuInitState"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="gNB ID"
+            app:layout_constraintStart_toEndOf="@+id/tvDLState"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:text="Cell ID"
+            app:layout_constraintStart_toEndOf="@+id/tvDLState"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <TextView
+            android:id="@+id/tvRuId"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/RUID"
+            app:layout_constraintTop_toBottomOf="@+id/tvLsManu" />
+
+        <TextView
+            android:id="@+id/tvRuInitState"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/RCUDLSTATE"
+            app:layout_constraintTop_toBottomOf="@+id/tvDLState" />
+
+        <TextView
+            android:id="@+id/RUINITSTAT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="RU Init State"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/RCUDLSTATE" />
+
+        <TextView
+            android:id="@+id/tvLsManu"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/tvRuInitState" />
+
+        <TextView
+            android:id="@+id/RESET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="330dp"
+            android:text="RESET"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tvSwVer"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/SW_VER"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="330dp"
+            android:gravity="center_horizontal"
+            android:text="SW버전"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSwVer"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="330dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/SW_VER"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/MANU"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="제조사"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SW_VER" />
+
+        <TextView
+            android:id="@+id/tvManu"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/MANU"
+            app:layout_constraintTop_toBottomOf="@+id/tvSwVer" />
+
+        <TextView
+            android:id="@+id/RUTEMP"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="함체 온도"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/MANU" />
+
+        <TextView
+            android:id="@+id/tvRuTemp"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:text="0.0"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/RUTEMP"
+            app:layout_constraintTop_toBottomOf="@+id/tvManu" />
+
+        <TextView
+            android:id="@+id/TEMPMAX"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center_horizontal"
+            android:text="함체 온도 상한"
+            app:layout_constraintStart_toEndOf="@+id/tvManu"
+            app:layout_constraintTop_toBottomOf="@+id/RESET" />
+
+        <TextView
+            android:id="@+id/RCUDLSTATE"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="RCU D/L State"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/RUTEMP" />
+
+        <TextView
+            android:id="@+id/tvRuTempMax"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:text="0.0"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/TEMPMAX"
+            app:layout_constraintTop_toBottomOf="@+id/btnReset" />
+
+        <TextView
+            android:id="@+id/tvDLState"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/RCUDLSTATE"
+            app:layout_constraintTop_toBottomOf="@+id/tvRuTemp" />
+
+        <TextView
+            android:id="@+id/tvMismatchId"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="   "
+            app:layout_constraintStart_toEndOf="@+id/MISMATCHID"
+            app:layout_constraintTop_toBottomOf="@+id/tvCascadeId" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="PCI"
+            app:layout_constraintStart_toEndOf="@+id/tvRuTemp"
+            app:layout_constraintTop_toBottomOf="@+id/TEMPMAX" />
+
+        <TextView
+            android:id="@+id/tvPci_100M"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/tvRuTempMax" />
+
+        <TextView
+            android:id="@+id/tvCellId_100M"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/tvPci_100M" />
+
+        <TextView
+            android:id="@+id/tvGnbId_100M"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/textView16"
+            app:layout_constraintTop_toBottomOf="@+id/tvCellId_100M" />
+
+        <TextView
+            android:id="@+id/tvLsId_100M"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/textView17"
+            app:layout_constraintTop_toBottomOf="@+id/tvGnbId_100M" />
+
+        <TextView
+            android:id="@+id/tvPortNum_100M"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/textView18"
+            app:layout_constraintTop_toBottomOf="@+id/tvLsId_100M" />
+
+        <TextView
+            android:id="@+id/tvChBand_100M"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textAllCaps="false"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/textView19"
+            app:layout_constraintTop_toBottomOf="@+id/tvPortNum_100M" />
+
+        <TextView
+            android:id="@+id/tvCenFerq_100M"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/textView20"
+            app:layout_constraintTop_toBottomOf="@+id/tvChBand_100M" />
+
+        <TextView
+            android:id="@+id/tvPci_a"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/tvPci_100M"
+            app:layout_constraintTop_toBottomOf="@+id/tvRuTempMax" />
+
+        <TextView
+            android:id="@+id/tvCellId_a"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvCellId_100M"
+            app:layout_constraintTop_toBottomOf="@+id/tvPci_a" />
+
+        <TextView
+            android:id="@+id/tvGnbId_a"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvGnbId_100M"
+            app:layout_constraintTop_toBottomOf="@+id/tvCellId_a" />
+
+        <TextView
+            android:id="@+id/tvLsId_a"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvLsId_100M"
+            app:layout_constraintTop_toBottomOf="@+id/tvGnbId_a" />
+
+        <TextView
+            android:id="@+id/tvPortNum_a"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvPortNum_100M"
+            app:layout_constraintTop_toBottomOf="@+id/tvLsId_a" />
+
+        <TextView
+            android:id="@+id/tvChBand_a"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvChBand_100M"
+            app:layout_constraintTop_toBottomOf="@+id/tvPortNum_a" />
+
+        <TextView
+            android:id="@+id/tvCenFerq_a"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvCenFerq_100M"
+            app:layout_constraintTop_toBottomOf="@+id/tvChBand_a" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="80dp"
+            android:background="#00ffffff"
+            android:src="@drawable/aau"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPdText_1"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:text="PD : "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv100MHighText" />
+
+        <TextView
+            android:id="@+id/tvPD_1"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toEndOf="@+id/tvPdText_1"
+            app:layout_constraintTop_toBottomOf="@+id/tv100MHighText" />
+
+        <TextView
+            android:id="@+id/tv100MHighText"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="80dp"
+            android:gravity="center_horizontal"
+            android:text="100M 상위"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvAHighText"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="90dp"
+            android:gravity="center_horizontal"
+            android:text="+a 상위"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPdText_1" />
+
+        <TextView
+            android:id="@+id/tvPdText_2"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:text="PD :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAHighText" />
+
+        <TextView
+            android:id="@+id/tvLdText_1"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:text="LD :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPdText_1" />
+
+        <TextView
+            android:id="@+id/tvLD_1"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintStart_toEndOf="@+id/tvLdText_1"
+            app:layout_constraintTop_toBottomOf="@+id/tvPD_1" />
+
+        <TextView
+            android:id="@+id/tvLdText_2"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:text="LD :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPdText_2" />
+
+        <TextView
+            android:id="@+id/tvPD_2"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toEndOf="@+id/tvPdText_2"
+            app:layout_constraintTop_toBottomOf="@+id/tvAHighText" />
+
+        <TextView
+            android:id="@+id/tvLD_2"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toEndOf="@+id/tvLdText_2"
+            app:layout_constraintTop_toBottomOf="@+id/tvPD_2" />
+
+        <Button
+            android:id="@+id/btnReset"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="330dp"
+            android:text="RESET"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toEndOf="@+id/RESET"
+            app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
